@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -140,6 +141,15 @@ public class AddEmploy {
       enter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(t.getText().isEmpty() || t1.getText().isEmpty() || t2.getText().isEmpty() || t3.getText().isEmpty() || t4.getText().isEmpty() || t5.getText().isEmpty() ||t6.getText().isEmpty() || t7.getText().isEmpty())
+                {
+                    JOptionPane.showMessageDialog(f, "Please Fill all the details listed above!");
+                }
+                else if(!t6.getText().equals(t7.getText()))
+                {
+                    JOptionPane.showMessageDialog(f, "The Password and Retype Password does not match!");
+                }
+                else{
                 try{
                     Connection conn = DBOperations.getConn();
                     PreparedStatement st=conn.prepareStatement("insert into employdet values(0,?,?,?,?,?,?,?,?)");
@@ -158,7 +168,8 @@ public class AddEmploy {
                 {
                     System.out.println(ee);
                 }
-            }
+                JOptionPane.showMessageDialog(f,"Successfully Added.","Alert",JOptionPane.WARNING_MESSAGE);
+            }}
         });
       JButton bac = new JButton("\u2190"+"  BACK");
       bac.addActionListener(new ActionListener() {

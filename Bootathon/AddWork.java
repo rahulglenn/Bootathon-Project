@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
@@ -98,6 +99,11 @@ public class AddWork {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(nameOfWork.getText().isEmpty() || dateField.getText().isEmpty() || amount.getText().isEmpty())
+                {
+                    JOptionPane.showMessageDialog(addWorkingFrame, "Please Fill all the details listed above!");
+                }
+                else{
                 try{
                     Connection conn = DBOperations.getConn();
                     PreparedStatement st=conn.prepareStatement("insert into workdet values(?,?,?,0,0)");
@@ -107,11 +113,11 @@ public class AddWork {
                     st.executeUpdate();
                     conn.close();
                     System.out.println("Success");
-                    
                 }
                 catch(Exception ee){
-                    System.out.println("Error!!"+ee);
-                    
+                    System.out.println("Error!!"+ee);   
+                }
+                    JOptionPane.showMessageDialog(addWorkingFrame,"Successfully Added.","Alert",JOptionPane.WARNING_MESSAGE);
                 }
             }
         });

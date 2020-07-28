@@ -24,6 +24,12 @@ import javax.swing.plaf.basic.BasicArrowButton;
  * @author rahul
  */
 public class MainFrame {
+    static String EmpName;
+    MainFrame(String name)
+    {
+        EmpName=name;
+        new MainFrame();
+    }
     MainFrame()
     {
         // Frame creating
@@ -37,7 +43,7 @@ public class MainFrame {
         mainFrame.setVisible(false);
         JPanel panel0 = new JPanel();
         panel0.setLayout(new FlowLayout(FlowLayout.LEFT,10,40));
-        JLabel paneLab = new JLabel("Hi,Mama               ");
+        JLabel paneLab = new JLabel("Hi,"+EmpName+"               ");
         c.add(panel0);
         panel0.add(paneLab);
         JLabel paneLab1 = new JLabel("Last login on " + "26-07-2020");
@@ -49,7 +55,7 @@ public class MainFrame {
         panel1.setLayout(new FlowLayout(FlowLayout.LEFT,20,10));
         TitledBorder rewindingDetails = new TitledBorder("Rewinding Details");
         rewindingDetails.setTitleFont(new Font("Comic sans MS",Font.BOLD,25));
-        rewindingDetails.setBorder(new LineBorder(Color.black, 5));
+        rewindingDetails.setBorder(new LineBorder(Color.black, 3));
         panel1.setBorder(rewindingDetails);
         
         //rewinding buttons
@@ -93,7 +99,7 @@ public class MainFrame {
         //panel 2 border
         TitledBorder workDetails = new TitledBorder("Work Details");
         workDetails.setTitleFont(new Font("Comic sans MS",Font.BOLD,25));
-        workDetails.setBorder(new LineBorder(Color.black, 5));
+        workDetails.setBorder(new LineBorder(Color.black, 3));
         panel2.setBorder(workDetails);
         
         //panel 2 layout
@@ -128,7 +134,8 @@ public class MainFrame {
         workhis.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                mainFrame.dispose();
+                new WorkHistory();
             }
         });
         workhis.setFont(new Font("arial",Font.BOLD,15));
@@ -150,7 +157,7 @@ public class MainFrame {
         //panel 3 border
         TitledBorder employeeDetails = new TitledBorder("Employee Details");
         employeeDetails.setTitleFont(new Font("Comic sans MS",Font.BOLD,25));
-        employeeDetails.setBorder(new LineBorder(Color.black, 5));
+        employeeDetails.setBorder(new LineBorder(Color.black, 3));
         panel3.setBorder(employeeDetails);
         
         //panel 3  layout
@@ -166,7 +173,13 @@ public class MainFrame {
             }
         });
         JButton viewEmployee= new JButton(" View ");
-        
+        viewEmployee.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                new ViewEmploy();
+            }
+        });
         JButton deleteEmployee = new JButton(" Delete ");
         deleteEmployee.addActionListener(new ActionListener() {
             @Override
@@ -199,7 +212,14 @@ public class MainFrame {
         
         JPanel last = new JPanel();
         last.setLayout(new FlowLayout(FlowLayout.CENTER,0,20) );
-        JLabel laa = new JLabel("Log out");
+        JButton laa = new JButton("Log out");
+        laa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                new LoginPage();
+            }
+        });
         laa.setFont(new Font("arial",Font.BOLD,20));
         last.add(laa);
         c.add(last);
@@ -207,8 +227,6 @@ public class MainFrame {
         mainFrame.setVisible(true);
     }
     public static void main(String[] args) {
-        
         new MainFrame();
-        
     }
 }

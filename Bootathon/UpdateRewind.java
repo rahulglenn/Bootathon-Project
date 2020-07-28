@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -143,12 +144,19 @@ public class UpdateRewind {
                 {
                     
                 }
+ 
             }
         });
          
          update.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(t.getText().isEmpty())
+                {
+                    JOptionPane.showMessageDialog(f, "Please select which detail to update first!");
+                }
+                else
+                {
                 try
                 {
                     Connection conn = DBOperations.getConn();
@@ -162,10 +170,9 @@ public class UpdateRewind {
                 {
                     System.out.println(ee);
                 }
-            }
+                JOptionPane.showMessageDialog(f,"Successfully Updated.","Alert",JOptionPane.WARNING_MESSAGE);
+            }}
         });
-         
-         
         
         f.setVisible(true);
     }

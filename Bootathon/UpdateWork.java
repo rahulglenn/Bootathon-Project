@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -90,7 +91,6 @@ public class UpdateWork {
         le.setFont(new Font("Comic sans MS",Font.BOLD,25));
         JTextField te = new JTextField(10);
         te.setBackground(Color.white);
-        te.setEditable(false);
         te.setFont(new Font("arial",Font.BOLD,20));
         panels.add(te); 
         
@@ -164,6 +164,14 @@ public class UpdateWork {
         update.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(te.getText().isEmpty())
+                {
+                    JOptionPane.showMessageDialog(f, "Please select which record to update first!");
+                }
+                else
+                {
+                    int a=JOptionPane.showConfirmDialog(f,"Are you sure to Update?");  
+                if(a==JOptionPane.YES_OPTION){  
                 try
                 {
                     Connection conn = DBOperations.getConn();
@@ -179,7 +187,9 @@ public class UpdateWork {
                 {
                     System.out.println(ee);
                 }
-            }
+                JOptionPane.showMessageDialog(f,"Successfully Updated.","Alert",JOptionPane.WARNING_MESSAGE);
+                }
+            }}
         });
         f.setVisible(true);
     }

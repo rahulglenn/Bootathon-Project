@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -90,6 +91,11 @@ public class AddRewind {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(enterhp.getText().isEmpty() || ta.getText().isEmpty())
+                {
+                    JOptionPane.showMessageDialog(addrewind, "Please Fill all the details listed above!");
+                }
+                else{
                 try{
                     Connection conn = DBOperations.getConn();
                     PreparedStatement st=conn.prepareStatement("insert into rewinddet values(?,?)");
@@ -101,6 +107,8 @@ public class AddRewind {
                 catch(Exception ee)
                 {
                     System.out.println(ee);
+                }
+                JOptionPane.showMessageDialog(addrewind,"Successfully Added.","Alert",JOptionPane.WARNING_MESSAGE);
                 }
             }
         });

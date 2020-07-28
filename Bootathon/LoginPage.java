@@ -138,8 +138,25 @@ public class LoginPage {
             }
             if(rb2.isSelected())
             {
-                loginframe.dispose();
-                new MainFrame();
+                 try{
+                    Connection conn=DBOperations.getConn();
+                    PreparedStatement st=conn.prepareStatement("Select * from employerlogin where Username=? AND Password=?");
+                    st.setString(1, t1.getText());
+                    st.setString(2, pass2.getText());
+                    ResultSet rs=st.executeQuery();
+                    if(rs.next())
+                    {
+                        loginframe.dispose();
+                        new MainFrame(rs.getString("Name"));
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Invalid Username or Password!");
+                    }
+                    conn.close();
+                 }
+                 catch(Exception ee)
+                 {}
             }}
         }
     });

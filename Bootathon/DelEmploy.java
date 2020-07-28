@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -180,6 +181,14 @@ public class DelEmploy {
       del.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(t1.getText().isEmpty())
+                {
+                    JOptionPane.showMessageDialog(f, "Please select which employee to delete first!");
+                }
+                else
+                {
+                    int a=JOptionPane.showConfirmDialog(f,"Are you sure to Delete Employee?");  
+                if(a==JOptionPane.YES_OPTION){  
                 try
                 {
                     Connection conn = DBOperations.getConn();
@@ -192,7 +201,7 @@ public class DelEmploy {
                 {}
                 f.dispose();
                 new DelEmploy();
-            }
+            }}}
         });
       
       f.setVisible(true);
