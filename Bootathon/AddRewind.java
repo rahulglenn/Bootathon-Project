@@ -25,7 +25,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author rahul
+ * @author prady
  */
 public class AddRewind {
     AddRewind()
