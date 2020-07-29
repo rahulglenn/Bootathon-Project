@@ -157,6 +157,8 @@ public class UpdateRewind {
                 }
                 else
                 {
+                    int a=JOptionPane.showConfirmDialog(f,"Are you sure to Update?");  
+                if(a==JOptionPane.YES_OPTION){  
                 try
                 {
                     Connection conn = DBOperations.getConn();
@@ -171,7 +173,7 @@ public class UpdateRewind {
                     System.out.println(ee);
                 }
                 JOptionPane.showMessageDialog(f,"Successfully Updated.","Alert",JOptionPane.WARNING_MESSAGE);
-            }}
+            }}}
         });
         
         f.setVisible(true);

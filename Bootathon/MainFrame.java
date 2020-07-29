@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Bootathon;
+import Bootathon.database.DBOperations;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -11,6 +12,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,10 +29,25 @@ import javax.swing.plaf.basic.BasicArrowButton;
  * @author rahul
  */
 public class MainFrame {
-    static String EmpName;
-    MainFrame(String name)
+    static String EmpName,date;
+    MainFrame(String name,String dat)
     {
         EmpName=name;
+        date=dat;
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+       try{
+       if(sdf.parse(date).getMonth()!=new Date().getMonth())
+        {
+            Connection conn=DBOperations.getConn();
+            PreparedStatement st=conn.prepareStatement("update employdet set CurSalary=Salary");
+            st.executeUpdate();
+            conn.close();
+        }
+       }
+       catch(Exception ee)
+       {
+           System.out.println(ee);
+       }
         new MainFrame();
     }
     MainFrame()
@@ -46,7 +66,7 @@ public class MainFrame {
         JLabel paneLab = new JLabel("Hi,"+EmpName+"               ");
         c.add(panel0);
         panel0.add(paneLab);
-        JLabel paneLab1 = new JLabel("Last login on " + "26-07-2020");
+        JLabel paneLab1 = new JLabel("Last login on " + date);
         paneLab1.setFont(new Font("Comic sans MS",Font.BOLD,15));
         paneLab.setFont(new Font("Comic sans MS",Font.BOLD,25));
         panel0.add(paneLab1);

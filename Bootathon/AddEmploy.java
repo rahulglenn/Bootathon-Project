@@ -6,25 +6,18 @@
 package Bootathon;
 
 import Bootathon.database.DBOperations;
-import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 /**
  *
@@ -130,7 +123,6 @@ public class AddEmploy {
        l9.setBounds(25,560,200,50);
        
        JPasswordField t7 = new JPasswordField();
-     //  t7.setEchoChar((char)0);
        t7.setFont(new Font("arial",Font.BOLD,18));
        t7.setBounds(250,570,200,30);
        c.add(l9);
@@ -141,11 +133,15 @@ public class AddEmploy {
       enter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(t.getText().isEmpty() || t1.getText().isEmpty() || t2.getText().isEmpty() || t3.getText().isEmpty() || t4.getText().isEmpty() || t5.getText().isEmpty() ||t6.getText().isEmpty() || t7.getText().isEmpty())
+                if(t.getText().isEmpty() || t1.getText().isEmpty() || t2.getText().isEmpty() || t3.getText().isEmpty() || t4.getText().isEmpty() || t5.getText().isEmpty() ||String.valueOf(t6.getPassword()).isEmpty() || String.valueOf(t7.getPassword()).isEmpty())
                 {
                     JOptionPane.showMessageDialog(f, "Please Fill all the details listed above!");
                 }
-                else if(!t6.getText().equals(t7.getText()))
+                else if(!Pattern.compile("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$").matcher(t2.getText()).matches())
+                {
+                    JOptionPane.showMessageDialog(f, "Invalid Date Format use (dd/mm/yyy)!");
+                }
+                else if(!String.valueOf(t6.getPassword()).equals(String.valueOf(t7.getPassword())))
                 {
                     JOptionPane.showMessageDialog(f, "The Password and Retype Password does not match!");
                 }
@@ -160,7 +156,7 @@ public class AddEmploy {
                     st.setInt(5, Integer.valueOf(t4.getText()));
                     st.setInt(6, Integer.valueOf(t4.getText()));
                     st.setString(7, t5.getText());
-                    st.setString(8, t6.getText());
+                    st.setString(8, String.valueOf(t6.getPassword()));
                     st.executeUpdate();
                     conn.close();
                 }
@@ -186,8 +182,7 @@ public class AddEmploy {
       c.add(enter);
       c.add(bac);
         
-        
-        f.setVisible(true);
+      f.setVisible(true);
         
     }
     public static void main(String[] args) {

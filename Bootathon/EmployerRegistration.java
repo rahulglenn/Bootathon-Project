@@ -13,9 +13,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -100,6 +104,19 @@ public class EmployerRegistration {
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(t1.getText().isEmpty() || t2.getText().isEmpty() || t3.getText().isEmpty() || t4.getText().isEmpty() || String.valueOf(t5.getPassword()).isEmpty() || String.valueOf(t5.getPassword()).isEmpty())
+                {
+                    JOptionPane.showMessageDialog(f, "Please Fill all the details listed above!");
+                }
+                else if(!Pattern.compile("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$").matcher(t3.getText()).matches())
+                {
+                    JOptionPane.showMessageDialog(f, "Invalid Date Format use (dd/mm/yyy)!");
+                }
+                else if(!String.valueOf(t6.getPassword()).equals(String.valueOf(t5.getPassword())))
+                {
+                    JOptionPane.showMessageDialog(f, "The Password and Retype Password does not match!");
+                }
+                else{
                 try{
                     Connection conn=DBOperations.getConn();
                     PreparedStatement st=conn.prepareStatement("insert into employerlogin values(?,?,?,?,?)");
@@ -107,14 +124,21 @@ public class EmployerRegistration {
                     st.setString(2, t2.getText());
                     st.setString(3, t3.getText());
                     st.setString(4, t4.getText());
-                    st.setString(5, t5.getText());
+                    st.setString(5, String.valueOf(t5.getPassword()));
                     st.executeUpdate();
-                    conn.close();
-                    
+                    st=conn.prepareStatement("insert into logfile values(0,?,?,?)");
+                    st.setString(1, t1.getText());
+                    st.setString(2, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+                    st.setString(3, "Account Created!");
+                    st.executeUpdate();
+                    conn.close();   
                 }
                 catch(Exception ee)
                 {System.out.println(ee);}
-            }
+                JOptionPane.showMessageDialog(f,"Registration Successful","Alert",JOptionPane.WARNING_MESSAGE);
+                f.dispose();
+                new MainFrame(t1.getText(),"Nil");
+            }}
         });
         b.setText("Register");
         b.setBounds(300,520,100,40);

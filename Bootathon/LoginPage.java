@@ -6,7 +6,6 @@
 package Bootathon;
 
 import Bootathon.database.DBOperations;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -16,18 +15,17 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -107,11 +105,11 @@ public class LoginPage {
         public void actionPerformed(ActionEvent e) {
             if(!rb1.isSelected() && !rb2.isSelected())
             {
-                JOptionPane.showMessageDialog(null, "Please Select whether Employee or Employer!");
+                JOptionPane.showMessageDialog(loginframe, "Please Select whether Employee or Employer!");
             }
-            else if(t1.getText().isEmpty() || pass2.getText().isEmpty())
+            else if(t1.getText().isEmpty() || String.valueOf(pass2.getPassword()).isEmpty())
             {
-                JOptionPane.showMessageDialog(null, "Please enter Login Credentials!");
+                JOptionPane.showMessageDialog(loginframe, "Please enter Login Credentials!");
             }
             else{
             if(rb1.isSelected())
@@ -120,7 +118,7 @@ public class LoginPage {
                     Connection conn=DBOperations.getConn();
                     PreparedStatement st=conn.prepareStatement("Select * from employdet where Username=? AND Password=?");
                     st.setString(1, t1.getText());
-                    st.setString(2, pass2.getText());
+                    st.setString(2, String.valueOf(pass2.getPassword()));
                     ResultSet rs=st.executeQuery();
                     if(rs.next())
                     {
@@ -129,7 +127,7 @@ public class LoginPage {
                     }
                     else
                     {
-                        JOptionPane.showMessageDialog(null, "Invalid Username or Password!");
+                        JOptionPane.showMessageDialog(loginframe, "Invalid Username or Password!");
                     }
                     conn.close();
                 }
@@ -142,16 +140,26 @@ public class LoginPage {
                     Connection conn=DBOperations.getConn();
                     PreparedStatement st=conn.prepareStatement("Select * from employerlogin where Username=? AND Password=?");
                     st.setString(1, t1.getText());
-                    st.setString(2, pass2.getText());
+                    st.setString(2, String.valueOf(pass2.getPassword()));
                     ResultSet rs=st.executeQuery();
                     if(rs.next())
                     {
+                        st=conn.prepareStatement("select * from logfile where logid=(select max(logid) from logfile)");
+                        ResultSet rs2=st.executeQuery();
+                        rs2.next();
+                        String date=rs2.getString("Date");
+                        st=conn.prepareStatement("insert into logfile values(0,?,?,?)");
+                        st.setString(1, rs.getString("Name"));
+                        st.setString(2, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+                        st.setString(3, "Logged in!");
+                        st.executeUpdate();
+                        
                         loginframe.dispose();
-                        new MainFrame(rs.getString("Name"));
+                        new MainFrame(rs.getString("Name"),date);
                     }
                     else
                     {
-                        JOptionPane.showMessageDialog(null, "Invalid Username or Password!");
+                        JOptionPane.showMessageDialog(loginframe, "Invalid Username or Password!");
                     }
                     conn.close();
                  }

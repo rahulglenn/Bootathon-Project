@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Bootathon;
+
 import Bootathon.database.DBOperations;
 import java.awt.Color;
 import java.awt.Container;
@@ -15,7 +16,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;

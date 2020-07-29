@@ -6,12 +6,8 @@
 package Bootathon;
 
 import Bootathon.database.DBOperations;
-import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -24,9 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 /**
  *
@@ -151,6 +145,18 @@ public class LeaveEntry {
        enter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(t1.getText().isEmpty())
+                {
+                    JOptionPane.showMessageDialog(f, "Please select an employee id first!");
+                }
+                else if(t3.getText().isEmpty())
+                {
+                    JOptionPane.showMessageDialog(f, "Please specify No. of Days!");
+                }
+                else
+                {
+                     int a=JOptionPane.showConfirmDialog(f,"Are you sure?");  
+                if(a==JOptionPane.YES_OPTION){  
                 try{
                  Connection conn = DBOperations.getConn();
                     Statement st=conn.createStatement();
@@ -168,7 +174,10 @@ public class LeaveEntry {
                 {
                     System.out.println(ee);
                 }
-            }
+                JOptionPane.showMessageDialog(f,"Successfully Marked!","Alert",JOptionPane.WARNING_MESSAGE);
+                f.dispose();
+                new LeaveEntry();
+            }}}
         });
        
       f.setVisible(true);        
