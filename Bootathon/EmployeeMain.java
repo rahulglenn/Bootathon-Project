@@ -6,11 +6,14 @@
 package Bootathon;
 
 
+import Bootathon.database.DBOperations;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 /**
@@ -18,10 +21,10 @@ import java.sql.SQLException;
  * @author rahul
  */
 public class EmployeeMain {
-    EmployeeMain(ResultSet rs) throws SQLException
+    EmployeeMain(String name,int id,String add,String dob,String phone,int sal,int cur_sal)
     {
         JFrame f = new JFrame();
-        JLabel Top = new JLabel("Hi, "+rs.getString("EmpName"));Top.setBounds(20,20,100,30);
+        JLabel Top = new JLabel("Hi, "+name);Top.setBounds(20,20,100,30);
         JLabel NameL = new JLabel("Name               :");NameL.setBounds(20,70,150,30);
         JLabel IDL = new JLabel("I.D No              :");IDL.setBounds(20,120,150,30);
         JLabel AddL = new JLabel("Address           :");AddL.setBounds(20,170,150,30);
@@ -41,19 +44,19 @@ public class EmployeeMain {
 
 
         JTextField NameT = new JTextField(); NameT.setBounds(150,70,200,30); NameT.setEditable(false); 
-        NameT.setText("   "+rs.getString("EmpName"));
+        NameT.setText("   "+name);
         JTextField IDT = new JTextField(); IDT.setBounds(150,120,200,30); IDT.setEditable(false); 
-        IDT.setText("   "+String.valueOf(rs.getInt("empid")));
+        IDT.setText("   "+String.valueOf(id));
         JTextField AddT = new JTextField(); AddT.setBounds(150,170,200,30); AddT.setEditable(false); 
-        AddT.setText("   "+rs.getString("Address"));
+        AddT.setText("   "+add);
         JTextField DBT = new JTextField(); DBT.setBounds(150,220,200,30); DBT.setEditable(false); 
-        DBT.setText("   "+rs.getString("DOB"));
+        DBT.setText("   "+dob);
         JTextField PhoneT = new JTextField(); PhoneT.setBounds(150,270,200,30); PhoneT.setEditable(false); 
-        PhoneT.setText("   "+rs.getString("Phone"));
+        PhoneT.setText("   "+phone);
         JTextField SalaryT = new JTextField(); SalaryT.setBounds(150,320,200,30); SalaryT.setEditable(false); 
-        SalaryT.setText("   "+String.valueOf(rs.getInt("Salary")));
+        SalaryT.setText("   "+String.valueOf(sal));
         JTextField CSalaryT = new JTextField(); CSalaryT.setBounds(150,370,200,30); CSalaryT.setEditable(false); 
-        CSalaryT.setText("   "+String.valueOf(rs.getInt("CurSalary")));
+        CSalaryT.setText("   "+String.valueOf(cur_sal));
 
         Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
         NameT.setBorder(border);
@@ -92,5 +95,8 @@ public class EmployeeMain {
         f.setLayout(null);
         f.setVisible(true);
         f.setDefaultCloseOperation(3);
+    }
+    public static void main(String[] args) {
+        new LoginPage();
     }
 }

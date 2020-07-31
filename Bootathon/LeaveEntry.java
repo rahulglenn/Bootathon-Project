@@ -27,7 +27,7 @@ import javax.swing.JTextField;
  * @author rahul
  */
 public class LeaveEntry {
-    LeaveEntry()
+    LeaveEntry(int id)
     {
         // frame creating
         JFrame f = new JFrame();           
@@ -57,7 +57,7 @@ public class LeaveEntry {
             try{
                 Connection conn = DBOperations.getConn();
                 Statement st=conn.createStatement();
-                    ResultSet rs=st.executeQuery("Select empid from employdet");
+                    ResultSet rs=st.executeQuery("Select empid from employdet where emprid="+String.valueOf(id));
                     while(rs.next())
                     {
                         cb.addItem(rs.getString("empid"));
@@ -129,8 +129,10 @@ public class LeaveEntry {
             public void itemStateChanged(ItemEvent e) {
                try{
                     Connection conn = DBOperations.getConn();
-                    Statement st=conn.createStatement();
-                    ResultSet rs=st.executeQuery("Select empid, EmpName from employdet where empid="+(String)cb.getSelectedItem());
+                    PreparedStatement st=conn.prepareStatement("Select empid, EmpName from employdet where empid=? and emprid=?");
+                    st.setInt(1, Integer.valueOf((String)cb.getSelectedItem()));
+                    st.setInt(2, id);
+                    ResultSet rs=st.executeQuery();
                     rs.next();
                     t1.setText(String.valueOf(rs.getInt("empid")));
                     t2.setText(rs.getString("EmpName"));
@@ -159,14 +161,18 @@ public class LeaveEntry {
                 if(a==JOptionPane.YES_OPTION){  
                 try{
                  Connection conn = DBOperations.getConn();
-                    Statement st=conn.createStatement();
-                    ResultSet rs=st.executeQuery("Select Salary, CurSalary from employdet where empid="+(String)cb.getSelectedItem());
+                    PreparedStatement st=conn.prepareStatement("Select Salary, CurSalary from employdet where empid=? and emprid=?");
+                    st.setInt(1, Integer.valueOf((String)cb.getSelectedItem()));
+                    st.setInt(2, id);
+                    ResultSet rs=st.executeQuery();
                     rs.next();
                     int cursal=Integer.valueOf(rs.getString("CurSalary")); //current salary
                     int sal=Integer.valueOf(rs.getString("Salary"));       //monthly salary
                     int onedaysal=sal/30;                                  //one day salary
-                    PreparedStatement pst=conn.prepareStatement("update employdet set CurSalary=? where empid="+(String)cb.getSelectedItem());
+                    PreparedStatement pst=conn.prepareStatement("update employdet set CurSalary=? where empid=? and emprid=?");
                     pst.setInt(1, cursal-(onedaysal*Integer.valueOf(t3.getText())));
+                    pst.setInt(2, Integer.valueOf((String)cb.getSelectedItem()));
+                    pst.setInt(3, id);
                     pst.executeUpdate();
                     conn.close();
                 }
@@ -176,13 +182,13 @@ public class LeaveEntry {
                 }
                 JOptionPane.showMessageDialog(f,"Successfully Marked!","Alert",JOptionPane.WARNING_MESSAGE);
                 f.dispose();
-                new LeaveEntry();
+                new LeaveEntry(id);
             }}}
         });
        
       f.setVisible(true);        
     }
     public static void main(String[] args) {
-        new LeaveEntry();
+       new LoginPage();
     }
 }

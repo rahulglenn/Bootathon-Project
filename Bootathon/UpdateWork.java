@@ -33,7 +33,7 @@ import javax.swing.JTextField;
  * @author rahul
  */
 public class UpdateWork {
-    UpdateWork()
+    UpdateWork(int id)
     {
          // frame creating
         JFrame f = new JFrame();           
@@ -64,7 +64,7 @@ public class UpdateWork {
             try{
                     Connection conn = DBOperations.getConn();
                     Statement st=conn.createStatement();
-                    ResultSet rs=st.executeQuery("Select workid from workdet");
+                    ResultSet rs=st.executeQuery("Select workid from workdet where emprid="+String.valueOf(id));
                     while(rs.next())
                     {
                         cb.addItem(rs.getString("workid"));
@@ -145,8 +145,9 @@ public class UpdateWork {
                 int item=Integer.valueOf((String)cb.getSelectedItem());
                 try{
                     Connection conn = DBOperations.getConn();
-                    PreparedStatement st=conn.prepareStatement("Select Date, workid, Amount, NameOfWork from workdet where workid=?");
+                    PreparedStatement st=conn.prepareStatement("Select Date, workid, Amount, NameOfWork from workdet where workid=? and emprid=?");
                     st.setInt(1, item);
+                    st.setInt(2, id);
                     ResultSet rs=st.executeQuery();
                     rs.next();
                     te.setText(rs.getString("Date"));
@@ -175,11 +176,12 @@ public class UpdateWork {
                 try
                 {
                     Connection conn = DBOperations.getConn();
-                    PreparedStatement st=conn.prepareStatement("update workdet set Date=?, Amount=?, NameOfWork=? where workid=?");
+                    PreparedStatement st=conn.prepareStatement("update workdet set Date=?, Amount=?, NameOfWork=? where workid=? and emprid=?");
                     st.setString(1, te.getText());
                     st.setString(2, t.getText());
                     st.setString(3, ta.getText());
                     st.setInt(4, Integer.valueOf((String)cb.getSelectedItem()));
+                    st.setInt(5, id);
                     st.executeUpdate();
                     conn.close();
                 }
@@ -194,7 +196,7 @@ public class UpdateWork {
         f.setVisible(true);
     }
     public static void main(String[] args) {
-        new UpdateWork();
+       new LoginPage();
     }
     
 }

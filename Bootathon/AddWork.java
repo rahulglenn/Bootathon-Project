@@ -25,7 +25,7 @@ import javax.swing.JTextField;
  * @author rahul
  */
 public class AddWork {
-    AddWork(){
+    AddWork(int id){
          // Frame creating
         JFrame addWorkingFrame = new JFrame();
         addWorkingFrame.setBounds(500,200,500,700);
@@ -107,10 +107,11 @@ public class AddWork {
                 else{
                 try{
                     Connection conn = DBOperations.getConn();
-                    PreparedStatement st=conn.prepareStatement("insert into workdet values(?,?,?,0,0)");
-                    st.setString(1, nameOfWork.getText());
-                    st.setString(2, amount.getText());
-                    st.setString(3,dateField.getText());
+                    PreparedStatement st=conn.prepareStatement("insert into workdet values(?,?,?,?,0,0)");
+                    st.setInt(1, id);
+                    st.setString(2, nameOfWork.getText());
+                    st.setString(3, amount.getText());
+                    st.setString(4,dateField.getText());
                     st.executeUpdate();
                     conn.close();
                     System.out.println("Success");
@@ -128,7 +129,7 @@ public class AddWork {
         addWorkingFrame.setVisible(true);
     }
     public static void main(String[] args) {
-        new AddWork();
+       new LoginPage();
     }
     
 }

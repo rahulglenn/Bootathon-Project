@@ -27,7 +27,7 @@ import javax.swing.JTextField;
  * @author rahul
  */
 public class DelEmploy {
-    DelEmploy()
+    DelEmploy(int id)
     {
         // TODO code application logic here
         JFrame f = new JFrame();           
@@ -57,7 +57,7 @@ public class DelEmploy {
                try{
                    Connection conn = DBOperations.getConn();
                     Statement st=conn.createStatement();
-                    ResultSet rs=st.executeQuery("Select empid from employdet");
+                    ResultSet rs=st.executeQuery("Select empid from employdet where emprid="+String.valueOf(id));
                     while(rs.next())
                     {
                         cb.addItem(rs.getString("empid"));
@@ -155,8 +155,10 @@ public class DelEmploy {
             public void itemStateChanged(ItemEvent e) {
                 try{
                     Connection conn = DBOperations.getConn();
-                    Statement st=conn.createStatement();
-                    ResultSet rs=st.executeQuery("Select * from employdet where empid="+(String)cb.getSelectedItem());
+                    PreparedStatement st=conn.prepareStatement("Select * from employdet where empid=? and emprid=?");
+                    st.setInt(1, Integer.valueOf((String)cb.getSelectedItem()));
+                    st.setInt(2, id);
+                    ResultSet rs=st.executeQuery();
                     rs.next();
                     t1.setText(String.valueOf(rs.getInt("empid")));
                     t2.setText(rs.getString("EmpName"));
@@ -167,7 +169,7 @@ public class DelEmploy {
                 }
                 catch(Exception ee)
                 {
-                    
+                    System.out.println(ee);
                 }
             }
         });
@@ -186,21 +188,22 @@ public class DelEmploy {
                 try
                 {
                     Connection conn = DBOperations.getConn();
-                    PreparedStatement st=conn.prepareStatement("delete from employdet where empid=?");
+                    PreparedStatement st=conn.prepareStatement("delete from employdet where empid=? and emprid=?");
                     st.setInt(1, Integer.valueOf(t1.getText()));
+                    st.setInt(2, id);
                     st.executeUpdate();
                     conn.close();
                 }
                 catch(Exception ee)
                 {}
                 f.dispose();
-                new DelEmploy();
+                new DelEmploy(id);
             }}}
         });
       
       f.setVisible(true);
     }
     public static void main(String[] args) {
-        new DelEmploy();
+       new LoginPage();
     }
 }

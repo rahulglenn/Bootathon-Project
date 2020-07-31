@@ -6,9 +6,7 @@
 package Bootathon;
 
 import Bootathon.database.DBOperations;
-import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -17,7 +15,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -35,7 +32,7 @@ import javax.swing.JTextField;
  * @author rahul
  */
 public class UpdateRewind {
-    UpdateRewind(){
+    UpdateRewind(int id){
           // frame creating
         JFrame f = new JFrame();           
         f.setBounds(500,200,500,700);
@@ -64,7 +61,7 @@ public class UpdateRewind {
             try{
                     Connection conn = DBOperations.getConn();
                     Statement st=conn.createStatement();
-                    ResultSet rs=st.executeQuery("Select hp from rewinddet");
+                    ResultSet rs=st.executeQuery("Select hp from rewinddet where emprid="+String.valueOf(id));
                     while(rs.next())
                     {
                         cb.addItem(rs.getString("hp"));
@@ -89,6 +86,7 @@ public class UpdateRewind {
         panel2.add(l2);
         l2.setFont(new Font("Comic sans MS",Font.BOLD,25));
         JTextField t = new JTextField(10);
+        t.setEditable(false);
         t.setFont(new Font("arial",Font.BOLD,20));
         panel2.add(t);
         
@@ -99,7 +97,6 @@ public class UpdateRewind {
         panel3.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
         JLabel l3 = new JLabel("Rewinding Details"); 
         l3.setFont(new Font("Comic sans MS",Font.BOLD,25));
-//        panel3.add(l3);
         
         JTextArea ta = new JTextArea(4,20);
         JScrollPane sp = new JScrollPane(ta,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -108,7 +105,6 @@ public class UpdateRewind {
         panel3.add(sp);
         ta.setFont(new Font("arial",Font.PLAIN,20));
         
-        //
         JPanel panel5 = new JPanel();
         c.add(panel5);
         panel5.setLayout(new FlowLayout(FlowLayout.CENTER,30,30));
@@ -132,8 +128,9 @@ public class UpdateRewind {
                 String item=(String)cb.getSelectedItem();
                 try{
                     Connection conn = DBOperations.getConn();
-                    PreparedStatement st=conn.prepareStatement("Select hp, details from rewinddet where hp=?");
+                    PreparedStatement st=conn.prepareStatement("Select hp, details from rewinddet where hp=? and emprid=?");
                     st.setString(1, item);
+                    st.setInt(2, id);
                     ResultSet rs=st.executeQuery();
                     rs.next();
                     t.setText(rs.getString("hp"));
@@ -162,9 +159,10 @@ public class UpdateRewind {
                 try
                 {
                     Connection conn = DBOperations.getConn();
-                    PreparedStatement st=conn.prepareStatement("update rewinddet set details=? where hp=?");
+                    PreparedStatement st=conn.prepareStatement("update rewinddet set details=? where hp=? and emprid=?");
                     st.setString(2, t.getText());
                     st.setString(1, ta.getText());
+                    st.setInt(3, id);
                     st.executeUpdate();
                     conn.close();
                 }
@@ -179,7 +177,7 @@ public class UpdateRewind {
         f.setVisible(true);
     }
     public static void main(String[] args) {
-        new UpdateRewind();
+        new LoginPage();
     }
     
 }

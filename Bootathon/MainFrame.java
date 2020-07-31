@@ -30,10 +30,12 @@ import javax.swing.plaf.basic.BasicArrowButton;
  */
 public class MainFrame {
     static String EmpName,date;
-    MainFrame(String name,String dat)
+    static int id;
+    MainFrame(int empr,String name,String dat)
     {
         EmpName=name;
         date=dat;
+        id=empr;
         SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
        try{
        if(sdf.parse(date).getMonth()!=new Date().getMonth())
@@ -84,7 +86,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                new AddRewind();
+                new AddRewind(id);
             }
         });
         JButton viewRewind = new JButton(" View ");
@@ -92,7 +94,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                new ViewRewind();
+                new ViewRewind(id);
             }
         });
         JButton updateRewind = new JButton(" Update ");
@@ -100,17 +102,27 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                new UpdateRewind();
+                new UpdateRewind(id);
+            }
+        });
+        JButton deleteRewind = new JButton(" Delete ");
+        deleteRewind.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                new DeleteRewind(id);
             }
         });
         addRewind.setFont(new Font("arial",Font.BOLD,15));
         viewRewind.setFont(new Font("arial",Font.BOLD,15));
         updateRewind.setFont(new Font("arial",Font.BOLD,15));
+        deleteRewind.setFont(new Font("arial",Font.BOLD,15));
         
         //adding to panel
         panel1.add(addRewind);
         panel1.add(viewRewind);
         panel1.add(updateRewind);
+        panel1.add(deleteRewind);
         c.add(panel1);
         
         //work details (panel 2)
@@ -131,7 +143,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                new AddWork();
+                new AddWork(id);
             }
         });
         JButton viewWork= new JButton(" View ");
@@ -139,7 +151,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                new ViewWork();
+                new ViewWork(id);
             }
         });
         JButton updateWork = new JButton(" Update ");
@@ -147,7 +159,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                new UpdateWork();
+                new UpdateWork(id);
             }
         });
         JButton workhis = new JButton(" Work history ");
@@ -155,7 +167,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                new WorkHistory();
+                new WorkHistory(id);
             }
         });
         workhis.setFont(new Font("arial",Font.BOLD,15));
@@ -189,7 +201,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                new AddEmploy();
+                new AddEmploy(id);
             }
         });
         JButton viewEmployee= new JButton(" View ");
@@ -197,7 +209,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                new ViewEmploy();
+                new ViewEmploy(id);
             }
         });
         JButton deleteEmployee = new JButton(" Delete ");
@@ -205,7 +217,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                new DelEmploy();
+                new DelEmploy(id);
             }
         });
         JButton leaveEntry = new JButton(" Leave Entry ");
@@ -213,7 +225,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
-                new LeaveEntry();
+                new LeaveEntry(id);
             }
         });
         addEmployee.setFont(new Font("arial",Font.BOLD,15));
@@ -247,6 +259,6 @@ public class MainFrame {
         mainFrame.setVisible(true);
     }
     public static void main(String[] args) {
-        new MainFrame();
+        new LoginPage();
     }
 }

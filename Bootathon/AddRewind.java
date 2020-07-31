@@ -28,7 +28,7 @@ import javax.swing.JTextField;
  * @author rahul
  */
 public class AddRewind {
-    AddRewind()
+    AddRewind(int id)
     {
         //Frame creating
         JFrame addrewind=new JFrame();
@@ -98,9 +98,10 @@ public class AddRewind {
                 else{
                 try{
                     Connection conn = DBOperations.getConn();
-                    PreparedStatement st=conn.prepareStatement("insert into rewinddet values(?,?)");
-                    st.setString(1, enterhp.getText());
-                    st.setString(2, ta.getText());
+                    PreparedStatement st=conn.prepareStatement("insert into rewinddet values(?,?,?)");
+                    st.setInt(1, id);
+                    st.setString(2, enterhp.getText());
+                    st.setString(3, ta.getText());
                     st.executeUpdate();
                     conn.close();
                 }
@@ -118,7 +119,7 @@ public class AddRewind {
              
     }
     public static void main(String[] args) {
-        new AddRewind();
+      new LoginPage();
     }
     
 }

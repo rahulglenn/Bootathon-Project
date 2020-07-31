@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
  * @author rahul
  */
 public class WorkHistory {
-    WorkHistory()
+    WorkHistory(int id)
     {
          JFrame frame = new JFrame();
         frame.setBounds(100,200,1350,700);
@@ -54,7 +54,8 @@ public class WorkHistory {
         try
         {
             Connection conn=DBOperations.getConn();
-            PreparedStatement st=conn.prepareStatement("select * from workdet");
+            PreparedStatement st=conn.prepareStatement("select * from workdet where emprid=?");
+            st.setInt(1, id);
             ResultSet rs=st.executeQuery();
             while(rs.next())
             {
@@ -84,6 +85,6 @@ public class WorkHistory {
         frame.setVisible(true);
     }
     public static void main(String[] args) {
-        new WorkHistory();
+        new LoginPage();
     }
 }

@@ -35,7 +35,7 @@ import javax.swing.JTextField;
  * @author rahul
  */
 public class ViewWork {
-    ViewWork(){
+    ViewWork(int id){
         // TODO code application logic here
         JFrame f = new JFrame();           
         f.setBounds(500,200,500,700);
@@ -64,7 +64,7 @@ public class ViewWork {
             try{
                     Connection conn = DBOperations.getConn();
                     Statement st=conn.createStatement();
-                    ResultSet rs=st.executeQuery("Select Date, workid ,CollectionStatus from workdet");
+                    ResultSet rs=st.executeQuery("Select Date, workid ,CollectionStatus from workdet where emprid="+String.valueOf(id));
                     SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
                     Calendar cal=Calendar.getInstance();
                     while(rs.next())
@@ -136,8 +136,9 @@ public class ViewWork {
             public void actionPerformed(ActionEvent e) {
                 try{
                     Connection conn = DBOperations.getConn();
-                    PreparedStatement st=conn.prepareStatement("update workdet set CollectionStatus=1 where NameOfWork=?");
+                    PreparedStatement st=conn.prepareStatement("update workdet set CollectionStatus=1 where NameOfWork=? and emprid=?");
                     st.setString(1, ta.getText());
+                    st.setInt(2, id);
                     st.executeUpdate();
                     conn.close();
                 }
@@ -146,7 +147,7 @@ public class ViewWork {
                     
                 }
                 f.dispose();
-                new ViewWork();
+                new ViewWork(id);
             }
         });
         panel5.add(refund);
@@ -159,8 +160,9 @@ public class ViewWork {
                 String item=(String)cb.getSelectedItem();
                 try{
                     Connection conn = DBOperations.getConn();
-                    PreparedStatement st=conn.prepareStatement("Select NameOfWork, Amount, workid from workdet where workid=?");
+                    PreparedStatement st=conn.prepareStatement("Select NameOfWork, Amount, workid from workdet where workid=? and emprid=?");
                     st.setString(1,item);
+                    st.setInt(2, id);
                     ResultSet rs=st.executeQuery();
                     rs.next();
                     t.setText(rs.getString("Amount"));
@@ -177,7 +179,7 @@ public class ViewWork {
         f.setVisible(true);
     }
     public static void main(String[] args) {
-        new ViewWork();
+        new LoginPage();
     }
     
 }

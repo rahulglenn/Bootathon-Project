@@ -3,8 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-/*Dummy*/
 package Bootathon;
 
 import Bootathon.database.DBOperations;
@@ -26,7 +24,7 @@ import javax.swing.JTextField;
  * @author rahul
  */
 public class AddEmploy {
-    AddEmploy()
+    AddEmploy(int id)
     {
         // frame creating
         JFrame f = new JFrame();           
@@ -55,7 +53,6 @@ public class AddEmploy {
        t.setBounds(250,80,200,30);
        c.add(l2);
        c.add(t);
-       
        
        //employee id
        JLabel l3 = new JLabel("     Address    :");
@@ -100,7 +97,7 @@ public class AddEmploy {
        c.add(l6);
        c.add(t4);
        
-       JLabel l7 = new JLabel("     Username  :");
+       JLabel l7 = new JLabel("     Email ID  :");
        l7.setFont(new Font("Comic sans MS",Font.BOLD,20));
        l7.setBounds(50,420,200,50);
        
@@ -143,6 +140,10 @@ public class AddEmploy {
                 {
                     JOptionPane.showMessageDialog(f, "Invalid Date Format use (dd/mm/yyy)!");
                 }
+                else if(!Pattern.compile("^(.+)@(.+)$").matcher(t5.getText()).matches())
+                {
+                    JOptionPane.showMessageDialog(f, "Invalid Email Address!");
+                }
                 else if(!String.valueOf(t6.getPassword()).equals(String.valueOf(t7.getPassword())))
                 {
                     JOptionPane.showMessageDialog(f, "The Password and Retype Password does not match!");
@@ -150,15 +151,16 @@ public class AddEmploy {
                 else{
                 try{
                     Connection conn = DBOperations.getConn();
-                    PreparedStatement st=conn.prepareStatement("insert into employdet values(0,?,?,?,?,?,?,?,?)");
-                    st.setString(1, t.getText());
-                    st.setString(2, t1.getText());
-                    st.setString(3, t2.getText());
-                    st.setString(4, t3.getText());
-                    st.setInt(5, Integer.valueOf(t4.getText()));
+                    PreparedStatement st=conn.prepareStatement("insert into employdet values(?,0,?,?,?,?,?,?,?,?,0)");
+                    st.setInt(1, id);
+                    st.setString(2, t.getText());
+                    st.setString(3, t1.getText());
+                    st.setString(4, t2.getText());
+                    st.setString(5, t3.getText());
                     st.setInt(6, Integer.valueOf(t4.getText()));
-                    st.setString(7, t5.getText());
-                    st.setString(8, String.valueOf(t6.getPassword()));
+                    st.setInt(7, Integer.valueOf(t4.getText()));
+                    st.setString(8, t5.getText());
+                    st.setString(9, String.valueOf(t6.getPassword()));
                     st.executeUpdate();
                     conn.close();
                 }
@@ -167,6 +169,8 @@ public class AddEmploy {
                     System.out.println(ee);
                 }
                 JOptionPane.showMessageDialog(f,"Successfully Added.","Alert",JOptionPane.WARNING_MESSAGE);
+                f.dispose();
+                new AddEmploy(id);
             }}
         });
       JButton bac = new JButton("\u2190"+"  BACK");
@@ -188,7 +192,7 @@ public class AddEmploy {
         
     }
     public static void main(String[] args) {
-        new AddEmploy();
+        new LoginPage();
     }
     
 }

@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -33,7 +32,7 @@ import javax.swing.JTextField;
  * @author rahul
  */
 public class ViewRewind {
-    ViewRewind(){
+    ViewRewind(int id){
          // TODO code application logic here
         JFrame f = new JFrame();           
         f.setBounds(500,200,500,700);
@@ -62,7 +61,7 @@ public class ViewRewind {
             try{
                     Connection conn = DBOperations.getConn();
                     Statement st=conn.createStatement();
-                    ResultSet rs=st.executeQuery("Select hp from rewinddet");
+                    ResultSet rs=st.executeQuery("Select hp from rewinddet where emprid="+String.valueOf(id));
                     while(rs.next())
                     {
                         cb.addItem(rs.getString("hp"));
@@ -133,8 +132,9 @@ public class ViewRewind {
                 String item=(String)cb.getSelectedItem();
                 try{
                     Connection conn = DBOperations.getConn();
-                    PreparedStatement st=conn.prepareStatement("Select * from rewinddet where hp=?");
+                    PreparedStatement st=conn.prepareStatement("Select * from rewinddet where hp=? and emprid=?");
                     st.setString(1, item);
+                    st.setInt(2, id);
                     ResultSet rs=st.executeQuery();
                     rs.next();
                     t.setText(rs.getString("hp"));
@@ -152,6 +152,6 @@ public class ViewRewind {
         f.setVisible(true);
     }
     public static void main(String[] args) {
-        new ViewRewind();
+       new LoginPage();
     }
 }

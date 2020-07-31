@@ -47,7 +47,7 @@ public class LoginPage {
     JPanel p1=new JPanel();
     log_con.add(p1);
     p1.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 50));
-    JLabel l1=new JLabel("USERNAME");
+    JLabel l1=new JLabel("Email ID");
     l1.setFont(new Font("Comic sans MS",Font.BOLD, 20));
     JTextField t1=new JTextField(15);
     p1.add(l1);
@@ -95,10 +95,17 @@ public class LoginPage {
     p3.setLayout(new FlowLayout(FlowLayout.LEFT,60,0));
     JButton b1=new JButton("LOGIN");
     b1.setFont(new Font("Comic sans MS",Font.BOLD,20));
-    JButton b2=new JButton("BACK");
+    JButton b2=new JButton("SIGN UP");
+    b2.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            loginframe.dispose();
+            new EmployerRegistration();
+        }
+    });
     b2.setFont(new Font("Comic sans MS",Font.BOLD,20));
-    p3.add(b1);
     p3.add(b2);
+    p3.add(b1);
     
     b1.addActionListener(new ActionListener() {
         @Override
@@ -122,8 +129,15 @@ public class LoginPage {
                     ResultSet rs=st.executeQuery();
                     if(rs.next())
                     {
-                        loginframe.dispose();
-                        new EmployeeMain(rs);
+                        if(Integer.valueOf(rs.getString("PassChange"))==0)
+                        {
+                            loginframe.dispose();
+                            new EmpPassChange(rs);
+                        }
+                        else{
+                            loginframe.dispose();
+                            new EmployeeMain(rs.getString("Empname"),rs.getInt("empid"),rs.getString("Address"),rs.getString("DOB"),rs.getString("Phone"),rs.getInt("Salary"),rs.getInt("CurSalary"));
+                        }
                     }
                     else
                     {
@@ -144,27 +158,29 @@ public class LoginPage {
                     ResultSet rs=st.executeQuery();
                     if(rs.next())
                     {
-                        st=conn.prepareStatement("select * from logfile where logid=(select max(logid) from logfile)");
-                        ResultSet rs2=st.executeQuery();
+                        st=conn.prepareStatement("select * from logfile where emprid=? and logid=(select max(logid) from logfile)");
+                        st.setInt(1, rs.getInt("emprid"));
+                        ResultSet rs2=st.executeQuery();                        
                         rs2.next();
                         String date=rs2.getString("Date");
-                        st=conn.prepareStatement("insert into logfile values(0,?,?,?)");
-                        st.setString(1, rs.getString("Name"));
-                        st.setString(2, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
-                        st.setString(3, "Logged in!");
+                        st=conn.prepareStatement("insert into logfile values(?,0,?,?,?)");
+                        st.setInt(1, rs.getInt("emprid"));
+                        st.setString(2, rs.getString("Name"));
+                        st.setString(3, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+                        st.setString(4, "Logged in!");
                         st.executeUpdate();
-                        
                         loginframe.dispose();
-                        new MainFrame(rs.getString("Name"),date);
+                        new MainFrame(rs.getInt("emprid"),rs.getString("Name"),date);
                     }
                     else
                     {
                         JOptionPane.showMessageDialog(loginframe, "Invalid Username or Password!");
                     }
                     conn.close();
+                    
                  }
                  catch(Exception ee)
-                 {}
+                 {System.out.println("Err3"+ee);}
             }}
         }
     });

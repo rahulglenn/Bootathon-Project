@@ -7,24 +7,12 @@ package Bootathon;
 
 
 import Bootathon.database.DBOperations;
-import java.awt.Color;
 import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -38,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
  * @author rahul
  */
 public class ViewEmploy {
-    ViewEmploy()
+    ViewEmploy(int id)
     {
         JFrame frame = new JFrame();
         frame.setBounds(100,200,1350,700);
@@ -63,7 +51,8 @@ public class ViewEmploy {
         
         try{
             Connection conn=DBOperations.getConn();
-            PreparedStatement st=conn.prepareStatement("select * from employdet");
+            PreparedStatement st=conn.prepareStatement("select * from employdet where emprid=?");
+            st.setInt(1, id);
             ResultSet rs=st.executeQuery();
             while(rs.next())
             {
@@ -99,7 +88,7 @@ public class ViewEmploy {
 
     }
     public static void main(String[] args) {
-        new ViewEmploy();
+        new LoginPage();
     }
     
 }

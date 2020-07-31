@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Bootathon;
+
 import Bootathon.database.DBOperations;
 import java.awt.Container;
 import java.awt.Font;
@@ -13,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -36,11 +33,11 @@ public class EmployerRegistration {
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             f.setTitle(" New Registration ");
             f.setResizable(false);
-            
+           
             //Container creation
             Container c = f.getContentPane();
             c.setLayout(null);
-                        
+                       
             //Label creation
             JLabel l = new JLabel();
         l.setText("Employer Name : ");
@@ -49,68 +46,119 @@ public class EmployerRegistration {
         l.setFont(new Font("Candara Light",Font.BOLD,25));  
         JLabel l2 = new JLabel();
         l2.setText("Organization    : ");
-        l2.setBounds(50,125,200,50);
+        l2.setBounds(50,200,200,50);
         c.add(l2);
         l2.setFont(new Font("Candara Light",Font.BOLD,25));
         JLabel l3 = new JLabel();
         l3.setText("D.O.B                : ");
-        l3.setBounds(50,200,200,50);
+        l3.setBounds(50,275,200,50);
         c.add(l3);
         l3.setFont(new Font("Candara Light",Font.BOLD,25));
         JLabel l4 = new JLabel();
-        l4.setText("Username        : ");
-        l4.setBounds(50,275,200,50);
+        l4.setText("Email ID        : ");
+        l4.setBounds(50,350,200,50);
         c.add(l4);
         l4.setFont(new Font("Candara Light",Font.BOLD,25));
         JLabel l5 = new JLabel();
         l5.setText("Password         : ");
-        l5.setBounds(50,350,200,50);
+        l5.setBounds(50,425,200,50);
         c.add(l5);
         l5.setFont(new Font("Candara Light",Font.BOLD,25));
         JLabel l6 = new JLabel();
         l6.setText("RetypePassword:");
-        l6.setBounds(50,425,200,50);
+        l6.setBounds(50,500,200,50);
         c.add(l6);
         l6.setFont(new Font("Candara Light",Font.BOLD,25));
-        
+        JLabel l7 = new JLabel("Activation key");
+        c.add(l7);
+        l7.setFont(new Font("Candara Light",Font.BOLD,25));
+        l7.setBounds(50,125,200,50);
+       
         //Textfield creation
         JTextField t1 = new JTextField();
         t1.setBounds(250,50,200,50);
         c.add(t1);
         t1.setFont(new Font("Comic sans MS",Font.BOLD,25));
         JTextField t2 = new JTextField();
-        t2.setBounds(250,125,200,50);
+        t2.setBounds(250,200,200,50);
+        t2.setEditable(false);
         c.add(t2);
         t2.setFont(new Font("Comic sans MS",Font.BOLD,25));
         JTextField t3 = new JTextField();
-        t3.setBounds(250,200,200,50);
+        t3.setBounds(250,275,200,50);
         c.add(t3);
         t3.setFont(new Font("Comic sans MS",Font.BOLD,25));
         JTextField t4 = new JTextField();
-        t4.setBounds(250,275,200,50);
+        t4.setBounds(250,350,200,50);
         c.add(t4);
         t4.setFont(new Font("Comic sans MS",Font.BOLD,25));
         JPasswordField t5 = new JPasswordField();
-        t5.setBounds(250,350,200,50);
+        t5.setBounds(250,425,200,50);
         c.add(t5);
         t5.setFont(new Font("Comic sans MS",Font.BOLD,25));
         JPasswordField t6 = new JPasswordField();
-        t6.setBounds(250,425,200,50);
+        t6.setBounds(250,500,200,50);
         c.add(t6);
         t6.setFont(new Font("Comic sans MS",Font.BOLD,25));
-        
+        JTextField t7 = new JTextField();
+        t7.setBounds(250,125,200,30);
+        c.add(t7);
+        t7.setFont(new Font("Comic sans MS",Font.BOLD,25));
+       
         // creating button
+        JButton b1 = new JButton("Validate");
+        b1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(t7.getText().isEmpty())
+                    {
+                        JOptionPane.showMessageDialog(f, "Enter your Product Key!");
+                    }
+                    else
+                    {
+                    try
+                    {
+                      Connection conn=DBOperations.getConn();
+                      PreparedStatement st=conn.prepareStatement("select * from productinfo where ProductKey=?");
+                      st.setString(1, t7.getText());
+                      ResultSet rs=st.executeQuery();
+                      if(rs.next() && rs.getInt("ActivationStatus")==0)
+                      {
+                          t2.setText(rs.getString("Organization"));
+                          JOptionPane.showMessageDialog(f, "Validation Succesful!");
+                      }
+                      else
+                      {
+                          JOptionPane.showMessageDialog(f, "Invalid Product Key!");
+                      }
+                      conn.close();
+                    }
+                    catch(Exception ee)
+                    {System.out.println(ee);
+                    }
+                }}
+            });
+        b1.setBounds(300,160,100,30);
+        c.add(b1);
         JButton b = new JButton();
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(t1.getText().isEmpty() || t2.getText().isEmpty() || t3.getText().isEmpty() || t4.getText().isEmpty() || String.valueOf(t5.getPassword()).isEmpty() || String.valueOf(t5.getPassword()).isEmpty())
+                if(t2.getText().isEmpty())
+                {
+                    JOptionPane.showMessageDialog(f, "Please Validate your Product Key First!");
+                }
+                else if(t1.getText().isEmpty() || t3.getText().isEmpty() || t4.getText().isEmpty() || String.valueOf(t5.getPassword()).isEmpty() || String.valueOf(t5.getPassword()).isEmpty())
                 {
                     JOptionPane.showMessageDialog(f, "Please Fill all the details listed above!");
                 }
                 else if(!Pattern.compile("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$").matcher(t3.getText()).matches())
                 {
                     JOptionPane.showMessageDialog(f, "Invalid Date Format use (dd/mm/yyy)!");
+                }
+                else if(!Pattern.compile("^(.+)@(.+)$").matcher(t4.getText()).matches())
+                {
+                    JOptionPane.showMessageDialog(f, "Invalid Email Address!");
                 }
                 else if(!String.valueOf(t6.getPassword()).equals(String.valueOf(t5.getPassword())))
                 {
@@ -119,48 +167,52 @@ public class EmployerRegistration {
                 else{
                 try{
                     Connection conn=DBOperations.getConn();
-                    PreparedStatement st=conn.prepareStatement("insert into employerlogin values(?,?,?,?,?)");
+                    PreparedStatement st=conn.prepareStatement("insert into employerlogin values(0,?,?,?,?,?,?,?)");
                     st.setString(1 , t1.getText());
                     st.setString(2, t2.getText());
                     st.setString(3, t3.getText());
-                    st.setString(4, t4.getText());
-                    st.setString(5, String.valueOf(t5.getPassword()));
+                    st.setString(4, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+                    st.setString(5, t4.getText());
+                    st.setString(6, String.valueOf(t5.getPassword()));
+                    st.setString(7, t7.getText());
                     st.executeUpdate();
-                    st=conn.prepareStatement("insert into logfile values(0,?,?,?)");
-                    st.setString(1, t1.getText());
-                    st.setString(2, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
-                    st.setString(3, "Account Created!");
+                    st=conn.prepareStatement("Select emprid from employerlogin where ProductKey=?");
+                    st.setString(1, t7.getText());
+                    ResultSet rs=st.executeQuery();
+                    rs.next();
+                    int id=rs.getInt("emprid");
+                    st=conn.prepareStatement("insert into logfile values(?,0,?,?,?)");
+                    st.setInt(1, id);
+                    st.setString(2, t1.getText());
+                    st.setString(3, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+                    st.setString(4, "Account Created!");
                     st.executeUpdate();
-                    conn.close();   
+                    st=conn.prepareStatement("update productinfo set ActivationStatus=1 where ProductKey=?");
+                    st.setString(1, t7.getText());
+                    st.executeUpdate();
+                    conn.close();
+                    JOptionPane.showMessageDialog(f,"Registration Successful","Alert",JOptionPane.WARNING_MESSAGE);
+                    //System.out.println(id+t1.getText()+"Nil");
+                    f.dispose();
+                    //System.out.println(id+t1.getText()+"Nil");
+                    new MainFrame(id,t1.getText(),"Nil");
                 }
                 catch(Exception ee)
-                {System.out.println(ee);}
-                JOptionPane.showMessageDialog(f,"Registration Successful","Alert",JOptionPane.WARNING_MESSAGE);
-                f.dispose();
-                new MainFrame(t1.getText(),"Nil");
+                {System.out.println(ee);
+                }
+               
+                
             }}
         });
         b.setText("Register");
-        b.setBounds(300,520,100,40);
+        b.setBounds(300,570,100,40);
         c.add(b);
-        
+       
         f.setVisible(true);
        }
     public static void main(String[] args) {
-        try{
-            Connection conn=DBOperations.getConn();
-            PreparedStatement st=conn.prepareStatement("select * from employerlogin");
-            ResultSet rs=st.executeQuery();
-            if(rs.next())
-            {
-                new LoginPage();
-            }
-            else{
-                new EmployerRegistration();
-            }
-        }
-        catch(SQLException ee)
-        {}
+    new LoginPage();
     }
-    
+   
 }
+
