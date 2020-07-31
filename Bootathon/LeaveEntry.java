@@ -6,8 +6,13 @@
 package Bootathon;
 
 import Bootathon.database.DBOperations;
+import Bootathon.uiworks.MyButton;
+import Bootathon.uiworks.MyComboBox;
+import Bootathon.uiworks.MyFrame;
+import Bootathon.uiworks.MyLabel;
+import Bootathon.uiworks.MyTextField;
 import java.awt.Container;
-import java.awt.Font;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -16,12 +21,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+
 /**
  *
  * @author rahul
@@ -30,28 +32,24 @@ public class LeaveEntry {
     LeaveEntry(int id)
     {
         // frame creating
-        JFrame f = new JFrame();           
-        f.setBounds(500,200,500,700);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setTitle("Leave entry");
-        f.setResizable(false); 
+        MyFrame f = new MyFrame(4);           
+        f.setBounds(500,100,600,800);
+       
         
         //container creating
         Container c = f.getContentPane();
         c.setLayout(null);
         
        //label 1
-       JLabel l1 = new JLabel("Leave Entry");
-       l1.setFont(new Font("Comic sans MS",Font.BOLD,25));
+       MyLabel l1 = new MyLabel("Leave Entry",1);
        l1.setBounds(30,10,300,50);
        c.add(l1);
        
        //select employee
-       JLabel l2 = new JLabel("Select Employee :");
-       l2.setFont(new Font("Comic sans MS",Font.BOLD,20));
-       l2.setBounds(50,100,200,50);
+       MyLabel l2 = new MyLabel("Select Employee");
+       l2.setBounds(50,100,300,50);
        
-       JComboBox cb = new JComboBox();
+       MyComboBox cb = new MyComboBox();
        cb.addItem("Select EmpID");
             //adding values to combobox
             try{
@@ -66,50 +64,45 @@ public class LeaveEntry {
             }
             catch(Exception ee)
             {}
-       cb.setFont(new Font("arial",Font.BOLD,18));
-       cb.setBounds(250,110,200,30);
+
+       cb.setBounds(250,110,300,30);
        cb.setEditable(true);
        c.add(l2);
        c.add(cb);
        
        //employee id
-       JLabel l3 = new JLabel("Employee ID     :");
-       l3.setFont(new Font("Comic sans MS",Font.BOLD,20));
-       l3.setBounds(50,170,200,50);
+       MyLabel l3 = new MyLabel("Employee ID ");
+
+       l3.setBounds(50,170,300,50);
        
-       JTextField t1 = new JTextField();
-       t1.setFont(new Font("arial",Font.BOLD,18));
-       t1.setBounds(250,180,200,30);
+       MyTextField t1 = new MyTextField();
+       t1.setBounds(250,180,300,30);
        t1.setEditable(false);
        c.add(l3);
        c.add(t1);
        
        //employee name
-       JLabel l4 = new JLabel("Employee name  :");
-       l4.setFont(new Font("Comic sans MS",Font.BOLD,20));
-       l4.setBounds(50,240,200,50);
+       MyLabel l4 = new MyLabel("Employee name");
+       l4.setBounds(50,240,300,50);
        
-       JTextField t2 = new JTextField();
-       t2.setFont(new Font("arial",Font.BOLD,18));
-       t2.setBounds(250,250,200,30);
+       MyTextField t2 = new MyTextField();
+       t2.setBounds(250,250,300,30);
        t2.setEditable(false);
        c.add(l4);
        c.add(t2);
        
        //dob
-       JLabel l5 = new JLabel(" No. of Days    :");
-       l5.setFont(new Font("Comic sans MS",Font.BOLD,20));
-       l5.setBounds(50,310,200,50);
+       MyLabel l5 = new MyLabel(" No. of Days  ");
+       l5.setBounds(50,310,300,50);
        
-       JTextField t3 = new JTextField();
-       t3.setFont(new Font("arial",Font.BOLD,18));
-       t3.setBounds(250,320,200,30);
+       MyTextField t3 = new MyTextField();
+       t3.setBounds(250,320,300,30);
        c.add(l5);
        c.add(t3);
        
       //buttons
-      JButton enter = new JButton("Enter");
-      JButton bac = new JButton("\u2190"+"  BACK");
+      MyButton enter = new MyButton("Enter");
+      MyButton bac = new MyButton("\u2190"+"  BACK");
       bac.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,10 +110,8 @@ public class LeaveEntry {
                 new MainFrame();
             }
         });
-      enter.setFont(new Font("",Font.BOLD,20));
-      enter.setBounds(100,410,130,30);
-      bac.setFont(new Font("",Font.BOLD,20));
-      bac.setBounds(280,410,130,30);
+      enter.setBounds(400,410,130,30);
+      bac.setBounds(400,480,130,30);
       c.add(enter);
       c.add(bac);
         
@@ -149,15 +140,15 @@ public class LeaveEntry {
             public void actionPerformed(ActionEvent e) {
                 if(t1.getText().isEmpty())
                 {
-                    JOptionPane.showMessageDialog(f, "Please select an employee id first!");
+                    JOptionPane.showMessageDialog(f, "<html><font size=4>select an employee id first!","Select",JOptionPane.ERROR_MESSAGE);
                 }
                 else if(t3.getText().isEmpty())
                 {
-                    JOptionPane.showMessageDialog(f, "Please specify No. of Days!");
+                    JOptionPane.showMessageDialog(f, "<html><font size=4>specify No. of Days!","Specify",JOptionPane.ERROR_MESSAGE);
                 }
                 else
                 {
-                     int a=JOptionPane.showConfirmDialog(f,"Are you sure?");  
+                     int a=JOptionPane.showConfirmDialog(f,"<html><font size=4>Are you sure?");  
                 if(a==JOptionPane.YES_OPTION){  
                 try{
                  Connection conn = DBOperations.getConn();
@@ -180,7 +171,7 @@ public class LeaveEntry {
                 {
                     System.out.println(ee);
                 }
-                JOptionPane.showMessageDialog(f,"Successfully Marked!","Alert",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(f,"<html><font size=4>Successfully Marked!","Successful",JOptionPane.INFORMATION_MESSAGE);
                 f.dispose();
                 new LeaveEntry(id);
             }}}
@@ -189,6 +180,7 @@ public class LeaveEntry {
       f.setVisible(true);        
     }
     public static void main(String[] args) {
-       new LoginPage();
+       new LeaveEntry(0);
     }
 }
+ 

@@ -5,23 +5,24 @@
  */
 package Bootathon;
 import Bootathon.database.DBOperations;
+import Bootathon.uiworks.MyButton;
+import Bootathon.uiworks.MyFrame;
+import Bootathon.uiworks.MyLabel;
+import Bootathon.uiworks.MyTextArea;
+import Bootathon.uiworks.MyTextField;
 import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+
+
 
 /**
  *
@@ -31,54 +32,50 @@ public class AddRewind {
     AddRewind(int id)
     {
         //Frame creating
-        JFrame addrewind=new JFrame();
-        addrewind.setBounds(500, 200, 500, 700);
-        addrewind.setDefaultCloseOperation(3);
+        MyFrame addrewind=new MyFrame(5);
+        addrewind.setBounds(500, 100, 600, 800);
+      
         
         //Container Creating
         Container c=addrewind.getContentPane();
-        c.setLayout(new GridLayout(4,1,30,0));
+        c.setLayout(null);
         
         //title label
-        JPanel summa1 = new JPanel();
-        summa1.setLayout(new FlowLayout(FlowLayout.CENTER,20,30));
-        JLabel ll= new JLabel("Add Rewinding Details:");
-        ll.setFont(new Font("Comic sans MS",Font.BOLD,35));  
-        summa1.add(ll);
-        c.add(summa1);
+        
+        MyLabel ll= new MyLabel("Add Rewinding Details",1);
+        ll.setBounds(30,30,350,50);
+        c.add(ll);
+        
         
         //HorsePower entry
-        JPanel panel1 = new JPanel();
-        c.add(panel1);
-        panel1.setLayout(new FlowLayout(FlowLayout.CENTER,20,30));
-        JLabel label1 = new JLabel("Enter HP : ");
-        label1.setFont(new Font("Comic sans MS",Font.BOLD,20));
-        JTextField enterhp = new JTextField(10);
-        enterhp.setFont(new Font("arial",Font.BOLD,18));
-        panel1.add(label1);
-        panel1.add(enterhp);
+      
+        MyLabel label1 = new MyLabel("Enter HP ");
+        MyTextField enterhp = new MyTextField();
+        label1.setBounds(50,130,100,30);
+        enterhp.setBounds(200,130,300,30);
+        c.add(label1);
+        c.add(enterhp);
         
         //Rewind details entry
         
-        JPanel panel3 = new JPanel();
-        c.add(panel3);
-        panel3.setLayout(new FlowLayout(FlowLayout.CENTER,10,0));
-        JLabel l3 = new JLabel("Enter the details"); 
-        l3.setFont(new Font("Comic sans MS",Font.BOLD,25));
-        panel3.add(l3);
+
+        MyLabel l3 = new MyLabel("Enter the details");
+        l3.setBounds(200, 230, 200, 30);
+        c.add(l3);
         
-        JTextArea ta = new JTextArea(4,20);
+        MyTextArea ta = new MyTextArea();
+        
        // ta.setEditable(false);
-        JScrollPane sp = new JScrollPane(ta,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        panel3.add(sp);
-        ta.setFont(new Font("arial",Font.PLAIN,20));
+        JScrollPane sp = new JScrollPane(ta,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        sp.setBounds(30,280,550,400);
+        c.add(sp);
+ 
         
         //Submit and Back
-        JPanel panel4 = new JPanel();
-        panel4.setLayout(new FlowLayout(FlowLayout.CENTER,50,30));
-        c.add(panel4);
-        JButton back = new JButton("\u2190"+"  BACK");
-        back.setFont(new Font("",Font.BOLD,20));
+        
+        MyButton back = new MyButton("\u2190"+"  BACK");
+        back.setBounds(30,700,150,30);
+
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -86,14 +83,14 @@ public class AddRewind {
                 new MainFrame();
             }
         });
-        JButton submit = new JButton("Submit  "+"\u2192");
-        submit.setFont(new Font("",Font.BOLD,20));
+        MyButton submit = new MyButton("Submit  "+"\u2192");
+        submit.setBounds(400, 230, 150, 30);
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(enterhp.getText().isEmpty() || ta.getText().isEmpty())
                 {
-                    JOptionPane.showMessageDialog(addrewind, "Please Fill all the details listed above!");
+                    JOptionPane.showMessageDialog(addrewind, "<html><font size=4>Please Fill all the details listed above!","Fill it",JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                 try{
@@ -109,12 +106,12 @@ public class AddRewind {
                 {
                     System.out.println(ee);
                 }
-                JOptionPane.showMessageDialog(addrewind,"Successfully Added.","Alert",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(addrewind,"<html><font size=4>Successfully Added.","Successful",JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
-        panel4.add(submit);
-        panel4.add(back);
+        c.add(submit);
+        c.add(back);
         addrewind.setVisible(true);
              
     }

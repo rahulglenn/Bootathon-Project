@@ -6,13 +6,17 @@
 package Bootathon;
 
 import Bootathon.database.DBOperations;
-import javax.swing.*;
-import java.awt.*;
+import Bootathon.uiworks.MyButton;
+import Bootathon.uiworks.MyFrame;
+import Bootathon.uiworks.MyLabel;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 /**
  *
@@ -29,28 +33,28 @@ public class EmpPassChange {
         }
         catch(Exception ee)
         {System.out.println("Err"+ee);}
-        JFrame pchange=new JFrame();
+        MyFrame pchange=new MyFrame(2);
         Container pchange_con=pchange.getContentPane();
-    JLabel pchange_l1=new JLabel("Please change your password");
-    JLabel pchange_l2=new JLabel("Confirm Password");
-    JLabel pchange_l3=new JLabel("Re-enter Password");
+   MyLabel pchange_l1=new MyLabel("Please change your password");
+   MyLabel pchange_l2=new MyLabel("Confirm Password");
+   MyLabel pchange_l3=new MyLabel("Re-enter Password");
     JPasswordField pchange_t1=new JPasswordField();
     JPasswordField pchange_t2=new JPasswordField();
-    JButton pchange_b1=new JButton("OK");
+    MyButton pchange_b1=new MyButton("OK");
     
     pchange_con.setLayout(null);
     
-    pchange_l1.setFont(new Font("Comic sans MS",Font.BOLD,25));
+
         pchange_l1.setBounds(100,10, 400, 35);
-        pchange_l2.setFont(new Font("Comic sans MS",Font.BOLD,20));
+
         pchange_l2.setBounds(40,90, 300, 25);
-        pchange_l3.setFont(new Font("Comic sans MS",Font.BOLD,20));
+
         pchange_l3.setBounds(40,170, 300, 25);
-        pchange_t1.setFont(new Font("arial",Font.PLAIN,18));
+
         pchange_t1.setBounds(270,90,250,30);
-        pchange_t2.setFont(new Font("arial",Font.PLAIN,18));
+  
         pchange_t2.setBounds(270,170,250,30);
-        pchange_b1.setFont(new Font("arial",Font.PLAIN,30));
+
         pchange_b1.setBounds(230,250,100,50);
         
          pchange_con.add(pchange_l1);
@@ -65,11 +69,11 @@ public class EmpPassChange {
             public void actionPerformed(ActionEvent e) {
                 if(String.valueOf(pchange_t1.getPassword()).isEmpty() || String.valueOf(pchange_t2.getPassword()).isEmpty())
                 {
-                    JOptionPane.showMessageDialog(pchange, "Please Fill the above Details!");
+                    JOptionPane.showMessageDialog(pchange, "<html><font size=4>Please Fill the above Details!","Fill it",JOptionPane.ERROR_MESSAGE);
                 }
                 else if(!String.valueOf(pchange_t1.getPassword()).equals(String.valueOf(pchange_t2.getPassword())))
                 {
-                    JOptionPane.showMessageDialog(pchange, "The Password does not match!");
+                    JOptionPane.showMessageDialog(pchange, "<html><font size=4>The Password does not match!","re-type Error",JOptionPane.ERROR_MESSAGE);
                 }
                 else
                 {  
@@ -80,7 +84,7 @@ public class EmpPassChange {
                 st.setString(2, user);
                 st.setInt(3, id);
                 st.executeUpdate();
-                JOptionPane.showMessageDialog(pchange, "Password Change Successful");
+                JOptionPane.showMessageDialog(pchange, "<html><font size=4>Password Change Successful","Successful",JOptionPane.INFORMATION_MESSAGE);
                  pchange.dispose();
                  new LoginPage();
         }
@@ -90,9 +94,8 @@ public class EmpPassChange {
             }}
         });
     pchange.setTitle("PASSWORD CHANGE");
-        pchange.setBounds(400,200,550,350);
-        pchange.setResizable(false);
-        pchange.setDefaultCloseOperation(3);
+        pchange.setBounds(500,100,550,350);
+       
         pchange.setVisible(true);
     }
     public static void main(String[] args) {

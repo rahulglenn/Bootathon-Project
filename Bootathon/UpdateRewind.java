@@ -6,10 +6,14 @@
 package Bootathon;
 
 import Bootathon.database.DBOperations;
+import Bootathon.uiworks.MyButton;
+import Bootathon.uiworks.MyComboBox;
+import Bootathon.uiworks.MyFrame;
+import Bootathon.uiworks.MyLabel;
+import Bootathon.uiworks.MyPanel;
+import Bootathon.uiworks.MyTextArea;
+import Bootathon.uiworks.MyTextField;
 import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -18,15 +22,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+
 /**
  *
  * @author rahul
@@ -34,28 +32,21 @@ import javax.swing.JTextField;
 public class UpdateRewind {
     UpdateRewind(int id){
           // frame creating
-        JFrame f = new JFrame();           
-        f.setBounds(500,200,500,700);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setTitle("View Form");
-        f.setResizable(true); 
+        MyFrame f = new MyFrame(4);           
+        f.setBounds(500,100,600,800);
+         
         
         //container creating
         Container c = f.getContentPane();
-        c.setLayout(new GridLayout(5,1));
+        c.setLayout(null);
         
-        //title panel
-        JPanel summa1 = new JPanel();
-        summa1.setLayout(new FlowLayout(FlowLayout.CENTER,20,30));
-        JLabel ll= new JLabel("Update details");
-        ll.setFont(new Font("Comic sans MS",Font.BOLD,35));  
-        summa1.add(ll);
-        c.add(summa1);
         
-        //panel1 creating
-        JPanel panel1 = new JPanel();
-        c.add(panel1);
-        JComboBox cb = new JComboBox();          
+        MyLabel ll= new MyLabel("Update details",1);
+        ll.setBounds(30,30,200,50);
+        c.add(ll);
+        
+        
+        MyComboBox cb = new MyComboBox();          
         cb.addItem("Select HP");
             //adding values to combobox
             try{
@@ -70,45 +61,37 @@ public class UpdateRewind {
             }
             catch(Exception ee)
             {
-            }
-        cb.setFont(new Font("arial",Font.PLAIN,20));        
-        JLabel l1 = new JLabel("Select HP  : ");
-        panel1.add(l1);
-        panel1.add(cb);
-        panel1.setLayout(new FlowLayout(FlowLayout.CENTER,20,10));
-        l1.setFont(new Font("Comic sans MS",Font.BOLD,25));
+            }        
+        MyLabel l1 = new MyLabel("Select   HP");
+        l1.setBounds(90,140,200,30);
+        cb.setBounds(250,140,300,30);
+        cb.setEditable(true);
+        c.add(l1);
+        c.add(cb);
         
-        //panel2 creating
-        JPanel panel2 = new JPanel();
-        c.add(panel2);
-        panel2.setLayout(new FlowLayout(FlowLayout.CENTER,20,10));
-        JLabel l2 = new JLabel("     Horse Power :");        
-        panel2.add(l2);
-        l2.setFont(new Font("Comic sans MS",Font.BOLD,25));
-        JTextField t = new JTextField(10);
+
+        
+    
+       
+        MyLabel l2 = new MyLabel("Horse Power ");        
+        c.add(l2);
+        l2.setBounds(90,240,200,30);
+        MyTextField t = new MyTextField();
+        t.setBounds(250,240,300,30);
         t.setEditable(false);
-        t.setFont(new Font("arial",Font.BOLD,20));
-        panel2.add(t);
+        c.add(t);
         
-        //panel3 creating
+        //c creating
         
-        JPanel panel3 = new JPanel();
-        c.add(panel3);
-        panel3.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
-        JLabel l3 = new JLabel("Rewinding Details"); 
-        l3.setFont(new Font("Comic sans MS",Font.BOLD,25));
-        
-        JTextArea ta = new JTextArea(4,20);
-        JScrollPane sp = new JScrollPane(ta,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        
-        
-        panel3.add(sp);
-        ta.setFont(new Font("arial",Font.PLAIN,20));
-        
-        JPanel panel5 = new JPanel();
-        c.add(panel5);
-        panel5.setLayout(new FlowLayout(FlowLayout.CENTER,30,30));
-        JButton back = new JButton("\u2190"+"  BACK");
+        MyLabel l3 = new MyLabel("Rewinding Details"); 
+        l3.setBounds(200,320,200,30);
+        MyTextArea ta = new MyTextArea();
+        JScrollPane sp = new JScrollPane(ta,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        sp.setBounds(80,370,470,300);
+        c.add(l3);
+        c.add(sp);
+      
+        MyButton back = new MyButton("\u2190"+"  BACK");
         back.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -116,11 +99,12 @@ public class UpdateRewind {
                 new MainFrame();
             }
         });
-        back.setFont(new Font("",Font.BOLD,20));
-        JButton update = new JButton("Update");
-        update.setFont(new Font("",Font.BOLD,20));
-        panel5.add(update);
-        panel5.add(back);
+
+        MyButton update = new MyButton("Update");
+        back.setBounds(370,700,150,30);
+        update.setBounds(400,320,150,30);
+        c.add(update);
+        c.add(back);
         
          cb.addItemListener(new ItemListener() {
             @Override
@@ -150,11 +134,11 @@ public class UpdateRewind {
             public void actionPerformed(ActionEvent e) {
                 if(t.getText().isEmpty())
                 {
-                    JOptionPane.showMessageDialog(f, "Please select which detail to update first!");
+                    JOptionPane.showMessageDialog(f, "<html><font size=4>Please select which detail to update first!","Select",JOptionPane.ERROR_MESSAGE);
                 }
                 else
                 {
-                    int a=JOptionPane.showConfirmDialog(f,"Are you sure to Update?");  
+                    int a=JOptionPane.showConfirmDialog(f,"<html><font size=4>Are you sure to Update?");  
                 if(a==JOptionPane.YES_OPTION){  
                 try
                 {
@@ -170,7 +154,7 @@ public class UpdateRewind {
                 {
                     System.out.println(ee);
                 }
-                JOptionPane.showMessageDialog(f,"Successfully Updated.","Alert",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(f,"<html><font size=4>Successfully Updated.","Successful",JOptionPane.INFORMATION_MESSAGE);
             }}}
         });
         

@@ -7,9 +7,11 @@ package Bootathon;
 
 
 import Bootathon.database.DBOperations;
-import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
+import Bootathon.uiworks.MyButton;
+import Bootathon.uiworks.MyFrame;
+import Bootathon.uiworks.MyLabel;
+import Bootathon.uiworks.MyTextField;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -23,54 +25,39 @@ import java.sql.SQLException;
 public class EmployeeMain {
     EmployeeMain(String name,int id,String add,String dob,String phone,int sal,int cur_sal)
     {
-        JFrame f = new JFrame();
-        JLabel Top = new JLabel("Hi, "+name);Top.setBounds(20,20,100,30);
-        JLabel NameL = new JLabel("Name               :");NameL.setBounds(20,70,150,30);
-        JLabel IDL = new JLabel("I.D No              :");IDL.setBounds(20,120,150,30);
-        JLabel AddL = new JLabel("Address           :");AddL.setBounds(20,170,150,30);
-        JLabel DBL = new JLabel("D.O.B              :");DBL.setBounds(20,220,150,30);
-        JLabel PhoneL = new JLabel("Phone No         :");PhoneL.setBounds(20,270,150,30);
-        JLabel SalaryL = new JLabel("Salary             :");SalaryL.setBounds(20,320,150,30);
-        JLabel CSalaryL = new JLabel("Current Salary   :");CSalaryL.setBounds(20,370,150,30);
+        MyFrame f = new MyFrame(2);
+        Container c = f.getContentPane();
+        MyLabel Top = new MyLabel("Hi, "+name,1);Top.setBounds(20,20,300,40);
+        MyLabel NameL = new MyLabel("Name ");NameL.setBounds(20,110,150,30);
+        MyLabel IDL = new MyLabel("I.D No   ");IDL.setBounds(20,180,150,30);
+        MyLabel AddL = new MyLabel("Address  ");AddL.setBounds(20,240,150,30);
+        MyLabel DBL = new MyLabel("D.O.B  ");DBL.setBounds(20,300,150,30);
+        MyLabel PhoneL = new MyLabel("Phone No ");PhoneL.setBounds(20,360,150,30);
+        MyLabel SalaryL = new MyLabel("Salary  ");SalaryL.setBounds(20,420,150,30);
+        MyLabel CSalaryL = new MyLabel("Current Salary   ");CSalaryL.setBounds(20,480,150,30);
 
-        Top.setFont(new Font("Sans-sheriff",Font.BOLD,16));
-        NameL.setFont(new Font("Sans-sheriff",Font.PLAIN,16));
-        IDL.setFont(new Font("Sans-sheriff",Font.PLAIN,16));
-        AddL.setFont(new Font("Sans-sheriff",Font.PLAIN,16));
-        DBL.setFont(new Font("Sans-sheriff",Font.PLAIN,16));
-        PhoneL.setFont(new Font("Sans-sheriff",Font.PLAIN,16));
-        SalaryL.setFont(new Font("Sans-sheriff",Font.PLAIN,16));
-        CSalaryL.setFont(new Font("Sans-sheriff",Font.PLAIN,16));
+        
 
 
-        JTextField NameT = new JTextField(); NameT.setBounds(150,70,200,30); NameT.setEditable(false); 
+        MyTextField NameT = new MyTextField(); NameT.setBounds(250,110,300,30); NameT.setEditable(false); 
         NameT.setText("   "+name);
-        JTextField IDT = new JTextField(); IDT.setBounds(150,120,200,30); IDT.setEditable(false); 
+        MyTextField IDT = new MyTextField(); IDT.setBounds(250,180,300,30); IDT.setEditable(false); 
         IDT.setText("   "+String.valueOf(id));
-        JTextField AddT = new JTextField(); AddT.setBounds(150,170,200,30); AddT.setEditable(false); 
+        MyTextField AddT = new MyTextField(); AddT.setBounds(250,240,300,30); AddT.setEditable(false); 
         AddT.setText("   "+add);
-        JTextField DBT = new JTextField(); DBT.setBounds(150,220,200,30); DBT.setEditable(false); 
+        MyTextField DBT = new MyTextField(); DBT.setBounds(250,300,300,30); DBT.setEditable(false); 
         DBT.setText("   "+dob);
-        JTextField PhoneT = new JTextField(); PhoneT.setBounds(150,270,200,30); PhoneT.setEditable(false); 
+        MyTextField PhoneT = new MyTextField(); PhoneT.setBounds(250,360,300,30); PhoneT.setEditable(false); 
         PhoneT.setText("   "+phone);
-        JTextField SalaryT = new JTextField(); SalaryT.setBounds(150,320,200,30); SalaryT.setEditable(false); 
+        MyTextField SalaryT = new MyTextField(); SalaryT.setBounds(250,420,300,30); SalaryT.setEditable(false); 
         SalaryT.setText("   "+String.valueOf(sal));
-        JTextField CSalaryT = new JTextField(); CSalaryT.setBounds(150,370,200,30); CSalaryT.setEditable(false); 
+        MyTextField CSalaryT = new MyTextField(); CSalaryT.setBounds(250,480,300,30); CSalaryT.setEditable(false); 
         CSalaryT.setText("   "+String.valueOf(cur_sal));
 
-        Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-        NameT.setBorder(border);
-        IDT.setBorder(border);
-        AddT.setBorder(border);
-        DBT.setBorder(border);
-        PhoneT.setBorder(border);
-        SalaryT.setBorder(border);
-        CSalaryT.setBorder(border);
+  
 
-
-        JButton logout = new JButton("Log Out");
-        logout.setBounds(140,450,90,30);
-        logout.setFont(new Font("Sans-sheriff",Font.BOLD,15));
+        MyButton logout = new MyButton("Log Out");
+        logout.setBounds(400,30,120,30);
         
         logout.addActionListener(new ActionListener() {
             @Override
@@ -80,22 +67,20 @@ public class EmployeeMain {
             }
         });
         
-        f.setBackground(Color.white);
-        logout.setBackground(Color.white);
-        logout.setBorder(border);
-        logout.setBackground(Color.yellow);
-
-        f.add(Top);
-        f.add(NameL);f.add(IDL);f.add(AddL);f.add(DBL);f.add(PhoneL);
-        f.add(SalaryL);f.add(CSalaryL);
-        f.add(NameT);f.add(IDT);f.add(AddT);f.add(DBT);f.add(PhoneT);
-        f.add(SalaryT);f.add(CSalaryT);
-        f.add(logout);
-        f.setBounds(500,200,450,650);
-        f.setLayout(null);
+        
+  
+        c.add(Top);
+        c.add(NameL);c.add(IDL);c.add(AddL);c.add(DBL);c.add(PhoneL);
+        c.add(SalaryL);c.add(CSalaryL);
+        c.add(NameT);c.add(IDT);c.add(AddT);c.add(DBT);c.add(PhoneT);
+        c.add(SalaryT);c.add(CSalaryT);
+        c.add(logout);
+        f.setBounds(500,100,600,800);
+        c.setLayout(null);
         f.setVisible(true);
-        f.setDefaultCloseOperation(3);
+       
     }
+    
     public static void main(String[] args) {
         new LoginPage();
     }

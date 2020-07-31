@@ -5,85 +5,74 @@
  */
 package Bootathon;
 import Bootathon.database.DBOperations;
+import Bootathon.uiworks.MyButton;
+import Bootathon.uiworks.MyFrame;
+import Bootathon.uiworks.MyLabel;
+import Bootathon.uiworks.MyTextField;
 import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.regex.Pattern;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-/**
- *
+
+ /*
  * @author rahul
  */
 public class AddWork {
     AddWork(int id){
          // Frame creating
-        JFrame addWorkingFrame = new JFrame();
-        addWorkingFrame.setBounds(500,200,500,700);
-        addWorkingFrame.setDefaultCloseOperation(3);
+        MyFrame addWorkingFrame = new MyFrame(2);
+        addWorkingFrame.setBounds(500,100,600,800);
+        
         
         //container creating
         Container c = addWorkingFrame.getContentPane();
-        c.setLayout(new GridLayout(5,1,30,20));
+        c.setLayout(null);
         
         //title label
-        JPanel summa1 = new JPanel();
-        summa1.setLayout(new FlowLayout(FlowLayout.CENTER,20,30));
-        JLabel ll= new JLabel("Add Work");
-        ll.setFont(new Font("Comic sans MS",Font.BOLD,35));  
-        summa1.add(ll);
-        c.add(summa1);
+       
+        MyLabel ll= new MyLabel("Add Work",1);
+        ll.setBounds(30,30,200,40);
+        c.add(ll);
+
         
         //name of work
-        JPanel panel1 = new JPanel();
-        c.add(panel1);
-        panel1.setLayout(new FlowLayout(FlowLayout.CENTER,20,30));
-        JLabel label1 = new JLabel("Name of Work : ");
-        label1.setFont(new Font("Comic sans MS",Font.BOLD,20));
-        JTextField nameOfWork = new JTextField(15);
-        nameOfWork.setFont(new Font("arial",Font.BOLD,18));
-        panel1.add(label1);
-        panel1.add(nameOfWork);
+      
+        MyLabel label1 = new MyLabel("Name of Work ");
+        MyTextField nameOfWork = new MyTextField();
+        label1.setBounds(50,100,200,40);
+        nameOfWork.setBounds(120,160,430,30);
+        c.add(label1);
+        c.add(nameOfWork);
         
         //amount
-        JPanel panel2 = new JPanel();
-        c.add(panel2);
-        panel2.setLayout(new FlowLayout(FlowLayout.CENTER,20,30));
-        JLabel label2 = new JLabel("        Amount : ");
-        label2.setFont(new Font("Comic sans MS",Font.BOLD,20));
-        JTextField amount = new JTextField(15);
-        amount.setFont(new Font("arial",Font.BOLD,18));
-        panel2.add(label2);
-        panel2.add(amount);
+      
+        MyLabel label2 = new MyLabel("Amount  ");
+        label2.setBounds(60,240,200,40);
+        MyTextField amount = new MyTextField();
+        amount.setBounds(230,245,300,30);
+        c.add(label2);
+        c.add(amount);
         
         //date
-        JPanel panel3 = new JPanel();
-        c.add(panel3);
-        panel3.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
-        JLabel label3 = new JLabel("      Date  :");
-        label3.setFont(new Font("Comic sans MS",Font.BOLD,20));        
-        JTextField dateField = new JTextField(15);
-        dateField.setFont(new Font("Comic sans MS",Font.PLAIN,20));
-        JLabel dateFormat = new JLabel("(DD/MM/YYYY)");
-        dateFormat.setFont(new Font("Comic sans MS",Font.PLAIN,15));
-        panel3.add(label3);
-        panel3.add(dateField);
-        panel3.add(dateFormat);
-        JPanel panel4 = new JPanel();
-        panel4.setLayout(new FlowLayout(FlowLayout.CENTER,50,10));
-        c.add(panel4);
+
+        MyLabel label3 = new MyLabel("Date  ");        
+        MyTextField dateField = new MyTextField();
+        MyLabel dateFormat = new MyLabel("(DD/MM/YYYY)");
+        label3.setBounds(60,320,200,40);
+        dateField.setBounds(230,325,300,30);
+        dateFormat.setBounds(230,370,300,30);
+
+        c.add(label3);
+        c.add(dateField);
+        c.add(dateFormat);
+        
         
         //back and submit button
-        JButton back = new JButton("\u2190"+"  BACK");
+        MyButton back = new MyButton("\u2190"+"  BACK");
+        back.setBounds(30,650,150,30);
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,18 +80,19 @@ public class AddWork {
                 new MainFrame();
             }
         });
-        back.setFont(new Font("",Font.BOLD,20));
-        JButton submit = new JButton("Submit  "+"\u2192");
+
+        MyButton submit = new MyButton("Submit  "+"\u2192");
+        submit.setBounds(300,460,150,30);
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(nameOfWork.getText().isEmpty() || dateField.getText().isEmpty() || amount.getText().isEmpty())
                 {
-                    JOptionPane.showMessageDialog(addWorkingFrame, "Please Fill all the details listed above!");
+                    JOptionPane.showMessageDialog(addWorkingFrame, "<html><font size=4>Please Fill all the details listed above!","Fill it",JOptionPane.ERROR_MESSAGE);
                 }
                 else if(!Pattern.compile("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$").matcher(dateField.getText()).matches())
                 {
-                    JOptionPane.showMessageDialog(addWorkingFrame, "Invalid Date Format use (dd/mm/yyy)!");
+                    JOptionPane.showMessageDialog(addWorkingFrame, "<html><font size=4>Invalid Date Format use (dd/mm/yyy)!","Invalid!",JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                 try{
@@ -119,13 +109,12 @@ public class AddWork {
                 catch(Exception ee){
                     System.out.println("Error!!"+ee);   
                 }
-                    JOptionPane.showMessageDialog(addWorkingFrame,"Successfully Added.","Alert",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(addWorkingFrame,"<html><font size=4>Successfully Added.","Successful",JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
-        submit.setFont(new Font("",Font.BOLD,20));
-        panel4.add(submit);
-        panel4.add(back);
+        c.add(submit);
+        c.add(back);
         addWorkingFrame.setVisible(true);
     }
     public static void main(String[] args) {

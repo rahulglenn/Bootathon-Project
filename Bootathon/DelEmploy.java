@@ -6,8 +6,13 @@
 package Bootathon;
 
 import Bootathon.database.DBOperations;
+import Bootathon.uiworks.MyButton;
+import Bootathon.uiworks.MyComboBox;
+import Bootathon.uiworks.MyFrame;
+import Bootathon.uiworks.MyLabel;
+import Bootathon.uiworks.MyTextField;
 import java.awt.Container;
-import java.awt.Font;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -16,12 +21,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+
+
+
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+
 /**
  *
  * @author rahul
@@ -30,28 +34,24 @@ public class DelEmploy {
     DelEmploy(int id)
     {
         // TODO code application logic here
-        JFrame f = new JFrame();           
-        f.setBounds(500,200,500,700);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setTitle("View Form");
-        f.setResizable(false); 
+        MyFrame f = new MyFrame(2);           
+        f.setBounds(500,100,600,800);
+        
         
         //container creating
         Container c = f.getContentPane();
         c.setLayout(null);
         
        //label 1
-       JLabel l1 = new JLabel("Remove Employee");
-       l1.setFont(new Font("Comic sans MS",Font.BOLD,25));
+       MyLabel l1 = new MyLabel("Remove Employee",1);      
        l1.setBounds(30,10,300,50);
        c.add(l1);
        
        //select employee
-       JLabel l2 = new JLabel("Select Employee :");
-       l2.setFont(new Font("Comic sans MS",Font.BOLD,20));
-       l2.setBounds(50,100,200,50);
+       MyLabel l2 = new MyLabel("Select Employee :");
+       l2.setBounds(50,120,200,50);
        
-       JComboBox cb = new JComboBox();
+       MyComboBox cb = new MyComboBox();
        cb.addItem("Select EmpID");
                //adding values to combobox
                try{
@@ -67,75 +67,67 @@ public class DelEmploy {
                catch(Exception ee)
                {}                
     
-       cb.setFont(new Font("arial",Font.BOLD,18));
-       cb.setBounds(250,110,200,30);
+    
+       cb.setBounds(250,130,250,30);
        cb.setEditable(true);
        c.add(l2);
        c.add(cb);
        
        //employee id
-       JLabel l3 = new JLabel("Employee ID     :");
-       l3.setFont(new Font("Comic sans MS",Font.BOLD,20));
-       l3.setBounds(50,170,200,50);
+       MyLabel l3 = new MyLabel("Employee ID     :");
+     
+       l3.setBounds(50,190,200,50);
        
-       JTextField t1 = new JTextField();
-       t1.setFont(new Font("arial",Font.BOLD,18));
+       MyTextField t1 = new MyTextField();
        t1.setEditable(false);
-       t1.setBounds(250,180,200,30);
+       t1.setBounds(250,200,250,30);
        c.add(l3);
        c.add(t1);
        
        //employee name
-       JLabel l4 = new JLabel("Employee name  :");
-       l4.setFont(new Font("Comic sans MS",Font.BOLD,20));
-       l4.setBounds(50,240,200,50);
+       MyLabel l4 = new MyLabel("Employee name  :");
+
+       l4.setBounds(50,260,200,50);
        
-       JTextField t2 = new JTextField();
+       MyTextField t2 = new MyTextField();
        t2.setEditable(false);
-       t2.setFont(new Font("arial",Font.BOLD,18));
-       t2.setBounds(250,250,200,30);
+       t2.setBounds(250,270,250,30);
        c.add(l4);
        c.add(t2);
        
        //dob
-       JLabel l5 = new JLabel("         D.O.B  :");
-       l5.setFont(new Font("Comic sans MS",Font.BOLD,20));
-       l5.setBounds(50,310,200,50);
+       MyLabel l5 = new MyLabel("         D.O.B  :");
+       l5.setBounds(50,330,200,50);
        
-       JTextField t3 = new JTextField();
+       MyTextField t3 = new MyTextField();
        t3.setEditable(false);
-       t3.setFont(new Font("arial",Font.BOLD,18));
-       t3.setBounds(250,320,200,30);
+       t3.setBounds(250,340,250,30);
        c.add(l5);
        c.add(t3);
        
        //phone number
-       JLabel l6 = new JLabel("     Phone No   :");
-       l6.setFont(new Font("Comic sans MS",Font.BOLD,20));
-       l6.setBounds(50,380,200,50);
+       MyLabel l6 = new MyLabel("     Phone No   :");
+       l6.setBounds(50,400,200,50);
        
-       JTextField t4 = new JTextField();
+       MyTextField t4 = new MyTextField();
        t4.setEditable(false);
-       t4.setFont(new Font("arial",Font.BOLD,18));
-       t4.setBounds(250,390,200,30);
+       t4.setBounds(250,410,250,30);
        c.add(l6);
        c.add(t4);
        
        //salary
-       JLabel l7 = new JLabel("        Salary   :");
-       l7.setFont(new Font("Comic sans MS",Font.BOLD,20));
-       l7.setBounds(50,450,200,50);
+       MyLabel l7 = new MyLabel("        Salary   :");
+       l7.setBounds(50,470,200,50);
        
-       JTextField t5 = new JTextField();
+       MyTextField t5 = new MyTextField();
        t5.setEditable(false);
-       t5.setFont(new Font("arial",Font.BOLD,18));
-       t5.setBounds(250,460,200,30);
+       t5.setBounds(250,480,250,30);
        c.add(l7);
        c.add(t5);
         
       //buttons
-      JButton del = new JButton("Delete");
-      JButton bac = new JButton("\u2190"+"  BACK");
+      MyButton del = new MyButton("Delete");
+      MyButton bac = new MyButton("\u2190"+"  BACK");
       bac.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -143,10 +135,9 @@ public class DelEmploy {
                  new MainFrame();
             }
         });
-      del.setFont(new Font("",Font.BOLD,20));
-      del.setBounds(100,550,130,30);
-      bac.setFont(new Font("",Font.BOLD,20));
-      bac.setBounds(280,550,130,30);
+
+      del.setBounds(80,610,130,30);
+      bac.setBounds(80,670,130,30);
       c.add(del);
       c.add(bac);
       
@@ -179,11 +170,11 @@ public class DelEmploy {
             public void actionPerformed(ActionEvent e) {
                 if(t1.getText().isEmpty())
                 {
-                    JOptionPane.showMessageDialog(f, "Please select which employee to delete first!");
+                    JOptionPane.showMessageDialog(f, "<html><font size=4>Please select which employee to delete first!","Select",JOptionPane.ERROR_MESSAGE);
                 }
                 else
                 {
-                    int a=JOptionPane.showConfirmDialog(f,"Are you sure to Delete Employee?");  
+                    int a=JOptionPane.showConfirmDialog(f,"<html><font size=4>Are you sure to Delete Employee?","Alert",JOptionPane.WARNING_MESSAGE);  
                 if(a==JOptionPane.YES_OPTION){  
                 try
                 {

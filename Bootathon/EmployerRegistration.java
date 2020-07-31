@@ -1,8 +1,11 @@
-package Bootathon;
+ package Bootathon;
 
 import Bootathon.database.DBOperations;
+import Bootathon.uiworks.MyButton;
+import Bootathon.uiworks.MyFrame;
+import Bootathon.uiworks.MyLabel;
+import Bootathon.uiworks.MyTextField;
 import java.awt.Container;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -13,12 +16,9 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+
 
 /**
  *
@@ -28,85 +28,83 @@ public class EmployerRegistration {
        EmployerRegistration()
        {
            //creating frame
-            JFrame f=new JFrame();
-            f.setBounds(500,200,500,700);
-            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            f.setTitle(" New Registration ");
-            f.setResizable(false);
+            MyFrame f=new MyFrame(5);
+            f.setBounds(500,100,600,800);
+            
            
             //Container creation
             Container c = f.getContentPane();
             c.setLayout(null);
                        
             //Label creation
-            JLabel l = new JLabel();
-        l.setText("Employer Name : ");
-        l.setBounds(50,50,200,50);
+            MyLabel l = new MyLabel("Employer Name ");
+        
+        l.setBounds(50,40,200,50);
         c.add(l);
-        l.setFont(new Font("Candara Light",Font.BOLD,25));  
-        JLabel l2 = new JLabel();
-        l2.setText("Organization    : ");
-        l2.setBounds(50,200,200,50);
+
+        MyLabel l2 = new MyLabel("Organization");
+      
+        l2.setBounds(50,200+40,200,50);
         c.add(l2);
-        l2.setFont(new Font("Candara Light",Font.BOLD,25));
-        JLabel l3 = new JLabel();
-        l3.setText("D.O.B                : ");
-        l3.setBounds(50,275,200,50);
+ ;
+        MyLabel l3 = new MyLabel("D.O.B ");
+       
+        l3.setBounds(50,275+40,200,50);
         c.add(l3);
-        l3.setFont(new Font("Candara Light",Font.BOLD,25));
-        JLabel l4 = new JLabel();
-        l4.setText("Email ID        : ");
-        l4.setBounds(50,350,200,50);
+       
+        MyLabel l4 = new MyLabel("Email ID");
+        l4.setBounds(50,350+40,200,50);
         c.add(l4);
-        l4.setFont(new Font("Candara Light",Font.BOLD,25));
-        JLabel l5 = new JLabel();
-        l5.setText("Password         : ");
-        l5.setBounds(50,425,200,50);
+ 
+        MyLabel l5 = new MyLabel("Password");
+
+        l5.setBounds(50,425+40,200,50);
         c.add(l5);
-        l5.setFont(new Font("Candara Light",Font.BOLD,25));
-        JLabel l6 = new JLabel();
-        l6.setText("RetypePassword:");
-        l6.setBounds(50,500,200,50);
+        MyLabel l6 = new MyLabel("RetypePassword");
+
+        l6.setBounds(50,500+40,200,50);
         c.add(l6);
-        l6.setFont(new Font("Candara Light",Font.BOLD,25));
-        JLabel l7 = new JLabel("Activation key");
+
+        MyLabel l7 = new MyLabel("Activation key");
         c.add(l7);
-        l7.setFont(new Font("Candara Light",Font.BOLD,25));
-        l7.setBounds(50,125,200,50);
+
+        l7.setBounds(50,115,200,50);
        
         //Textfield creation
-        JTextField t1 = new JTextField();
-        t1.setBounds(250,50,200,50);
+        MyTextField t1 = new MyTextField();
+        t1.setBounds(250,50,300,30);
         c.add(t1);
-        t1.setFont(new Font("Comic sans MS",Font.BOLD,25));
-        JTextField t2 = new JTextField();
-        t2.setBounds(250,200,200,50);
+
+        MyTextField t2 = new MyTextField();
+        t2.setBounds(250,200+50,300,30);
         t2.setEditable(false);
         c.add(t2);
-        t2.setFont(new Font("Comic sans MS",Font.BOLD,25));
-        JTextField t3 = new JTextField();
-        t3.setBounds(250,275,200,50);
+
+        MyTextField t3 = new MyTextField();
+        t3.setBounds(250,275+50,300,30);
         c.add(t3);
-        t3.setFont(new Font("Comic sans MS",Font.BOLD,25));
-        JTextField t4 = new JTextField();
-        t4.setBounds(250,350,200,50);
+
+        MyTextField t4 = new MyTextField();
+        t4.setBounds(250,350+50,300,30);
         c.add(t4);
-        t4.setFont(new Font("Comic sans MS",Font.BOLD,25));
+
         JPasswordField t5 = new JPasswordField();
-        t5.setBounds(250,425,200,50);
+        t5.setBounds(250,425+50,300,30);
         c.add(t5);
-        t5.setFont(new Font("Comic sans MS",Font.BOLD,25));
+
         JPasswordField t6 = new JPasswordField();
-        t6.setBounds(250,500,200,50);
+        t6.setBounds(250,500+50,300,30);
         c.add(t6);
-        t6.setFont(new Font("Comic sans MS",Font.BOLD,25));
-        JTextField t7 = new JTextField();
-        t7.setBounds(250,125,200,30);
+ 
+        MyTextField t7 = new MyTextField();
+        t7.setBounds(250,125,300,30);
         c.add(t7);
-        t7.setFont(new Font("Comic sans MS",Font.BOLD,25));
-       
+
+       MyLabel summa = new MyLabel("click here \u2191");
+       summa.setBounds(380,210,150,20);
+       c.add(summa);
         // creating button
-        JButton b1 = new JButton("Validate");
+        MyButton b1 = new MyButton("Validate");
         b1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -138,31 +136,31 @@ public class EmployerRegistration {
                     }
                 }}
             });
-        b1.setBounds(300,160,100,30);
+        b1.setBounds(380,180,110,20);
         c.add(b1);
-        JButton b = new JButton();
+        MyButton b = new MyButton("Register");
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(t2.getText().isEmpty())
                 {
-                    JOptionPane.showMessageDialog(f, "Please Validate your Product Key First!");
+                    JOptionPane.showMessageDialog(f, "<html><font size=4>Please Validate your Product Key First!","Validate",JOptionPane.ERROR_MESSAGE);
                 }
                 else if(t1.getText().isEmpty() || t3.getText().isEmpty() || t4.getText().isEmpty() || String.valueOf(t5.getPassword()).isEmpty() || String.valueOf(t5.getPassword()).isEmpty())
                 {
-                    JOptionPane.showMessageDialog(f, "Please Fill all the details listed above!");
+                    JOptionPane.showMessageDialog(f, "<html><font size=4>Please Fill all the details listed above!","Fill it",JOptionPane.ERROR_MESSAGE);
                 }
                 else if(!Pattern.compile("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$").matcher(t3.getText()).matches())
                 {
-                    JOptionPane.showMessageDialog(f, "Invalid Date Format use (dd/mm/yyy)!");
+                    JOptionPane.showMessageDialog(f, "<html><font size=4>Invalid Date Format use (dd/mm/yyy)!","Invalid",JOptionPane.ERROR_MESSAGE);
                 }
                 else if(!Pattern.compile("^(.+)@(.+)$").matcher(t4.getText()).matches())
                 {
-                    JOptionPane.showMessageDialog(f, "Invalid Email Address!");
+                    JOptionPane.showMessageDialog(f, "<html><font size=4>Invalid Email Address!","Invalid",JOptionPane.ERROR_MESSAGE);
                 }
                 else if(!String.valueOf(t6.getPassword()).equals(String.valueOf(t5.getPassword())))
                 {
-                    JOptionPane.showMessageDialog(f, "The Password and Retype Password does not match!");
+                    JOptionPane.showMessageDialog(f, "<html><font size=4>The Password and Retype Password does not match!","re-type Error",JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                 try{
@@ -191,7 +189,7 @@ public class EmployerRegistration {
                     st.setString(1, t7.getText());
                     st.executeUpdate();
                     conn.close();
-                    JOptionPane.showMessageDialog(f,"Registration Successful","Alert",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(f,"<html><font size=4>Registration Successful","Successful",JOptionPane.INFORMATION_MESSAGE);
                     //System.out.println(id+t1.getText()+"Nil");
                     f.dispose();
                     //System.out.println(id+t1.getText()+"Nil");
@@ -204,8 +202,8 @@ public class EmployerRegistration {
                 
             }}
         });
-        b.setText("Register");
-        b.setBounds(300,570,100,40);
+       
+        b.setBounds(30,620,150,30);
         c.add(b);
        
         f.setVisible(true);

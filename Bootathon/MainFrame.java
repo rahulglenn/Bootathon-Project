@@ -5,10 +5,13 @@
  */
 package Bootathon;
 import Bootathon.database.DBOperations;
+import Bootathon.uiworks.MyButton;
+import Bootathon.uiworks.MyFrame;
+import Bootathon.uiworks.MyLabel;
+import Bootathon.uiworks.MyPanel;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,13 +20,9 @@ import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.plaf.basic.BasicArrowButton;
+
 /**
  *
  * @author rahul
@@ -55,33 +54,41 @@ public class MainFrame {
     MainFrame()
     {
         // Frame creating
-        JFrame mainFrame = new JFrame();
-        mainFrame.setBounds(500,200,500,700);
-        mainFrame.setDefaultCloseOperation(3);
+        MyFrame mainFrame = new MyFrame(2);
+        mainFrame.setBounds(500,100,600,800);
+     
         
         //container creating
         Container c = mainFrame.getContentPane();
         c.setLayout(new GridLayout(5,1,30,30));
         mainFrame.setVisible(false);
-        JPanel panel0 = new JPanel();
-        panel0.setLayout(new FlowLayout(FlowLayout.LEFT,10,40));
-        JLabel paneLab = new JLabel("Hi,"+EmpName+"               ");
+        MyPanel panel0 = new MyPanel();
+        panel0.setLayout(null);
+        MyLabel paneLab = new MyLabel("Hi,"+EmpName+"               ",1);
+        paneLab.setBounds(30,60,300,30);
         c.add(panel0);
         panel0.add(paneLab);
-        JLabel paneLab1 = new JLabel("Last login on " + date);
-        paneLab1.setFont(new Font("Comic sans MS",Font.BOLD,15));
-        paneLab.setFont(new Font("Comic sans MS",Font.BOLD,25));
-        panel0.add(paneLab1);
+        MyButton laa = new MyButton("Log out");
+        laa.setBounds(460,60,100,30);
+        laa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                new LoginPage();
+            }
+        });
+       
+        panel0.add(laa);
+        
         //Rewinding details (panel 1)
-        JPanel panel1 = new JPanel();  
+        MyPanel panel1 = new MyPanel();  
         panel1.setLayout(new FlowLayout(FlowLayout.LEFT,20,10));
-        TitledBorder rewindingDetails = new TitledBorder("Rewinding Details");
-        rewindingDetails.setTitleFont(new Font("Comic sans MS",Font.BOLD,25));
+        TitledBorder rewindingDetails = new TitledBorder("<html><font size=6>Rewinding Details");
         rewindingDetails.setBorder(new LineBorder(Color.black, 3));
         panel1.setBorder(rewindingDetails);
         
         //rewinding buttons
-        JButton addRewind = new JButton("  Add ");
+        MyButton addRewind = new MyButton("  Add ");
         addRewind.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -89,7 +96,7 @@ public class MainFrame {
                 new AddRewind(id);
             }
         });
-        JButton viewRewind = new JButton(" View ");
+        MyButton viewRewind = new MyButton(" View ");
         viewRewind.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -97,7 +104,7 @@ public class MainFrame {
                 new ViewRewind(id);
             }
         });
-        JButton updateRewind = new JButton(" Update ");
+        MyButton updateRewind = new MyButton(" Update ");
         updateRewind.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -105,7 +112,7 @@ public class MainFrame {
                 new UpdateRewind(id);
             }
         });
-        JButton deleteRewind = new JButton(" Delete ");
+        MyButton deleteRewind = new MyButton(" Delete ");
         deleteRewind.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -113,10 +120,7 @@ public class MainFrame {
                 new DeleteRewind(id);
             }
         });
-        addRewind.setFont(new Font("arial",Font.BOLD,15));
-        viewRewind.setFont(new Font("arial",Font.BOLD,15));
-        updateRewind.setFont(new Font("arial",Font.BOLD,15));
-        deleteRewind.setFont(new Font("arial",Font.BOLD,15));
+        
         
         //adding to panel
         panel1.add(addRewind);
@@ -126,11 +130,10 @@ public class MainFrame {
         c.add(panel1);
         
         //work details (panel 2)
-        JPanel panel2 = new JPanel();
+        MyPanel panel2 = new MyPanel();
         
         //panel 2 border
-        TitledBorder workDetails = new TitledBorder("Work Details");
-        workDetails.setTitleFont(new Font("Comic sans MS",Font.BOLD,25));
+        TitledBorder workDetails = new TitledBorder("<html><font size=6>Work Details");
         workDetails.setBorder(new LineBorder(Color.black, 3));
         panel2.setBorder(workDetails);
         
@@ -138,7 +141,7 @@ public class MainFrame {
         panel2.setLayout(new FlowLayout(FlowLayout.LEFT,20,10));
         
         //panel 2 buttons
-        JButton addWork = new JButton("  Add ");
+        MyButton addWork = new MyButton("Add");
         addWork.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -146,7 +149,7 @@ public class MainFrame {
                 new AddWork(id);
             }
         });
-        JButton viewWork= new JButton(" View ");
+        MyButton viewWork= new MyButton(" View ");
         viewWork.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -154,7 +157,7 @@ public class MainFrame {
                 new ViewWork(id);
             }
         });
-        JButton updateWork = new JButton(" Update ");
+        MyButton updateWork = new MyButton(" Update ");
         updateWork.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -162,7 +165,7 @@ public class MainFrame {
                 new UpdateWork(id);
             }
         });
-        JButton workhis = new JButton(" Work history ");
+        MyButton workhis = new MyButton(" Work history ");
         workhis.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -170,10 +173,7 @@ public class MainFrame {
                 new WorkHistory(id);
             }
         });
-        workhis.setFont(new Font("arial",Font.BOLD,15));
-        addWork.setFont(new Font("arial",Font.BOLD,15));
-        viewWork.setFont(new Font("arial",Font.BOLD,15));
-        updateWork.setFont(new Font("arial",Font.BOLD,15));
+        
         
         //adding to panel 2
         panel2.add(addWork);
@@ -185,10 +185,9 @@ public class MainFrame {
         c.add(panel2);
         
         //employee details (panel 3)
-        JPanel panel3 = new JPanel(); 
+        MyPanel panel3 = new MyPanel(); 
         //panel 3 border
-        TitledBorder employeeDetails = new TitledBorder("Employee Details");
-        employeeDetails.setTitleFont(new Font("Comic sans MS",Font.BOLD,25));
+        TitledBorder employeeDetails = new TitledBorder("<html><font size=6>Employee Details");
         employeeDetails.setBorder(new LineBorder(Color.black, 3));
         panel3.setBorder(employeeDetails);
         
@@ -196,7 +195,7 @@ public class MainFrame {
         panel3.setLayout(new FlowLayout(FlowLayout.LEFT,20,10));
         
         //panel 3 buttons
-        JButton addEmployee = new JButton("  Add ");
+        MyButton addEmployee = new MyButton("  Add ");
         addEmployee.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -204,7 +203,7 @@ public class MainFrame {
                 new AddEmploy(id);
             }
         });
-        JButton viewEmployee= new JButton(" View ");
+        MyButton viewEmployee= new MyButton(" View ");
         viewEmployee.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -212,7 +211,7 @@ public class MainFrame {
                 new ViewEmploy(id);
             }
         });
-        JButton deleteEmployee = new JButton(" Delete ");
+        MyButton deleteEmployee = new MyButton(" Delete ");
         deleteEmployee.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -220,7 +219,7 @@ public class MainFrame {
                 new DelEmploy(id);
             }
         });
-        JButton leaveEntry = new JButton(" Leave Entry ");
+        MyButton leaveEntry = new MyButton(" Leave Entry ");
         leaveEntry.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -228,10 +227,7 @@ public class MainFrame {
                 new LeaveEntry(id);
             }
         });
-        addEmployee.setFont(new Font("arial",Font.BOLD,15));
-        viewEmployee.setFont(new Font("arial",Font.BOLD,15));
-        deleteEmployee.setFont(new Font("arial",Font.BOLD,15));
-        leaveEntry.setFont(new Font("arial",Font.BOLD,15));
+        
         
         //adding to panel 3
         panel3.add(addEmployee);
@@ -242,18 +238,11 @@ public class MainFrame {
         //adding panel to container
         c.add(panel3);
         
-        JPanel last = new JPanel();
-        last.setLayout(new FlowLayout(FlowLayout.CENTER,0,20) );
-        JButton laa = new JButton("Log out");
-        laa.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainFrame.dispose();
-                new LoginPage();
-            }
-        });
-        laa.setFont(new Font("arial",Font.BOLD,20));
-        last.add(laa);
+        MyPanel last = new MyPanel();
+        last.setLayout(new FlowLayout(FlowLayout.LEFT,50,20) );
+        MyLabel paneLab1 = new MyLabel("Last login on " + date);
+        
+        last.add(paneLab1);
         c.add(last);
         
         mainFrame.setVisible(true);

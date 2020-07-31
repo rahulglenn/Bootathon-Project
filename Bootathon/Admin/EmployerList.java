@@ -6,18 +6,19 @@
 package Bootathon.Admin;
 
 import Bootathon.database.DBOperations;
+import Bootathon.uiworks.MyButton;
+import Bootathon.uiworks.MyFrame;
+import Bootathon.uiworks.MyLabel;
+import Bootathon.uiworks.MyTable;
 import java.awt.Container;
-import java.awt.Font;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+
 import javax.swing.JScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import javax.swing.*;
+
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -26,17 +27,14 @@ import javax.swing.table.DefaultTableModel;
 public class EmployerList {
     EmployerList()
     {
-        JFrame frame = new JFrame();
+        MyFrame frame = new MyFrame(4);
         frame.setBounds(100,200,1350,700);
-        frame.setDefaultCloseOperation(3);
-        frame.setResizable(false);
         Container c = frame.getContentPane();
         c.setLayout(null);
-        JLabel label1 = new JLabel("Employeer List");
-        label1.setFont(new Font("Comic sans MS",Font.BOLD,20));
-        label1.setBounds(10,5,200,50);
+        MyLabel label1 = new MyLabel("Employeer List",1);
+        label1.setBounds(30,5,250,50);
         c.add(label1);
-        JTable table = new JTable();
+        MyTable table = new MyTable();
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("  Empr.Id  ");
         model.addColumn("Empr.Name");
@@ -63,11 +61,10 @@ public class EmployerList {
         {System.out.println(ee);}
 
         table.setRowHeight(30);        
-        table.setFont(new Font("arial",Font.PLAIN,20));
         JScrollPane scroll = new JScrollPane(table,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setBounds(20,70,1300,500);
         c.add(scroll);
-        JButton but = new JButton("\u2190"+"  BACK");
+        MyButton but = new MyButton("\u2190"+"  BACK");
         but.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
@@ -75,7 +72,6 @@ public class EmployerList {
                  new AdminMain();
              }
          });
-        but.setFont(new Font("",Font.PLAIN,20));
         but.setBounds(700,600,150,30);
         c.add(but);
         frame.setVisible(true);

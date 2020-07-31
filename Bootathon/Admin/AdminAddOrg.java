@@ -6,18 +6,18 @@
 package Bootathon.Admin;
 
 import Bootathon.database.DBOperations;
+import Bootathon.uiworks.MyButton;
+import Bootathon.uiworks.MyFrame;
+import Bootathon.uiworks.MyLabel;
+import Bootathon.uiworks.MyTextField;
 import java.awt.Container;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.UUID;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+
 /**
  *
  * @author rahul
@@ -25,37 +25,32 @@ import javax.swing.JTextField;
 public class AdminAddOrg {
     AdminAddOrg()
     {
-       JFrame frame = new JFrame();
+       MyFrame frame = new MyFrame(2);
        frame.setBounds(500,200,500,700);
        frame.setDefaultCloseOperation(3);
        Container c = frame.getContentPane();
        c.setLayout(null);
        
-       JLabel l1 = new JLabel("Add organization");
-       l1.setFont(new Font("",Font.BOLD,25));
+       MyLabel l1 = new MyLabel("Add organization",1);
        l1.setBounds(10,20,300,50);
        c.add(l1);
        
-       JLabel l2 = new JLabel("Organization Name");
-       l2.setFont(new Font("",Font.BOLD,15));
-       l2.setBounds(50,130,150,30);
+       MyLabel l2 = new MyLabel("Organization Name");
+       l2.setBounds(50,130,200,30);
        c.add(l2);
-       JTextField t1 = new JTextField();
-       t1.setFont(new Font("",Font.BOLD,15));
+       MyTextField t1 = new MyTextField();
        t1.setBounds(250,130,200,30);
        c.add(t1);
        
-       JLabel l3 = new JLabel("Activation key");
-       l3.setFont(new Font("",Font.BOLD,15));
+       MyLabel l3 = new MyLabel("Activation key");
        l3.setBounds(50,200,150,30);
        c.add(l3);
-       JTextField t2 = new JTextField();
+       MyTextField t2 = new MyTextField();
        t2.setEditable(false);
-       t2.setFont(new Font("",Font.BOLD,15));
        t2.setBounds(250,200,200,30);
        c.add(t2);
        
-       JButton gen = new JButton("Generate");
+       MyButton gen = new MyButton("Generate");
        gen.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
@@ -82,10 +77,9 @@ public class AdminAddOrg {
            }}
        });
        gen.setBounds(70,300,150,30);
-       gen.setFont(new Font("",Font.BOLD,20));
        c.add(gen);
        
-       JButton bac = new JButton("\u2190"+"  BACK");
+       MyButton bac = new MyButton("\u2190"+"  BACK");
        bac.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
@@ -94,7 +88,6 @@ public class AdminAddOrg {
            }
        });
        bac.setBounds(270,300,150,30);
-       bac.setFont(new Font("",Font.BOLD,20));
        c.add(bac);
        frame.setVisible(true);
     }
