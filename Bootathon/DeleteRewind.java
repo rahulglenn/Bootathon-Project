@@ -18,6 +18,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -127,7 +130,17 @@ public class DeleteRewind {
                     ResultSet rs=st.executeQuery();
                     rs.next();
                     t.setText(rs.getString("hp"));
-                    ta.setText(rs.getString("details"));
+                    t.setText(rs.getString("hp"));
+                    String path=rs.getString("details").replace('@', '\\');
+                    BufferedReader buff=new BufferedReader(new FileReader(path));
+                    int i;
+                    String det="";
+                    while((i=buff.read())!=-1)
+                    {
+                        det+=(char)i;
+                    }
+                    buff.close();
+                    ta.setText(det);
                     conn.close();
                 }
                 catch(Exception ee)
@@ -155,6 +168,8 @@ public class DeleteRewind {
                     PreparedStatement st=conn.prepareStatement("delete from rewinddet where emprid=? and hp=?");
                     st.setInt(1, id);
                     st.setString(2, t.getText());
+                    String path="C:\\Electrical Data\\Empr"+String.valueOf(id)+"\\"+String.valueOf(id)+t.getText()+".txt";
+                    new File(path).delete();
                     st.executeUpdate();
                     conn.close();
                 }

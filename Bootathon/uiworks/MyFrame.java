@@ -19,26 +19,26 @@ public class MyFrame extends JFrame{
     {
         if(a==1)
         {
-            setContentPane(new JLabel(new ImageIcon("E:/java training/JavaApplication1/src/Bootathon/img/b1.jpg")));
+            setContentPane(new JLabel(new ImageIcon("C:/Users/rahul/Documents/NetBeansProjects/Bootcamp-Java/src/Bootathon/img/b1.jpg")));
         }
         else if(a==2)
         {
-            setContentPane(new JLabel(new ImageIcon("E:/java training/JavaApplication1/src/Bootathon/img/b2.jpg")));
+            setContentPane(new JLabel(new ImageIcon("C:/Users/rahul/Documents/NetBeansProjects/Bootcamp-Java/src/Bootathon/img/b2.jpg")));
         }
         else if(a==3)
         {
-            setContentPane(new JLabel(new ImageIcon("E:/java training/JavaApplication1/src/Bootathon/img/b3.jpg")));
+            setContentPane(new JLabel(new ImageIcon("C:/Users/rahul/Documents/NetBeansProjects/Bootcamp-Java/src/Bootathon/img/b3.jpg")));
         }
         else if(a==4)
         {
-             setContentPane(new JLabel(new ImageIcon("E:/java training/JavaApplication1/src/Bootathon/img/b4.jpg")));
+             setContentPane(new JLabel(new ImageIcon("C:/Users/rahul/Documents/NetBeansProjects/Bootcamp-Java/src/Bootathon/img/b4.jpg")));
         }
         else if(a==5)
         {
-            setContentPane(new JLabel(new ImageIcon("E:/java training/JavaApplication1/src/Bootathon/img/b5.jpg")));
+            setContentPane(new JLabel(new ImageIcon("C:/Users/rahul/Documents/NetBeansProjects/Bootcamp-Java/src/Bootathon/img/b5.jpg")));
         }
         
-         setIconImage(new ImageIcon("E:/java training/JavaApplication1/src/Bootathon/img/icon.jpg").getImage());
+         setIconImage(new ImageIcon("C:/Users/rahul/Documents/NetBeansProjects/Bootcamp-Java/src/Bootathon/img/icon.jpg").getImage());
          setTitle(" Tech i5");
          setResizable(false);
          setDefaultCloseOperation(3);

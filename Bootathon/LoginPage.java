@@ -10,11 +10,7 @@ import Bootathon.uiworks.MyTextField;
 import Bootathon.uiworks.MyFrame;
 import Bootathon.uiworks.MyButton;
 import Bootathon.database.DBOperations;
-import java.awt.Color;
 import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -23,25 +19,15 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ButtonGroup;
-
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
-/**
- *
- * @author rahul
- */
 public class LoginPage {
     LoginPage()
     {
+    //creating frame
     MyFrame f = new MyFrame(1);
     f.setBounds(500,100,600,800);
    
@@ -63,7 +49,6 @@ public class LoginPage {
     c.add(t1);
     
     //creating Panel2(Password)
-    
     MyLabel l2=new MyLabel("Password");
     l2.setBounds(60,200,150,30);
     JPasswordField pass2=new JPasswordField(12);
@@ -84,13 +69,12 @@ public class LoginPage {
     c.add(pass2);
     c.add(cb2);
     
-    
+    //creating radio button
     JRadioButton rb1 = new JRadioButton("<html><Font size = 4>Employee</Font></html>");
     JRadioButton rb2 = new JRadioButton("<html><Font size = 4>Employer</Font></html>");
     rb1.setBounds(70,320,150,30);
     rb2.setBounds(230,320,150,30);
     rb1.setOpaque(false);
-    
     rb2.setOpaque(false);
     c.add(rb1);
     c.add(rb2);
@@ -99,9 +83,8 @@ public class LoginPage {
     bg.add(rb1);
     
 
-    //creating panel3(login&back)
-    
-    MyButton b1 = new MyButton("Add");
+    //creating panel3(login & signup buttons)
+    MyButton b1 = new MyButton("Login");
     b1.setBounds(50,400,150,30);
     MyButton b2=new MyButton("Sign Up");
     b2.setBounds(50,480,150,30);
@@ -112,10 +95,10 @@ public class LoginPage {
             new EmployerRegistration();
         }
     });
-    
     c.add(b2);
     c.add(b1);
     
+    //login button action
     b1.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -128,7 +111,7 @@ public class LoginPage {
                 JOptionPane.showMessageDialog(f, "Please enter Login Credentials!");
             }
             else{
-            if(rb1.isSelected())
+            if(rb1.isSelected()) // employee radio button is selected
             {
                 try{
                     Connection conn=DBOperations.getConn();
@@ -157,7 +140,7 @@ public class LoginPage {
                 catch(Exception ee)
                 {System.out.println(ee);}
             }
-            if(rb2.isSelected())
+            if(rb2.isSelected()) // employer radio button is selected
             {
                  try{
                     Connection conn=DBOperations.getConn();
@@ -194,14 +177,11 @@ public class LoginPage {
             }}
         }
     });
-    
-    
-    
-    
+   
     f.setVisible(true);   
     }
     public static void main(String[] args) {
-        new LoginPage();
+        new LoadFrame();
     }
     
 }

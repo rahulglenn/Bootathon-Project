@@ -31,7 +31,7 @@ public class EmployerList {
         frame.setBounds(100,200,1350,700);
         Container c = frame.getContentPane();
         c.setLayout(null);
-        MyLabel label1 = new MyLabel("Employeer List",1);
+        MyLabel label1 = new MyLabel("Employer List",1);
         label1.setBounds(30,5,250,50);
         c.add(label1);
         MyTable table = new MyTable();

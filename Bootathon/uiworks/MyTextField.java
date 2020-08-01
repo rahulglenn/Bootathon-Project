@@ -13,7 +13,7 @@ import javax.swing.JTextField;
  * @author sk
  */
 public class MyTextField  extends JTextField{
-    
+   // private static JTextField txtfld;
     public MyTextField()
     {
         setFont(new Font("arial",Font.PLAIN,18));

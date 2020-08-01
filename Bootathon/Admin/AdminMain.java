@@ -52,7 +52,7 @@ public class AdminMain {
        c.add(b1);
        
         //Button 2
-       MyButton b2 = new MyButton("Employee list");
+       MyButton b2 = new MyButton("Employer list");
        b2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

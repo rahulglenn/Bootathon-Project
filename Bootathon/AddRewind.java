@@ -14,6 +14,8 @@ import java.awt.Container;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -94,11 +96,15 @@ public class AddRewind {
                 }
                 else{
                 try{
+                    String path="C:\\Electrical Data\\Empr"+String.valueOf(id)+"\\"+String.valueOf(id)+enterhp.getText()+".txt";
+                    BufferedWriter buff=new BufferedWriter(new FileWriter(path));
+                    buff.write(ta.getText());
+                    buff.close();
                     Connection conn = DBOperations.getConn();
                     PreparedStatement st=conn.prepareStatement("insert into rewinddet values(?,?,?)");
                     st.setInt(1, id);
                     st.setString(2, enterhp.getText());
-                    st.setString(3, ta.getText());
+                    st.setString(3, path.replace('\\','@'));
                     st.executeUpdate();
                     conn.close();
                 }

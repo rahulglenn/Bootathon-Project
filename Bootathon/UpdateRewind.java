@@ -10,7 +10,6 @@ import Bootathon.uiworks.MyButton;
 import Bootathon.uiworks.MyComboBox;
 import Bootathon.uiworks.MyFrame;
 import Bootathon.uiworks.MyLabel;
-import Bootathon.uiworks.MyPanel;
 import Bootathon.uiworks.MyTextArea;
 import Bootathon.uiworks.MyTextField;
 import java.awt.Container;
@@ -18,9 +17,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -118,10 +123,19 @@ public class UpdateRewind {
                     ResultSet rs=st.executeQuery();
                     rs.next();
                     t.setText(rs.getString("hp"));
-                    ta.setText(rs.getString("details"));
+                    String path=rs.getString("details").replace('@', '\\');
+                    BufferedReader buff=new BufferedReader(new FileReader(path));
+                    int i;
+                    String det="";
+                    while((i=buff.read())!=-1)
+                    {
+                        det+=(char)i;
+                    }
+                    buff.close();
+                    ta.setText(det);
                     conn.close();
                 }
-                catch(Exception ee)
+                catch(IOException | SQLException ee)
                 {
                     
                 }
@@ -142,15 +156,12 @@ public class UpdateRewind {
                 if(a==JOptionPane.YES_OPTION){  
                 try
                 {
-                    Connection conn = DBOperations.getConn();
-                    PreparedStatement st=conn.prepareStatement("update rewinddet set details=? where hp=? and emprid=?");
-                    st.setString(2, t.getText());
-                    st.setString(1, ta.getText());
-                    st.setInt(3, id);
-                    st.executeUpdate();
-                    conn.close();
+                   String path="C:\\Electrical Data\\Empr"+String.valueOf(id)+"\\"+String.valueOf(id)+t.getText()+".txt";
+                   BufferedWriter buff=new BufferedWriter(new FileWriter(path));
+                   buff.write(ta.getText());
+                   buff.close();
                 }
-                catch(Exception ee)
+                catch(IOException ee)
                 {
                     System.out.println(ee);
                 }

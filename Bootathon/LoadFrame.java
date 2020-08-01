@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description : This is the first frame which runs, when we open our application. It includes a loading screen.
+ * Author : Sai Karthik
+ * 
  */
 package Bootathon;
 
@@ -13,15 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 
-/**
- *
- * @author sk
- */
 public class LoadFrame {
-
-    /**
-     * @param args the command line arguments
-     */
     LoadFrame()
     {
         MyFrame f = new MyFrame(3);
@@ -34,7 +26,7 @@ public class LoadFrame {
         p.setStringPainted(true);
        
         p.setFont(new Font("",Font.BOLD,12));
-        JLabel l = new JLabel(new ImageIcon("E:/java training/JavaApplication1/src/Bootathon/img/dis1.gif"));
+        JLabel l = new JLabel(new ImageIcon("C:/Users/rahul/Documents/NetBeansProjects/Bootcamp-Java/src/Bootathon/img/dis1.gif"));
         l.setBounds(150,250,300,150);
         JLabel l1 = new JLabel("\u00A9"+" copyrights - Team 16");
         l1.setBounds(210,550,200,50);
@@ -47,11 +39,10 @@ public class LoadFrame {
         try{
             Thread.sleep(500);
         }
-        catch(Exception e)
+        catch(InterruptedException e)
         {
-            
+            System.out.println(e);
         }
-                
         
         for(int i=0;i<101;i++)
         {
@@ -60,7 +51,7 @@ public class LoadFrame {
             try{
                 Thread.sleep(45);
             }
-            catch(Exception ee)
+            catch(InterruptedException ee)
             {
                 System.out.println(ee);
             }
@@ -68,8 +59,6 @@ public class LoadFrame {
         }
         new LoginPage();
         f.dispose();
-        
-        
     }
     public static void main(String[] args) {
        new LoadFrame();

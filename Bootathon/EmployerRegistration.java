@@ -8,6 +8,7 @@ import Bootathon.uiworks.MyTextField;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -144,7 +145,7 @@ public class EmployerRegistration {
             public void actionPerformed(ActionEvent e) {
                 if(t2.getText().isEmpty())
                 {
-                    JOptionPane.showMessageDialog(f, "<html><font size=4>Please Validate your Product Key First!","Validate",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(f, "<html><font size=4>Please Validate your Product Key!","Validate",JOptionPane.ERROR_MESSAGE);
                 }
                 else if(t1.getText().isEmpty() || t3.getText().isEmpty() || t4.getText().isEmpty() || String.valueOf(t5.getPassword()).isEmpty() || String.valueOf(t5.getPassword()).isEmpty())
                 {
@@ -152,7 +153,7 @@ public class EmployerRegistration {
                 }
                 else if(!Pattern.compile("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$").matcher(t3.getText()).matches())
                 {
-                    JOptionPane.showMessageDialog(f, "<html><font size=4>Invalid Date Format use (dd/mm/yyy)!","Invalid",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(f, "<html><font size=4>Invalid Date Format use (dd/mm/yyyy)!","Invalid",JOptionPane.ERROR_MESSAGE);
                 }
                 else if(!Pattern.compile("^(.+)@(.+)$").matcher(t4.getText()).matches())
                 {
@@ -191,6 +192,7 @@ public class EmployerRegistration {
                     conn.close();
                     JOptionPane.showMessageDialog(f,"<html><font size=4>Registration Successful","Successful",JOptionPane.INFORMATION_MESSAGE);
                     //System.out.println(id+t1.getText()+"Nil");
+                    new File("C:\\Electrical Data\\Empr"+String.valueOf(id)).mkdir();
                     f.dispose();
                     //System.out.println(id+t1.getText()+"Nil");
                     new MainFrame(id,t1.getText(),"Nil");
