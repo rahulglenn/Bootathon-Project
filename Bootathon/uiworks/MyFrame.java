@@ -38,7 +38,7 @@ public class MyFrame extends JFrame{
             setContentPane(new JLabel(new ImageIcon("E:/java training/JavaApplication1/src/Bootathon/img/b5.jpg")));
         }
         
-         
+         setIconImage(new ImageIcon("E:/java training/JavaApplication1/src/Bootathon/img/icon.jpg").getImage());
          setTitle(" Tech i5");
          setResizable(false);
          setDefaultCloseOperation(3);
