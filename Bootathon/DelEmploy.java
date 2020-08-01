@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description :Remove employee details by the employer.
+ * Author      :Sai Karthik
  */
 package Bootathon;
 
@@ -26,10 +25,7 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author rahul
- */
+
 public class DelEmploy {
     DelEmploy(int id)
     {
@@ -69,7 +65,7 @@ public class DelEmploy {
     
     
        cb.setBounds(250,130,250,30);
-       cb.setEditable(true);
+       cb.setEditable(false);
        c.add(l2);
        c.add(cb);
        
@@ -128,6 +124,7 @@ public class DelEmploy {
       //buttons
       MyButton del = new MyButton("Delete");
       MyButton bac = new MyButton("\u2190"+"  BACK");
+      //back action
       bac.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -141,6 +138,7 @@ public class DelEmploy {
       c.add(del);
       c.add(bac);
       
+      //selected employee details are displayed
       cb.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -165,6 +163,7 @@ public class DelEmploy {
             }
         });
       
+      //selected employee details are deleted and employee removed
       del.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

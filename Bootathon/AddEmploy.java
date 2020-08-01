@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description :Adding employee details by the employer.
+ * Author      :Sai Karthik
  */
 package Bootathon;
 
@@ -22,28 +21,25 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
-/**
- *
- * @author rahul
- */
+
 public class AddEmploy {
     AddEmploy(int id)
     {
         // frame creating
-        MyFrame f = new MyFrame(2);           
-        f.setBounds(500,100,600,800);
+        MyFrame addemp_f = new MyFrame(2);           
+        addemp_f.setBounds(500,100,600,800);
          
         
         //container creating
-        Container c = f.getContentPane();
+        Container c = addemp_f.getContentPane();
         c.setLayout(null);
         
-       //label 1
+       //label1
        MyLabel l1 = new MyLabel("Add Employee",1);
        l1.setBounds(30,10,300,50);
        c.add(l1);
        
-       //select employee
+       //employee name
        MyLabel l2 = new MyLabel("Employee Name");
        l2.setBounds(50,70,200,50);       
        MyTextField t = new MyTextField();
@@ -51,7 +47,7 @@ public class AddEmploy {
        c.add(l2);
        c.add(t);
        
-       //employee id
+       //address
        MyLabel l3 = new MyLabel("Address");
        l3.setBounds(120,140,200,50);
        
@@ -60,7 +56,7 @@ public class AddEmploy {
        c.add(l3);
        c.add(t1);
        
-       //employee name
+       //DOB
        MyLabel l4 = new MyLabel("D.O.B");
        l4.setBounds(140,210,200,50);
        
@@ -69,7 +65,7 @@ public class AddEmploy {
        c.add(l4);
        c.add(t2);
        
-       //dob
+       //phone no
        MyLabel l5 = new MyLabel("Phone No");
        l5.setBounds(105,280,200,50);
        
@@ -78,6 +74,7 @@ public class AddEmploy {
        c.add(l5);
        c.add(t3);
        
+       //salary
        MyLabel l6 = new MyLabel("Salary");
        l6.setBounds(135,350,200,50);
        
@@ -86,6 +83,7 @@ public class AddEmploy {
        c.add(l6);
        c.add(t4);
        
+       //email id
        MyLabel l7 = new MyLabel("Email ID");
        l7.setBounds(115,420,200,50);
        
@@ -94,6 +92,7 @@ public class AddEmploy {
        c.add(l7);
        c.add(t5);
        
+       //password
        MyLabel l8 = new MyLabel("Password");
        l8.setBounds(105,490,200,50);
        
@@ -102,6 +101,7 @@ public class AddEmploy {
        c.add(l8);
        c.add(t6);
        
+       //retype password
        MyLabel l9 = new MyLabel("Re-type Password");
        l9.setBounds(30,560,200,50);
        
@@ -117,20 +117,21 @@ public class AddEmploy {
             public void actionPerformed(ActionEvent e) {
                 if(t.getText().isEmpty() || t1.getText().isEmpty() || t2.getText().isEmpty() || t3.getText().isEmpty() || t4.getText().isEmpty() || t5.getText().isEmpty() ||String.valueOf(t6.getPassword()).isEmpty() || String.valueOf(t7.getPassword()).isEmpty())
                 {
-                    JOptionPane.showMessageDialog(f, "<html><font size=4>Please Fill all the details listed above!","Fill it",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(addemp_f, "<html><font size=4>Please Fill all the details listed above!","Fill it",JOptionPane.ERROR_MESSAGE);
                 }
-                else if(!Pattern.compile("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$").matcher(t2.getText()).matches())
+                else if(!Pattern.compile("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$").matcher(t2.getText()).matches())//date validation
                 {
-                    JOptionPane.showMessageDialog(f, "<html><font size=4>Invalid Date Format use (dd/mm/yyy)!","Invalid!",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(addemp_f, "<html><font size=4>Invalid Date Format use (dd/mm/yyy)!","Invalid!",JOptionPane.ERROR_MESSAGE);
                 }
-                else if(!Pattern.compile("^(.+)@(.+)$").matcher(t5.getText()).matches())
+                else if(!Pattern.compile("^(.+)@(.+)$").matcher(t5.getText()).matches())//mail validation
                 {
-                    JOptionPane.showMessageDialog(f, "<html><font size=4>Invalid Email Address!","Invalid!",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(addemp_f, "<html><font size=4>Invalid Email Address!","Invalid!",JOptionPane.ERROR_MESSAGE);
                 }
                 else if(!String.valueOf(t6.getPassword()).equals(String.valueOf(t7.getPassword())))
                 {
-                    JOptionPane.showMessageDialog(f, "<html><font size=4>The Password and Retype Password does not match!","Re-type Error",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(addemp_f, "<html><font size=4>The Password and Retype Password does not match!","Re-type Error",JOptionPane.ERROR_MESSAGE);
                 }
+                //inserting employee data to the database
                 else{
                 try{
                     Connection conn = DBOperations.getConn();
@@ -151,16 +152,17 @@ public class AddEmploy {
                 {
                     System.out.println(ee);
                 }
-                JOptionPane.showMessageDialog(f,"<html><font size=4>Successfully Added.","Successful",JOptionPane.INFORMATION_MESSAGE);
-                f.dispose();
+                JOptionPane.showMessageDialog(addemp_f,"<html><font size=4>Successfully Added.","Successful",JOptionPane.INFORMATION_MESSAGE);
+                addemp_f.dispose();
                 new AddEmploy(id);
             }}
         });
+      //back action
       MyButton bac = new MyButton("\u2190"+"  BACK");
       bac.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                f.dispose();
+                addemp_f.dispose();
                 new MainFrame();
             }
         });
@@ -170,7 +172,7 @@ public class AddEmploy {
       c.add(enter);
       c.add(bac);
         
-      f.setVisible(true);
+      addemp_f.setVisible(true);
         
     }
     public static void main(String[] args) {

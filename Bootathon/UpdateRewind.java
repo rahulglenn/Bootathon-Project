@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description :Update the rewinding details if any by the employer.
+ * Author(s)   :Pradakshina,Raahul Glenn,Sai Karthik
  */
 package Bootathon;
 
@@ -66,18 +65,17 @@ public class UpdateRewind {
             }
             catch(Exception ee)
             {
-            }        
+            }      
+            
+        //select hp combobox    
         MyLabel l1 = new MyLabel("Select   HP");
         l1.setBounds(90,140,200,30);
         cb.setBounds(250,140,300,30);
-        cb.setEditable(true);
+        cb.setEditable(false);
         c.add(l1);
         c.add(cb);
-        
-
-        
-    
-       
+     
+        //horse power
         MyLabel l2 = new MyLabel("Horse Power ");        
         c.add(l2);
         l2.setBounds(90,240,200,30);
@@ -86,8 +84,7 @@ public class UpdateRewind {
         t.setEditable(false);
         c.add(t);
         
-        //c creating
-        
+        //rewind details textarea creation
         MyLabel l3 = new MyLabel("Rewinding Details"); 
         l3.setBounds(200,320,200,30);
         MyTextArea ta = new MyTextArea();
@@ -96,6 +93,7 @@ public class UpdateRewind {
         c.add(l3);
         c.add(sp);
       
+        //back action
         MyButton back = new MyButton("\u2190"+"  BACK");
         back.addActionListener(new ActionListener(){
             @Override
@@ -110,7 +108,7 @@ public class UpdateRewind {
         update.setBounds(400,320,150,30);
         c.add(update);
         c.add(back);
-        
+        //the chosen hp,rewinding details displayed
          cb.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -142,7 +140,7 @@ public class UpdateRewind {
  
             }
         });
-         
+         //updated details overwritten
          update.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

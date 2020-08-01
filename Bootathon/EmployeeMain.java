@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description:The details of the Employee is listed once loggedin.
+ * Author(s)  :Rahul Glenn,Sai Karthik
  */
 package Bootathon;
 
@@ -18,15 +17,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-/**
- *
- * @author rahul
- */
+
 public class EmployeeMain {
     EmployeeMain(String name,int id,String add,String dob,String phone,int sal,int cur_sal)
     {
-        MyFrame f = new MyFrame(2);
-        Container c = f.getContentPane();
+        //creating components
+        MyFrame empmain_f = new MyFrame(2);
+        Container empmain_c = empmain_f.getContentPane();
         MyLabel Top = new MyLabel("Hi, "+name,1);Top.setBounds(20,20,300,40);
         MyLabel NameL = new MyLabel("Name ");NameL.setBounds(20,110,150,30);
         MyLabel IDL = new MyLabel("I.D No   ");IDL.setBounds(20,180,150,30);
@@ -38,7 +35,7 @@ public class EmployeeMain {
 
         
 
-
+        //setting bounds of the components and the data of the employee
         MyTextField NameT = new MyTextField(); NameT.setBounds(250,110,300,30); NameT.setEditable(false); 
         NameT.setText("   "+name);
         MyTextField IDT = new MyTextField(); IDT.setBounds(250,180,300,30); IDT.setEditable(false); 
@@ -59,25 +56,26 @@ public class EmployeeMain {
         MyButton logout = new MyButton("Log Out");
         logout.setBounds(400,30,120,30);
         
+        //logout action
         logout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                f.dispose();
+                empmain_f.dispose();
                 new LoginPage();
             }
         });
         
         
-  
-        c.add(Top);
-        c.add(NameL);c.add(IDL);c.add(AddL);c.add(DBL);c.add(PhoneL);
-        c.add(SalaryL);c.add(CSalaryL);
-        c.add(NameT);c.add(IDT);c.add(AddT);c.add(DBT);c.add(PhoneT);
-        c.add(SalaryT);c.add(CSalaryT);
-        c.add(logout);
-        f.setBounds(500,100,600,800);
-        c.setLayout(null);
-        f.setVisible(true);
+        //adding components to the container
+        empmain_c.add(Top);
+        empmain_c.add(NameL);empmain_c.add(IDL);empmain_c.add(AddL);empmain_c.add(DBL);empmain_c.add(PhoneL);
+        empmain_c.add(SalaryL);empmain_c.add(CSalaryL);
+        empmain_c.add(NameT);empmain_c.add(IDT);empmain_c.add(AddT);empmain_c.add(DBT);empmain_c.add(PhoneT);
+        empmain_c.add(SalaryT);empmain_c.add(CSalaryT);
+        empmain_c.add(logout);
+        empmain_c.setBounds(500,100,600,800);
+        empmain_c.setLayout(null);
+        empmain_f.setVisible(true);
        
     }
     

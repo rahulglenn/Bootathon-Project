@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description:Change the employer provided password by the employee for the first time.
+ * Author(s)  :Rahul Glenn,Sai Karthik
  */
 package Bootathon;
 
@@ -18,10 +17,7 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
-/**
- *
- * @author rahul
- */
+
 public class EmpPassChange {
     static String user;
     static int id;
@@ -33,18 +29,29 @@ public class EmpPassChange {
         }
         catch(Exception ee)
         {System.out.println("Err"+ee);}
+        
+        //frame creation
         MyFrame pchange=new MyFrame(2);
+        
+        //container creation
         Container pchange_con=pchange.getContentPane();
+   
+   //Passwordchange labels creation     
    MyLabel pchange_l1=new MyLabel("Please change your password");
    MyLabel pchange_l2=new MyLabel("Confirm Password");
    MyLabel pchange_l3=new MyLabel("Re-enter Password");
+   
+    //Passwordfields creation
     JPasswordField pchange_t1=new JPasswordField();
     JPasswordField pchange_t2=new JPasswordField();
+    
+    //OK button creaation
     MyButton pchange_b1=new MyButton("OK");
     
+    //layout
     pchange_con.setLayout(null);
     
-
+        //setting bounds
         pchange_l1.setBounds(100,10, 400, 35);
 
         pchange_l2.setBounds(40,90, 300, 25);
@@ -57,6 +64,7 @@ public class EmpPassChange {
 
         pchange_b1.setBounds(230,250,100,50);
         
+        //adding components to the container
          pchange_con.add(pchange_l1);
         pchange_con.add(pchange_l2);
         pchange_con.add(pchange_l3);
@@ -64,6 +72,7 @@ public class EmpPassChange {
         pchange_con.add(pchange_t2);
         pchange_con.add(pchange_b1);
     
+        //password changed by the employee
         pchange_b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -93,7 +102,7 @@ public class EmpPassChange {
                  
             }}
         });
-    pchange.setTitle("PASSWORD CHANGE");
+        pchange.setTitle("PASSWORD CHANGE");
         pchange.setBounds(500,100,550,350);
        
         pchange.setVisible(true);

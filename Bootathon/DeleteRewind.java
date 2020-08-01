@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description : Delete the rewiding details if needed by the employer.
+ * Author(s)   : Pradakshina,Raahul Glenn,Sai Karthik
  */
 package Bootathon;
 
@@ -31,11 +30,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 
-
-/**
- *
- * @author rahul
- */
 public class DeleteRewind {
     DeleteRewind(int id)
     {
@@ -117,7 +111,7 @@ public class DeleteRewind {
         delete.setBounds(400,270,100,30);
         c.add(delete);
         c.add(back);
-        
+        //the chosen hp,rewinding details displayed
          cb.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -150,7 +144,7 @@ public class DeleteRewind {
  
             }
         });
-         
+        //the rewinding details are deleted along with file as wellas the path in the database 
          delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

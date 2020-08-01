@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description:Admin adds the employer's organization and provides the Activation key.
+ * Author(s)  :Raahul Glenn,Sai Karthik
  */
 package Bootathon.Admin;
 
@@ -18,78 +17,82 @@ import java.sql.PreparedStatement;
 import java.util.UUID;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author rahul
- */
 public class AdminAddOrg {
     AdminAddOrg()
     {
-       MyFrame frame = new MyFrame(2);
-       frame.setBounds(500,200,500,700);
-       frame.setDefaultCloseOperation(3);
-       Container c = frame.getContentPane();
+       //frame creation
+       MyFrame addorg_frame = new MyFrame(2);
+       addorg_frame.setBounds(500,200,500,700);
+       addorg_frame.setDefaultCloseOperation(3);
+       Container c = addorg_frame.getContentPane();
        c.setLayout(null);
        
-       MyLabel l1 = new MyLabel("Add organization",1);
-       l1.setBounds(10,20,300,50);
-       c.add(l1);
+       //add organization label creation
+       MyLabel addorg_l1 = new MyLabel("Add organization",1);
+       addorg_l1.setBounds(10,20,300,50);
+       c.add(addorg_l1);
        
-       MyLabel l2 = new MyLabel("Organization Name");
-       l2.setBounds(50,130,200,30);
-       c.add(l2);
-       MyTextField t1 = new MyTextField();
-       t1.setBounds(250,130,200,30);
-       c.add(t1);
+       //organization name label and textfield creation
+       MyLabel orgname_l2 = new MyLabel("Organization Name");
+       orgname_l2.setBounds(50,130,200,30);
+       c.add(orgname_l2);
+       MyTextField orgname_t1 = new MyTextField();
+       orgname_t1.setBounds(250,130,200,30);
+       c.add(orgname_t1);
        
-       MyLabel l3 = new MyLabel("Activation key");
-       l3.setBounds(50,200,150,30);
-       c.add(l3);
-       MyTextField t2 = new MyTextField();
-       t2.setEditable(false);
-       t2.setBounds(250,200,200,30);
-       c.add(t2);
+       //activation key label and textfield creation
+       MyLabel ak_l3 = new MyLabel("Activation key");
+       ak_l3.setBounds(50,200,150,30);
+       c.add(ak_l3);
+       MyTextField ak_t2 = new MyTextField();
+       ak_t2.setEditable(false);
+       ak_t2.setBounds(250,200,200,30);
+       c.add(ak_t2);
        
+       //generate button creation
        MyButton gen = new MyButton("Generate");
+       
+       //UUID generation
        gen.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-               if(t1.getText().isEmpty())
+               if(orgname_t1.getText().isEmpty())
                {
-                    JOptionPane.showMessageDialog(frame, "Please Fill the Organization Name!");
+                    JOptionPane.showMessageDialog(addorg_frame, "Please Fill the Organization Name!");
                }
                else
                {
                    UUID key=UUID.randomUUID();
-                   t2.setText(key.toString());
+                   ak_t2.setText(key.toString());
                try{
                    Connection conn=DBOperations.getConn();
                    
                    PreparedStatement st=conn.prepareStatement("insert into productinfo values(0,?,?,0)");
-                   st.setString(1, t1.getText());
+                   st.setString(1, orgname_t1.getText());
                    st.setString(2, key.toString());
                    st.executeUpdate();
                    conn.close();
                }
                catch(Exception ee)
                {System.out.println(ee);}
-                JOptionPane.showMessageDialog(frame,"Successfully Added.","Alert",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(addorg_frame,"Successfully Added.","Alert",JOptionPane.WARNING_MESSAGE);
            }}
        });
        gen.setBounds(70,300,150,30);
        c.add(gen);
        
-       MyButton bac = new MyButton("\u2190"+"  BACK");
-       bac.addActionListener(new ActionListener() {
+       //back goes to the Admin Main frame
+       MyButton back = new MyButton("\u2190"+"  BACK");
+       back.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-               frame.dispose();
+               addorg_frame.dispose();
                new AdminMain();
            }
        });
-       bac.setBounds(270,300,150,30);
-       c.add(bac);
-       frame.setVisible(true);
+       back.setBounds(270,300,150,30);
+       c.add(back);
+       addorg_frame.setVisible(true);
     }
     public static void main(String[] args) {
         new AdminLogin();

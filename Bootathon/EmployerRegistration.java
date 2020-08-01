@@ -1,4 +1,8 @@
- package Bootathon;
+/**
+ * Description:The employer registers his/her organization with the ActivationKey provided by the Admin
+ * Author(s)  :Raahul Glen,Sai Karthik
+ */ 
+package Bootathon;
 
 import Bootathon.database.DBOperations;
 import Bootathon.uiworks.MyButton;
@@ -21,97 +25,103 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
 
-/**
- *
- * @author rahul
- */
 public class EmployerRegistration {
        EmployerRegistration()
        {
            //creating frame
-            MyFrame f=new MyFrame(5);
-            f.setBounds(500,100,600,800);
+            MyFrame emprreg_frame=new MyFrame(5);
+            emprreg_frame.setBounds(500,100,600,800);
             
            
             //Container creation
-            Container c = f.getContentPane();
-            c.setLayout(null);
+            Container emprreg_con = emprreg_frame.getContentPane();
+            emprreg_con.setLayout(null);
                        
-            //Label creation
-            MyLabel l = new MyLabel("Employer Name ");
+            //employername Label creation
+            MyLabel emprreg_ername = new MyLabel("Employer Name ");
         
-        l.setBounds(50,40,200,50);
-        c.add(l);
-
-        MyLabel l2 = new MyLabel("Organization");
+        emprreg_ername.setBounds(50,40,200,50);
+        emprreg_con.add(emprreg_ername);
+        
+        //organization label creation
+        MyLabel emprreg_org = new MyLabel("Organization");
       
-        l2.setBounds(50,200+40,200,50);
-        c.add(l2);
- ;
-        MyLabel l3 = new MyLabel("D.O.B ");
-       
-        l3.setBounds(50,275+40,200,50);
-        c.add(l3);
-       
-        MyLabel l4 = new MyLabel("Email ID");
-        l4.setBounds(50,350+40,200,50);
-        c.add(l4);
+        emprreg_org.setBounds(50,200+40,200,50);
+        emprreg_con.add(emprreg_org);
  
-        MyLabel l5 = new MyLabel("Password");
-
-        l5.setBounds(50,425+40,200,50);
-        c.add(l5);
-        MyLabel l6 = new MyLabel("RetypePassword");
-
-        l6.setBounds(50,500+40,200,50);
-        c.add(l6);
-
-        MyLabel l7 = new MyLabel("Activation key");
-        c.add(l7);
-
-        l7.setBounds(50,115,200,50);
+        //DOB label creation
+        MyLabel emprreg_dob = new MyLabel("D.O.B ");
        
-        //Textfield creation
-        MyTextField t1 = new MyTextField();
-        t1.setBounds(250,50,300,30);
-        c.add(t1);
+        emprreg_dob.setBounds(50,275+40,200,50);
+        emprreg_con.add(emprreg_dob);
+        
+        //emailid label creation
+        MyLabel emprreg_email= new MyLabel("Email ID");
+        emprreg_email.setBounds(50,350+40,200,50);
+        emprreg_con.add(emprreg_email);
+        
+        //password label creation
+        MyLabel emprreg_pass= new MyLabel("Password");
+        emprreg_pass.setBounds(50,425+40,200,50);
+        emprreg_con.add(emprreg_pass);
+        
+        //retypepassword label creation
+        MyLabel emprreg_repass= new MyLabel("RetypePassword");
+        emprreg_repass.setBounds(50,500+40,200,50);
+        emprreg_con.add(emprreg_repass);
+        
+        //Activation key label creation
+        MyLabel emprreg_ak= new MyLabel("Activation key");
+        emprreg_con.add(emprreg_ak);
+        emprreg_ak.setBounds(50,115,200,50);
+       
+        //Textfield1 creation
+        MyTextField emprreg_t1 = new MyTextField();
+        emprreg_t1.setBounds(250,50,300,30);
+        emprreg_con.add(emprreg_t1);
+        
+        //Textfield2 creation
+        MyTextField emprreg_t2 = new MyTextField();
+        emprreg_t2.setBounds(250,200+50,300,30);
+        emprreg_t2.setEditable(false);
+        emprreg_con.add(emprreg_t2);
+        
+        //Textfield3 creation
+        MyTextField emprreg_t3 = new MyTextField();
+        emprreg_t3.setBounds(250,275+50,300,30);
+        emprreg_con.add(emprreg_t3);
+        
+        //Textfield4 creation
+        MyTextField emprreg_t4 = new MyTextField();
+        emprreg_t4.setBounds(250,350+50,300,30);
+        emprreg_con.add(emprreg_t4);
+        
+        //Passwordfield t5 creation
+        JPasswordField emprreg_t5 = new JPasswordField();
+        emprreg_t5.setBounds(250,425+50,300,30);
+        emprreg_con.add(emprreg_t5);
 
-        MyTextField t2 = new MyTextField();
-        t2.setBounds(250,200+50,300,30);
-        t2.setEditable(false);
-        c.add(t2);
-
-        MyTextField t3 = new MyTextField();
-        t3.setBounds(250,275+50,300,30);
-        c.add(t3);
-
-        MyTextField t4 = new MyTextField();
-        t4.setBounds(250,350+50,300,30);
-        c.add(t4);
-
-        JPasswordField t5 = new JPasswordField();
-        t5.setBounds(250,425+50,300,30);
-        c.add(t5);
-
-        JPasswordField t6 = new JPasswordField();
-        t6.setBounds(250,500+50,300,30);
-        c.add(t6);
+        //passwordfield t6 creation
+        JPasswordField emprreg_t6 = new JPasswordField();
+        emprreg_t6.setBounds(250,500+50,300,30);
+        emprreg_con.add(emprreg_t6);
  
-        MyTextField t7 = new MyTextField();
-        t7.setBounds(250,125,300,30);
-        c.add(t7);
+        //Textfield7 creation
+        MyTextField emprreg_t7 = new MyTextField();
+        emprreg_t7.setBounds(250,125,300,30);
+        emprreg_con.add(emprreg_t7);
 
        MyLabel summa = new MyLabel("click here \u2191");
        summa.setBounds(380,210,150,20);
-       c.add(summa);
-        // creating button
+       emprreg_con.add(summa);
+        // ActivationKey validation
         MyButton b1 = new MyButton("Validate");
         b1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(t7.getText().isEmpty())
+                    if(emprreg_t7.getText().isEmpty())
                     {
-                        JOptionPane.showMessageDialog(f, "Enter your Product Key!");
+                        JOptionPane.showMessageDialog(emprreg_frame, "Enter your Product Key!");
                     }
                     else
                     {
@@ -119,16 +129,16 @@ public class EmployerRegistration {
                     {
                       Connection conn=DBOperations.getConn();
                       PreparedStatement st=conn.prepareStatement("select * from productinfo where ProductKey=?");
-                      st.setString(1, t7.getText());
+                      st.setString(1, emprreg_t7.getText());
                       ResultSet rs=st.executeQuery();
                       if(rs.next() && rs.getInt("ActivationStatus")==0)
                       {
-                          t2.setText(rs.getString("Organization"));
-                          JOptionPane.showMessageDialog(f, "Validation Succesful!");
+                          emprreg_t2.setText(rs.getString("Organization"));
+                          JOptionPane.showMessageDialog(emprreg_frame, "Validation Succesful!");
                       }
                       else
                       {
-                          JOptionPane.showMessageDialog(f, "Invalid Product Key!");
+                          JOptionPane.showMessageDialog(emprreg_frame, "Invalid Product Key!");
                       }
                       conn.close();
                     }
@@ -138,64 +148,65 @@ public class EmployerRegistration {
                 }}
             });
         b1.setBounds(380,180,110,20);
-        c.add(b1);
+        emprreg_con.add(b1);
+        //Employer Registration
         MyButton b = new MyButton("Register");
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(t2.getText().isEmpty())
+                if(emprreg_t2.getText().isEmpty())
                 {
-                    JOptionPane.showMessageDialog(f, "<html><font size=4>Please Validate your Product Key!","Validate",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(emprreg_frame, "<html><font size=4>Please Validate your Product Key!","Validate",JOptionPane.ERROR_MESSAGE);
                 }
-                else if(t1.getText().isEmpty() || t3.getText().isEmpty() || t4.getText().isEmpty() || String.valueOf(t5.getPassword()).isEmpty() || String.valueOf(t5.getPassword()).isEmpty())
+                else if(emprreg_t1.getText().isEmpty() || emprreg_t3.getText().isEmpty() || emprreg_t4.getText().isEmpty() || String.valueOf(emprreg_t5.getPassword()).isEmpty() || String.valueOf(emprreg_t5.getPassword()).isEmpty())
                 {
-                    JOptionPane.showMessageDialog(f, "<html><font size=4>Please Fill all the details listed above!","Fill it",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(emprreg_frame, "<html><font size=4>Please Fill all the details listed above!","Fill it",JOptionPane.ERROR_MESSAGE);
                 }
-                else if(!Pattern.compile("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$").matcher(t3.getText()).matches())
+                else if(!Pattern.compile("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$").matcher(emprreg_t3.getText()).matches())
                 {
-                    JOptionPane.showMessageDialog(f, "<html><font size=4>Invalid Date Format use (dd/mm/yyyy)!","Invalid",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(emprreg_frame, "<html><font size=4>Invalid Date Format use (dd/mm/yyyy)!","Invalid",JOptionPane.ERROR_MESSAGE);
                 }
-                else if(!Pattern.compile("^(.+)@(.+)$").matcher(t4.getText()).matches())
+                else if(!Pattern.compile("^(.+)@(.+)$").matcher(emprreg_t4.getText()).matches())
                 {
-                    JOptionPane.showMessageDialog(f, "<html><font size=4>Invalid Email Address!","Invalid",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(emprreg_frame, "<html><font size=4>Invalid Email Address!","Invalid",JOptionPane.ERROR_MESSAGE);
                 }
-                else if(!String.valueOf(t6.getPassword()).equals(String.valueOf(t5.getPassword())))
+                else if(!String.valueOf(emprreg_t6.getPassword()).equals(String.valueOf(emprreg_t5.getPassword())))
                 {
-                    JOptionPane.showMessageDialog(f, "<html><font size=4>The Password and Retype Password does not match!","re-type Error",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(emprreg_frame, "<html><font size=4>The Password and Retype Password does not match!","re-type Error",JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                 try{
                     Connection conn=DBOperations.getConn();
                     PreparedStatement st=conn.prepareStatement("insert into employerlogin values(0,?,?,?,?,?,?,?)");
-                    st.setString(1 , t1.getText());
-                    st.setString(2, t2.getText());
-                    st.setString(3, t3.getText());
+                    st.setString(1 , emprreg_t1.getText());
+                    st.setString(2, emprreg_t2.getText());
+                    st.setString(3, emprreg_t3.getText());
                     st.setString(4, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
-                    st.setString(5, t4.getText());
-                    st.setString(6, String.valueOf(t5.getPassword()));
-                    st.setString(7, t7.getText());
+                    st.setString(5, emprreg_t4.getText());
+                    st.setString(6, String.valueOf(emprreg_t5.getPassword()));
+                    st.setString(7, emprreg_t7.getText());
                     st.executeUpdate();
                     st=conn.prepareStatement("Select emprid from employerlogin where ProductKey=?");
-                    st.setString(1, t7.getText());
+                    st.setString(1, emprreg_t7.getText());
                     ResultSet rs=st.executeQuery();
                     rs.next();
                     int id=rs.getInt("emprid");
                     st=conn.prepareStatement("insert into logfile values(?,0,?,?,?)");
                     st.setInt(1, id);
-                    st.setString(2, t1.getText());
+                    st.setString(2, emprreg_t1.getText());
                     st.setString(3, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
                     st.setString(4, "Account Created!");
                     st.executeUpdate();
                     st=conn.prepareStatement("update productinfo set ActivationStatus=1 where ProductKey=?");
-                    st.setString(1, t7.getText());
+                    st.setString(1, emprreg_t7.getText());
                     st.executeUpdate();
                     conn.close();
-                    JOptionPane.showMessageDialog(f,"<html><font size=4>Registration Successful","Successful",JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(emprreg_frame,"<html><font size=4>Registration Successful","Successful",JOptionPane.INFORMATION_MESSAGE);
                     //System.out.println(id+t1.getText()+"Nil");
                     new File("C:\\Electrical Data\\Empr"+String.valueOf(id)).mkdir();
-                    f.dispose();
+                    emprreg_frame.dispose();
                     //System.out.println(id+t1.getText()+"Nil");
-                    new MainFrame(id,t1.getText(),"Nil");
+                    new MainFrame(id,emprreg_t1.getText(),"Nil");
                 }
                 catch(Exception ee)
                 {System.out.println(ee);
@@ -206,9 +217,9 @@ public class EmployerRegistration {
         });
        
         b.setBounds(30,620,150,30);
-        c.add(b);
+        emprreg_con.add(b);
        
-        f.setVisible(true);
+        emprreg_frame.setVisible(true);
        }
     public static void main(String[] args) {
     new LoginPage();

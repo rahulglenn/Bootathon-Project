@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description : Work history includes the work details and the SD collection status. 
+ * Author(s)   : Thulasi Ram,Sai Karthik 
  */
 package Bootathon;
 
@@ -22,21 +21,24 @@ import java.sql.ResultSet;
 
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author rahul
- */
+
 public class WorkHistory {
     WorkHistory(int id)
     {
-         MyFrame frame = new MyFrame(1);
-        frame.setBounds(100,200,1350,700);
+        //frame creation
+         MyFrame wh_frame = new MyFrame(1);
+        wh_frame.setBounds(100,200,1350,700);
         
-        Container c = frame.getContentPane();
-        c.setLayout(null);
+        //container creation
+        Container wh_c = wh_frame.getContentPane();
+        wh_c.setLayout(null);
+        
+        //work details label craetion
         MyLabel label1 = new MyLabel("Work details",1);
         label1.setBounds(30,5,200,50);
-        c.add(label1);
+        wh_c.add(label1);
+        
+        //table creation
         MyTable table = new MyTable();
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("  Work Id  ");
@@ -50,6 +52,7 @@ public class WorkHistory {
         table.getColumnModel().getColumn(1).setPreferredWidth(350);
         
         String coll_status[]={"Pending","Collected"};
+        //data insertion to the table
         try
         {
             Connection conn=DBOperations.getConn();
@@ -68,18 +71,19 @@ public class WorkHistory {
         table.setRowHeight(30);        
         JScrollPane scroll = new JScrollPane(table,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setBounds(20,70,1300,500);
-        c.add(scroll);
-        MyButton but = new MyButton("\u2190"+"  BACK");
-        but.addActionListener(new ActionListener() {
+        wh_c.add(scroll);
+        //back action
+        MyButton back = new MyButton("\u2190"+"  BACK");
+        back.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
-                 frame.dispose();
+                 wh_frame.dispose();
                  new MainFrame();
              }
          });
-        but.setBounds(30,600,150,30);
-        c.add(but);
-        frame.setVisible(true);
+        back.setBounds(30,600,150,30);
+        wh_c.add(back);
+        wh_frame.setVisible(true);
     }
     public static void main(String[] args) {
         new LoginPage();

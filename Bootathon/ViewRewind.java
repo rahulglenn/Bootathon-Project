@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description:View the entered rewinding details by the employer.
+ * Author(s)  :Pradhakshina,Rahul Glenn,Sai Karthik
  */
 package Bootathon;
 import Bootathon.database.DBOperations;
@@ -25,27 +24,23 @@ import java.sql.Statement;
 import javax.swing.JScrollPane;
 
 
-/**
- *
- * @author rahul
- */
 public class ViewRewind {
     ViewRewind(int id){
          // TODO code application logic here
-        MyFrame f = new MyFrame(5);           
-        f.setBounds(500,100,600,800);
+        MyFrame viewrew_f = new MyFrame(5);           
+        viewrew_f.setBounds(500,100,600,800);
         
         //container creating
-        Container c = f.getContentPane();
-        c.setLayout(null);
+        Container viewrew_c = viewrew_f.getContentPane();
+        viewrew_c.setLayout(null);
         
         
         MyLabel ll= new MyLabel("View details",1);
         ll.setBounds(30,20,300,30);
-        c.add(ll);
+        viewrew_c.add(ll);
         
         MyComboBox cb = new MyComboBox();
-        cb.setEditable(true);
+        cb.setEditable(false);
         cb.addItem("Select HP");
             //adding values to combobox
             try{
@@ -63,46 +58,46 @@ public class ViewRewind {
                 
             }
        
-        MyLabel l1 = new MyLabel("Select HP");
-       l1.setBounds(90,140,200,30);
+        //HP selection
+        MyLabel viewrew_l1 = new MyLabel("Select HP");
+        viewrew_l1.setBounds(90,140,200,30);
         cb.setBounds(250,140,300,30);
-        c.add(l1);
-        c.add(cb);
+        viewrew_c.add(viewrew_l1);
+        viewrew_c.add(cb);
 
-        
-       
-        MyLabel l2 = new MyLabel("Horse Power ");        
-        c.add(l2);
-        l2.setBounds(90,240,200,30);
+        //displaying Horse Power 
+        MyLabel viewrew_l2 = new MyLabel("Horse Power ");        
+        viewrew_c.add(viewrew_l2);
+        viewrew_l2.setBounds(90,240,200,30);
 
-        MyTextField t = new MyTextField();
-        t.setBounds(250,240,300,30);
-        t.setEditable(false);
-        c.add(t);
+        MyTextField viewrew_t = new MyTextField();
+        viewrew_t.setBounds(250,240,300,30);
+        viewrew_t.setEditable(false);
+        viewrew_c.add(viewrew_t);
         
-      
-        MyLabel l3 = new MyLabel("Rewinding Details"); 
-        l3.setBounds(200,320,200,30);
+       //displaying rewinding details
+        MyLabel viewrew_l3 = new MyLabel("Rewinding Details"); 
+        viewrew_l3.setBounds(200,320,200,30);
         MyTextArea ta = new MyTextArea();
         ta.setEditable(false);
         JScrollPane sp = new JScrollPane(ta,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         sp.setBounds(80,370,470,300);
-        c.add(l3);
-        c.add(sp);
+        viewrew_c.add(viewrew_l3);
+        viewrew_c.add(sp);
         
-      
+       //back action
         MyButton back = new MyButton("\u2190"+"  BACK");
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                f.dispose();
+                viewrew_f.dispose();
                 new MainFrame();
             }
         });
         
-        c.add(back);
+        viewrew_c.add(back);
         
-        //
+        //fetches and displays the rewinding details from the local drive using the path in database once the item(HP) chosen
         cb.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -114,7 +109,7 @@ public class ViewRewind {
                     st.setInt(2, id);
                     ResultSet rs=st.executeQuery();
                     rs.next();
-                    t.setText(rs.getString("hp"));
+                    viewrew_t.setText(rs.getString("hp"));
                     String path=rs.getString("details").replace('@', '\\');
                     BufferedReader buff=new BufferedReader(new FileReader(path));
                     int i;
@@ -136,7 +131,7 @@ public class ViewRewind {
         
         back.setBounds(30,700,150,30);
         
-        f.setVisible(true);
+        viewrew_f.setVisible(true);
     }
     public static void main(String[] args) {
        new LoginPage();

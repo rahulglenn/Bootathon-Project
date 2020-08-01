@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description:The Admin login with username and password.
+ * Author(s)  :Raahul Glenn,Sai Karthik
  */
 package Bootathon.Admin;
 
@@ -19,16 +18,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
-/**
- *
- * @author rahul
- */
+
 public class AdminLogin {
     AdminLogin()
     {
-        MyFrame frame=new MyFrame(2);
-        //creating components
-    Container alogin_con=frame.getContentPane();
+    
+    //creating frame
+    MyFrame alogin_frame=new MyFrame(2);
+    
+    //creating components
+    Container alogin_con=alogin_frame.getContentPane();
     MyTextField alogin_t1=new MyTextField();
     JPasswordField alogin_p1=new JPasswordField();
     MyLabel alogin_l1=new MyLabel("Username");
@@ -36,9 +35,9 @@ public class AdminLogin {
     MyButton alogin_b1=new MyButton("LOGIN");
     
     //layout
-        alogin_con.setLayout(null);
+    alogin_con.setLayout(null);
     
-
+    //setting bounds of components
     alogin_l1.setBounds(40, 50, 130, 25);
     alogin_l2.setBounds(40, 100, 100, 25);
     alogin_t1.setBounds(180,50,180,25);
@@ -52,13 +51,14 @@ public class AdminLogin {
         alogin_con.add(alogin_t1);
         alogin_con.add(alogin_p1);
         alogin_con.add(alogin_b1);
-        
+    
+        //Admin login
         alogin_b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(alogin_t1.getText().isEmpty() || String.valueOf(alogin_p1.getPassword()).isEmpty())
                 {
-                    JOptionPane.showMessageDialog(frame, "Enter login credentials!","Admin Login",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(alogin_frame, "Enter login credentials!","Admin Login",JOptionPane.ERROR_MESSAGE);
                 }
                 else
                 {
@@ -70,12 +70,12 @@ public class AdminLogin {
                         ResultSet rs=st.executeQuery();
                         if(rs.next())
                         {
-                            frame.dispose();
+                            alogin_frame.dispose();
                             new AdminMain(rs.getString("Name"));
                         }
                         else
                         {
-                            JOptionPane.showMessageDialog(frame, "Invalid Login Credentials!","Invalid",JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(alogin_frame, "Invalid Login Credentials!","Invalid",JOptionPane.ERROR_MESSAGE);
                         }
                     }
                     catch(Exception ee)
@@ -86,8 +86,8 @@ public class AdminLogin {
             }
         });
 
-        frame.setBounds(500, 200, 400, 270);
-        frame.setVisible(true);
+        alogin_frame.setBounds(500, 200, 400, 270);
+        alogin_frame.setVisible(true);
     }
     public static void main(String[] args) {
         new AdminLogin();

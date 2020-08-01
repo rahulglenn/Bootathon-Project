@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description : Update the work details and the SD value by the employer.
+ * Author(s)   : Thulasi Ram,Sai Karthik
  */
 package Bootathon;
 import Bootathon.database.DBOperations;
@@ -25,27 +24,24 @@ import javax.swing.JOptionPane;
 
 import javax.swing.JScrollPane;
 
-/**
- *
- * @author rahul
- */
 public class UpdateWork {
     UpdateWork(int id)
     {
-         // frame creating
-        MyFrame f = new MyFrame(4);           
-        f.setBounds(500,100,600,800);
+         // frame creation
+        MyFrame upwk_f = new MyFrame(4);           
+        upwk_f.setBounds(500,100,600,800);
        
         
-        //container creating
-        Container c = f.getContentPane();
-        c.setLayout(null);
+        //container creation
+        Container upwk_c = upwk_f.getContentPane();
+        upwk_c.setLayout(null);
         
+        //label creation
         MyLabel ll= new MyLabel("Update details",1); 
         ll.setBounds(30,30,200,50);
-        c.add(ll);
+        upwk_c.add(ll);
         
-        //String[] amount = { "Rs.2500" , "Rs.3500" , "Rs.4500" ,"Rs.1500" };
+        //combobox creation
         MyComboBox cb = new MyComboBox();
         cb.addItem("Select WorkID");
             //adding values to combobox
@@ -63,47 +59,47 @@ public class UpdateWork {
             {
                 
             }
-               
+        //label l1 creation       
         MyLabel l1 = new MyLabel("Select Work ID  ");
         l1.setBounds(90,140,200,30);
         cb.setBounds(250,140,300,30);
-        c.add(l1);
-        c.add(cb);
+        upwk_c.add(l1);
+        upwk_c.add(cb);
         cb.setEditable(true);
 
         
-        
+        //date label creation 
         MyLabel le = new MyLabel("  Date ");        
-        c.add(le);
+        upwk_c.add(le);
         MyTextField te = new MyTextField();
-        c.add(te); 
+        upwk_c.add(te); 
         le.setBounds(90,210,200,30);
         te.setBounds(250,210,300,30);
         
-      
+        //sd value label creation
         MyLabel l2 = new MyLabel("Security Deposit Value ");        
-        c.add(l2);
+        upwk_c.add(l2);
         l2.setBounds(10,270,250,30);
         MyTextField t = new MyTextField();
-        c.add(t);
+        upwk_c.add(t);
         t.setBounds(250,270,300,30);
         
-       
+        //rewinding details label creation
         MyLabel l3 = new MyLabel("Rewinding Details"); 
         l3.setBounds(200,350,200,30);
-        c.add(l3);
+        upwk_c.add(l3);
         MyTextArea ta = new MyTextArea();
         JScrollPane sp = new JScrollPane(ta,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         sp.setBounds(80,400,450,300);
-        c.add(sp);
+        upwk_c.add(sp);
 
         
-       
+       //back action
         MyButton back = new MyButton("\u2190"+"  BACK");
         back.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                f.dispose();
+                upwk_f.dispose();
                 new MainFrame();
             }
         });
@@ -111,9 +107,10 @@ public class UpdateWork {
         MyButton update = new MyButton("Update");
         back.setBounds(340,710,150,30);
         update.setBounds(400,350,130,30);
-        c.add(update);
-        c.add(back);
+        upwk_c.add(update);
+        upwk_c.add(back);
         
+        //the chosen work details displayed
         cb.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -137,16 +134,17 @@ public class UpdateWork {
             }
         });
         
+        //work details updated 
         update.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(te.getText().isEmpty())
                 {
-                    JOptionPane.showMessageDialog(f, "<html><font size=4>Please select which record to update first!","Select",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(upwk_f, "<html><font size=4>Please select which record to update first!","Select",JOptionPane.ERROR_MESSAGE);
                 }
                 else
                 {
-                    int a=JOptionPane.showConfirmDialog(f,"<html><font size=4>Are you sure to Update?");  
+                    int a=JOptionPane.showConfirmDialog(upwk_f,"<html><font size=4>Are you sure to Update?");  
                 if(a==JOptionPane.YES_OPTION){  
                 try
                 {
@@ -164,11 +162,11 @@ public class UpdateWork {
                 {
                     System.out.println(ee);
                 }
-                JOptionPane.showMessageDialog(f,"<html><font size=4>Successfully Updated.","Successful",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(upwk_f,"<html><font size=4>Successfully Updated.","Successful",JOptionPane.INFORMATION_MESSAGE);
                 }
             }}
         });
-        f.setVisible(true);
+        upwk_f.setVisible(true);
     }
     public static void main(String[] args) {
        new LoginPage();

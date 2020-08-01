@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description:Main Frame of the Employer.
+ * Author(s)  :Rahul Glen,Sai Karthik
  */
 package Bootathon;
 import Bootathon.database.DBOperations;
@@ -23,10 +22,7 @@ import java.util.Date;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-/**
- *
- * @author rahul
- */
+
 public class MainFrame {
     static String EmpName,date;
     static int id;
@@ -36,6 +32,8 @@ public class MainFrame {
         date=dat;
         id=empr;
         SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+        
+       //if difference in month is encountered,the monthly salary is resetted
        try{
        if(sdf.parse(date).getMonth()!=new Date().getMonth())
         {

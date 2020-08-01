@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description :Maintaining the leave entry of employee by the employer thus deducting from his monthly salary according to the leave days. 
+ * Author      :Sai Karthik,Rahul Glenn
  */
 package Bootathon;
 
@@ -24,10 +23,6 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author rahul
- */
 public class LeaveEntry {
     LeaveEntry(int id)
     {
@@ -66,7 +61,7 @@ public class LeaveEntry {
             {}
 
        cb.setBounds(250,110,300,30);
-       cb.setEditable(true);
+       cb.setEditable(false);
        c.add(l2);
        c.add(cb);
        
@@ -102,6 +97,7 @@ public class LeaveEntry {
        
       //buttons
       MyButton enter = new MyButton("Enter");
+      //back action
       MyButton bac = new MyButton("\u2190"+"  BACK");
       bac.addActionListener(new ActionListener() {
             @Override
@@ -114,7 +110,8 @@ public class LeaveEntry {
       bac.setBounds(400,480,130,30);
       c.add(enter);
       c.add(bac);
-        
+      
+      //selected employee details are displayed
       cb.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -134,7 +131,8 @@ public class LeaveEntry {
                    System.out.println(ee);
                }}
         });
-           
+       
+      //Number of leave days entered,accordingly salary deducted
        enter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

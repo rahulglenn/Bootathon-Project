@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Description :View employee details by the employer.
+ * Author       :Sai Karthik
  */
 package Bootathon;
 
@@ -23,22 +22,26 @@ import java.sql.ResultSet;
 
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author rahul
- */
+
 public class ViewEmploy {
     ViewEmploy(int id)
     {
+        //frame creation
         MyFrame frame = new MyFrame(1);
         frame.setBounds(100,200,1350,700);
         frame.setDefaultCloseOperation(3);
         frame.setResizable(false);
+        
+        //container creation
         Container c = frame.getContentPane();
         c.setLayout(null);
+        
+        //label l1 creation
         MyLabel label1 = new MyLabel("Employee details",1);
         label1.setBounds(20,5,300,50);
         c.add(label1);
+        
+        //table creation
         MyTable table = new MyTable();
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("  Emp. Id  ");
@@ -50,6 +53,7 @@ public class ViewEmploy {
         model.addColumn("Current Salary");
         table.setModel(model);
         
+        //data insertion into the table
         try{
             Connection conn=DBOperations.getConn();
             PreparedStatement st=conn.prepareStatement("select * from employdet where emprid=?");
@@ -73,6 +77,8 @@ public class ViewEmploy {
         JScrollPane scroll = new JScrollPane(table,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setBounds(20,70,1300,500);
         c.add(scroll);
+        
+        //back action
         MyButton but = new MyButton("\u2190"+"  BACK");
         but.addActionListener(new ActionListener() {
             @Override

@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description:Displays the Employer List registered.
+ * Author(s)  :Raahul Glenn,Sai Karthik
  */
 package Bootathon.Admin;
 
@@ -20,32 +19,39 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.swing.table.DefaultTableModel;
-/**
- *
- * @author rahul
- */
+
 public class EmployerList {
     EmployerList()
     {
-        MyFrame frame = new MyFrame(4);
-        frame.setBounds(100,200,1350,700);
-        Container c = frame.getContentPane();
-        c.setLayout(null);
-        MyLabel label1 = new MyLabel("Employer List",1);
-        label1.setBounds(30,5,250,50);
-        c.add(label1);
-        MyTable table = new MyTable();
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("  Empr.Id  ");
-        model.addColumn("Empr.Name");
-        model.addColumn("D.O.B");
-        model.addColumn("Organization Name");
-        model.addColumn("Activation date");
-        model.addColumn("Product key");
-        table.setModel(model);
+        //frame creation
+        MyFrame emprlist_frame = new MyFrame(4);
+        emprlist_frame.setBounds(100,200,1350,700);
+        
+        //container
+        Container emprlist_con = emprlist_frame.getContentPane();
+        emprlist_con.setLayout(null);
+        
+        //employerlist label
+        MyLabel emprlist_l1 = new MyLabel("Employer List",1);
+        emprlist_l1.setBounds(30,5,250,50);
+        emprlist_con.add(emprlist_l1);
+        
+        //table creation
+        MyTable emprlist_table = new MyTable();
+        DefaultTableModel emprlist_model = new DefaultTableModel();
+        
+        //adding columns
+        emprlist_model.addColumn("  Empr.Id  ");
+        emprlist_model.addColumn("Empr.Name");
+        emprlist_model.addColumn("D.O.B");
+        emprlist_model.addColumn("Organization Name");
+        emprlist_model.addColumn("Activation date");
+        emprlist_model.addColumn("Product key");
+        emprlist_table.setModel(emprlist_model);
          
-        table.getColumnModel().getColumn(1).setPreferredWidth(350);
+        emprlist_table.getColumnModel().getColumn(1).setPreferredWidth(350);
        
+        //retriving employerlist from employerlogin
         try
         {
             Connection conn=DBOperations.getConn();
@@ -53,28 +59,30 @@ public class EmployerList {
             ResultSet rs=st.executeQuery("select * from employerlogin");
             while(rs.next())
             {
-                model.addRow(new Object[]{String.valueOf(rs.getInt("emprid")),rs.getString("Name"),rs.getString("DOB"),rs.getString("Organization"),rs.getString("ActivationDate"),rs.getString("ProductKey")});
+                emprlist_model.addRow(new Object[]{String.valueOf(rs.getInt("emprid")),rs.getString("Name"),rs.getString("DOB"),rs.getString("Organization"),rs.getString("ActivationDate"),rs.getString("ProductKey")});
             }
             conn.close();
         }
         catch(Exception ee)
         {System.out.println(ee);}
 
-        table.setRowHeight(30);        
-        JScrollPane scroll = new JScrollPane(table,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        emprlist_table.setRowHeight(30);        
+        JScrollPane scroll = new JScrollPane(emprlist_table,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setBounds(20,70,1300,500);
-        c.add(scroll);
-        MyButton but = new MyButton("\u2190"+"  BACK");
-        but.addActionListener(new ActionListener() {
+        emprlist_con.add(scroll);
+        
+        //back button goes to the AdminMain frame
+        MyButton emprlist_back = new MyButton("\u2190"+"  BACK");
+        emprlist_back.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
-                 frame.dispose();
+                 emprlist_frame.dispose();
                  new AdminMain();
              }
          });
-        but.setBounds(700,600,150,30);
-        c.add(but);
-        frame.setVisible(true);
+        emprlist_back.setBounds(700,600,150,30);
+        emprlist_con.add(emprlist_back);
+        emprlist_frame.setVisible(true);
     }
     
     public static void main(String[] args) {

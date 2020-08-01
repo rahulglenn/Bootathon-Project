@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description : View the work details and changethe SD collection status by the employer.
+ * Author(s)   : Thulasi Ram,Sai Karthik
  */
 package Bootathon;
 
@@ -28,29 +27,25 @@ import java.util.Date;
 
 import javax.swing.JScrollPane;
 
-/*
- * @author rahul
- */
-public class ViewWork {
+class ViewWork {
     ViewWork(int id){
-        // TODO code application logic here
+        
          // frame creating
-        MyFrame f = new MyFrame(4);           
-        f.setBounds(500,100,600,800);
+        MyFrame viewwk_f = new MyFrame(4);           
+        viewwk_f.setBounds(500,100,600,800);
        
         
         //container creating
-        Container c = f.getContentPane();
-        c.setLayout(null);
+        Container viewwk_c = viewwk_f.getContentPane();
+        viewwk_c.setLayout(null);
         
         MyLabel ll= new MyLabel("View details",1); 
         ll.setBounds(30,30,200,50);
-        c.add(ll);
+        viewwk_c.add(ll);
         
-        //String[] amount = { "Rs.2500" , "Rs.3500" , "Rs.4500" ,"Rs.1500" };
         MyComboBox cb = new MyComboBox();
         cb.addItem("Select WorkID");
-            //Adding values to combobox
+            //Adding values to combobox with matured SD
             try{
                     Connection conn = DBOperations.getConn();
                     Statement st=conn.createStatement();
@@ -69,44 +64,45 @@ public class ViewWork {
             catch(Exception ee)
             {
             }
+     
         MyLabel l1 = new MyLabel("Select Work ID  ");
         l1.setBounds(90,140,200,30);
         cb.setBounds(250,140,300,30);
-        c.add(l1);
-        c.add(cb);
-        cb.setEditable(true);
+        viewwk_c.add(l1);
+        viewwk_c.add(cb);
+        cb.setEditable(false);
         
       
         MyLabel l2 = new MyLabel("Security Deposit Value ");        
-        c.add(l2);
+        viewwk_c.add(l2);
         l2.setBounds(10,230,250,30);
         MyTextField t = new MyTextField();
         t.setEditable(false);
-        c.add(t);
+        viewwk_c.add(t);
         t.setBounds(250,230,300,30);
         
        
         MyLabel l3 = new MyLabel("Rewinding Details"); 
         l3.setBounds(200,350,200,30);
-        c.add(l3);
+        viewwk_c.add(l3);
         MyTextArea ta = new MyTextArea();
         ta.setEditable(false);
         JScrollPane sp = new JScrollPane(ta,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         sp.setBounds(80,400,450,300);
-        c.add(sp);
+        viewwk_c.add(sp);
 
         
-       
+       //back action
         MyButton back = new MyButton("\u2190"+"  BACK");
         back.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                f.dispose();
+                viewwk_f.dispose();
                 new MainFrame();
             }
         });;
         MyButton refund=new MyButton("SD Collected");
-       
+       //changes the collection status of SD as 'Collected!'.
         refund.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -122,7 +118,7 @@ public class ViewWork {
                 {
                     
                 }
-                f.dispose();
+                viewwk_f.dispose();
                 new ViewWork(id);
             }
         });
@@ -152,9 +148,9 @@ public class ViewWork {
         });
         back.setBounds(340,710,150,30);
        refund.setBounds(400,350,150,30);
-        c.add(refund);
-        c.add(back);
-        f.setVisible(true);
+        viewwk_c.add(refund);
+        viewwk_c.add(back);
+        viewwk_f.setVisible(true);
     }
     public static void main(String[] args) {
         new LoginPage();

@@ -16,26 +16,35 @@ import javax.swing.JProgressBar;
 public class LoadFrame {
     LoadFrame()
     {
-        MyFrame f = new MyFrame(3);
-        f.setBounds(500,100,600,800);
-        JProgressBar p = new JProgressBar();
-        p.setBounds(170,500,200,20);
-        p.setForeground(new Color(3, 158, 8));
-        p.setValue(0);
-        p.setBackground(new Color(255,255,255));
-        p.setStringPainted(true);
-       
-        p.setFont(new Font("",Font.BOLD,12));
-        JLabel l = new JLabel(new ImageIcon("C:/Users/rahul/Documents/NetBeansProjects/Bootcamp-Java/src/Bootathon/img/dis1.gif"));
-        l.setBounds(150,250,300,150);
-        JLabel l1 = new JLabel("\u00A9"+" copyrights - Team 16");
-        l1.setBounds(210,550,200,50);
-        f.setVisible(true);
-        Container c = f.getContentPane();
-        c.setLayout(null);
-        c.add(p);
-        c.add(l);
-        c.add(l1);
+        //frame creation
+        MyFrame load_frame = new MyFrame(3);
+        load_frame.setBounds(500,100,600,800);
+        
+        //progress bar creation
+        JProgressBar load_p = new JProgressBar();
+        load_p.setBounds(170,500,200,20);
+        load_p.setForeground(new Color(3, 158, 8));
+        load_p.setValue(0);
+        load_p.setBackground(new Color(255,255,255));
+        load_p.setStringPainted(true);
+        load_p.setFont(new Font("",Font.BOLD,12));
+        
+        //label creation
+        JLabel load_l = new JLabel(new ImageIcon("C:/Users/rahul/Documents/NetBeansProjects/Bootcamp-Java/src/Bootathon/img/dis1.gif"));
+        load_l.setBounds(150,250,300,150);
+        
+        //copyrights label creation
+        JLabel load_l1 = new JLabel("\u00A9"+" copyrights - Team 16");
+        load_l1.setBounds(210,550,200,50);
+        
+        load_frame.setVisible(true);
+        
+        //container creation
+        Container load_con = load_frame.getContentPane();
+        load_con.setLayout(null);
+        load_con.add(load_p);
+        load_con.add(load_l);
+        load_con.add(load_l1);
         try{
             Thread.sleep(500);
         }
@@ -44,10 +53,11 @@ public class LoadFrame {
             System.out.println(e);
         }
         
+        //loginpage opens after loading
         for(int i=0;i<101;i++)
         {
-            p.setValue(i);
-            p.setString("Loading  " + p.getValue() + " %");
+            load_p.setValue(i);
+            load_p.setString("Loading  " + load_p.getValue() + " %");
             try{
                 Thread.sleep(45);
             }
@@ -58,7 +68,7 @@ public class LoadFrame {
             
         }
         new LoginPage();
-        f.dispose();
+        load_frame.dispose();
     }
     public static void main(String[] args) {
        new LoadFrame();

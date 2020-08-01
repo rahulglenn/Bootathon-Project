@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description:Adding the Rewinding details by the employer to the database.
+ * Author(s)  :Pradakshina,rahul Glenn,Sai Karthik
  */
 package Bootathon;
 import Bootathon.database.DBOperations;
@@ -19,17 +18,9 @@ import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-
 import javax.swing.JOptionPane;
-
 import javax.swing.JScrollPane;
 
-
-
-/**
- *
- * @author rahul
- */
 public class AddRewind {
     AddRewind(int id)
     {
@@ -39,38 +30,34 @@ public class AddRewind {
       
         
         //Container Creating
-        Container c=addrewind.getContentPane();
-        c.setLayout(null);
+        Container addrew_c=addrewind.getContentPane();
+        addrew_c.setLayout(null);
         
-        //title label
-        
-        MyLabel ll= new MyLabel("Add Rewinding Details",1);
-        ll.setBounds(30,30,350,50);
-        c.add(ll);
+        //add rewinding details label creation
+        MyLabel addrew_ll= new MyLabel("Add Rewinding Details",1);
+        addrew_ll.setBounds(30,30,350,50);
+        addrew_c.add(addrew_ll);
         
         
         //HorsePower entry
-      
-        MyLabel label1 = new MyLabel("Enter HP ");
+        MyLabel addrew_label1 = new MyLabel("Enter HP ");
         MyTextField enterhp = new MyTextField();
-        label1.setBounds(50,130,100,30);
+        addrew_label1.setBounds(50,130,100,30);
         enterhp.setBounds(200,130,300,30);
-        c.add(label1);
-        c.add(enterhp);
+        addrew_c.add(addrew_label1);
+        addrew_c.add(enterhp);
         
         //Rewind details entry
+        MyLabel addrew_l3 = new MyLabel("Enter the details");
+        addrew_l3.setBounds(200, 230, 200, 30);
+        addrew_c.add(addrew_l3);
         
-
-        MyLabel l3 = new MyLabel("Enter the details");
-        l3.setBounds(200, 230, 200, 30);
-        c.add(l3);
-        
-        MyTextArea ta = new MyTextArea();
+        MyTextArea addrew_ta = new MyTextArea();
         
        // ta.setEditable(false);
-        JScrollPane sp = new JScrollPane(ta,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        JScrollPane sp = new JScrollPane(addrew_ta,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         sp.setBounds(30,280,550,400);
-        c.add(sp);
+        addrew_c.add(sp);
  
         
         //Submit and Back
@@ -87,10 +74,11 @@ public class AddRewind {
         });
         MyButton submit = new MyButton("Submit  "+"\u2192");
         submit.setBounds(400, 230, 150, 30);
+        //the data is stored as files in local drive and path is stored in the database
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(enterhp.getText().isEmpty() || ta.getText().isEmpty())
+                if(enterhp.getText().isEmpty() || addrew_ta.getText().isEmpty())
                 {
                     JOptionPane.showMessageDialog(addrewind, "<html><font size=4>Please Fill all the details listed above!","Fill it",JOptionPane.ERROR_MESSAGE);
                 }
@@ -98,7 +86,7 @@ public class AddRewind {
                 try{
                     String path="C:\\Electrical Data\\Empr"+String.valueOf(id)+"\\"+String.valueOf(id)+enterhp.getText()+".txt";
                     BufferedWriter buff=new BufferedWriter(new FileWriter(path));
-                    buff.write(ta.getText());
+                    buff.write(addrew_ta.getText());
                     buff.close();
                     Connection conn = DBOperations.getConn();
                     PreparedStatement st=conn.prepareStatement("insert into rewinddet values(?,?,?)");
@@ -116,8 +104,8 @@ public class AddRewind {
                 }
             }
         });
-        c.add(submit);
-        c.add(back);
+        addrew_c.add(submit);
+        addrew_c.add(back);
         addrewind.setVisible(true);
              
     }

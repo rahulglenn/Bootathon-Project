@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description:Login for both the employer and employee
  */
 package Bootathon;
 
@@ -28,125 +26,129 @@ public class LoginPage {
     LoginPage()
     {
     //creating frame
-    MyFrame f = new MyFrame(1);
-    f.setBounds(500,100,600,800);
+    MyFrame log_f = new MyFrame(1);
+    log_f.setBounds(500,100,600,800);
    
    
     //creating Login container
-    Container c=f.getContentPane();
-    c.setLayout(null);
+    Container log_c=log_f.getContentPane();
+    log_c.setLayout(null);
     
    
-   //username
-    MyLabel l = new MyLabel("Login",1);
-    l.setBounds(40,10,200,50);
-    c.add(l);
-    MyLabel l1 = new MyLabel("Email id");
-    l1.setBounds(70,100,100,30);
-    c.add(l1);
-    MyTextField t1 = new MyTextField();
-    t1.setBounds(200,100,300,30);
-    c.add(t1);
+   //login label creation
+    MyLabel log_l = new MyLabel("Login",1);
+    log_l.setBounds(40,10,200,50);
+    log_c.add(log_l);
+    
+    //email label and textfield creation
+    MyLabel log_l1 = new MyLabel("Email id");
+    log_l1.setBounds(70,100,100,30);
+    log_c.add(log_l1);
+    MyTextField log_t1 = new MyTextField();
+    log_t1.setBounds(200,100,300,30);
+    log_c.add(log_t1);
     
     //creating Panel2(Password)
-    MyLabel l2=new MyLabel("Password");
-    l2.setBounds(60,200,150,30);
-    JPasswordField pass2=new JPasswordField(12);
-    pass2.setBounds(200,200,300,30);
-    JCheckBox cb2=new JCheckBox("Show Password");
-    cb2.setBounds(200,250,150,30);
-    cb2.setOpaque(false);
-    cb2.addActionListener(new ActionListener() {
+    MyLabel log_l2=new MyLabel("Password");
+    log_l2.setBounds(60,200,150,30);
+    JPasswordField log_pass2=new JPasswordField(12);
+    log_pass2.setBounds(200,200,300,30);
+    JCheckBox log_cb2=new JCheckBox("Show Password");
+    log_cb2.setBounds(200,250,150,30);
+    log_cb2.setOpaque(false);
+    
+    //password visibiity
+    log_cb2.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(cb2.isSelected())
-                pass2.setEchoChar((char)0);
+            if(log_cb2.isSelected())
+                log_pass2.setEchoChar((char)0);
             else
-                pass2.setEchoChar('*');
+                log_pass2.setEchoChar('*');
         }
     });
-    c.add(l2);
-    c.add(pass2);
-    c.add(cb2);
+    log_c.add(log_l2);
+    log_c.add(log_pass2);
+    log_c.add(log_cb2);
     
     //creating radio button
-    JRadioButton rb1 = new JRadioButton("<html><Font size = 4>Employee</Font></html>");
-    JRadioButton rb2 = new JRadioButton("<html><Font size = 4>Employer</Font></html>");
-    rb1.setBounds(70,320,150,30);
-    rb2.setBounds(230,320,150,30);
-    rb1.setOpaque(false);
-    rb2.setOpaque(false);
-    c.add(rb1);
-    c.add(rb2);
+    JRadioButton log_rb1 = new JRadioButton("<html><Font size = 4>Employee</Font></html>");
+    JRadioButton log_rb2 = new JRadioButton("<html><Font size = 4>Employer</Font></html>");
+    log_rb1.setBounds(70,320,150,30);
+    log_rb2.setBounds(230,320,150,30);
+    log_rb1.setOpaque(false);
+    log_rb2.setOpaque(false);
+    log_c.add(log_rb1);
+    log_c.add(log_rb2);
     ButtonGroup bg = new ButtonGroup();
-    bg.add(rb2);
-    bg.add(rb1);
+    bg.add(log_rb2);
+    bg.add(log_rb1);
     
 
     //creating panel3(login & signup buttons)
-    MyButton b1 = new MyButton("Login");
-    b1.setBounds(50,400,150,30);
-    MyButton b2=new MyButton("Sign Up");
-    b2.setBounds(50,480,150,30);
-    b2.addActionListener(new ActionListener() {
+    MyButton log_b1 = new MyButton("Login");
+    log_b1.setBounds(50,400,150,30);
+    MyButton log_b2=new MyButton("Sign Up");
+    log_b2.setBounds(50,480,150,30);
+    log_b2.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            f.dispose();
+            log_f.dispose();
             new EmployerRegistration();
         }
     });
-    c.add(b2);
-    c.add(b1);
+    log_c.add(log_b2);
+    log_c.add(log_b1);
     
     //login button action
-    b1.addActionListener(new ActionListener() {
+    log_b1.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(!rb1.isSelected() && !rb2.isSelected())
+            if(!log_rb1.isSelected() && !log_rb2.isSelected())
             {
-                JOptionPane.showMessageDialog(f, "Please Select whether Employee or Employer!");
+                JOptionPane.showMessageDialog(log_f, "Please Select whether Employee or Employer!");
             }
-            else if(t1.getText().isEmpty() || String.valueOf(pass2.getPassword()).isEmpty())
+            else if(log_t1.getText().isEmpty() || String.valueOf(log_pass2.getPassword()).isEmpty())
             {
-                JOptionPane.showMessageDialog(f, "Please enter Login Credentials!");
+                JOptionPane.showMessageDialog(log_f, "Please enter Login Credentials!");
             }
             else{
-            if(rb1.isSelected()) // employee radio button is selected
+            if(log_rb1.isSelected()) // employee radio button is selected
             {
                 try{
                     Connection conn=DBOperations.getConn();
                     PreparedStatement st=conn.prepareStatement("Select * from employdet where Username=? AND Password=?");
-                    st.setString(1, t1.getText());
-                    st.setString(2, String.valueOf(pass2.getPassword()));
+                    st.setString(1, log_t1.getText());
+                    st.setString(2, String.valueOf(log_pass2.getPassword()));
                     ResultSet rs=st.executeQuery();
                     if(rs.next())
                     {
                         if(Integer.valueOf(rs.getString("PassChange"))==0)
                         {
-                            f.dispose();
+                            log_f.dispose();
                             new EmpPassChange(rs);
                         }
                         else{
-                            f.dispose();
+                            log_f.dispose();
                             new EmployeeMain(rs.getString("Empname"),rs.getInt("empid"),rs.getString("Address"),rs.getString("DOB"),rs.getString("Phone"),rs.getInt("Salary"),rs.getInt("CurSalary"));
                         }
                     }
                     else
                     {
-                        JOptionPane.showMessageDialog(f, "Invalid Username or Password!");
+                        JOptionPane.showMessageDialog(log_f, "Invalid Username or Password!");
                     }
                     conn.close();
                 }
                 catch(Exception ee)
                 {System.out.println(ee);}
             }
-            if(rb2.isSelected()) // employer radio button is selected
+            if(log_rb2.isSelected()) // employer radio button is selected
             {
                  try{
                     Connection conn=DBOperations.getConn();
                     PreparedStatement st=conn.prepareStatement("Select * from employerlogin where Username=? AND Password=?");
-                    st.setString(1, t1.getText());
-                    st.setString(2, String.valueOf(pass2.getPassword()));
+                    st.setString(1, log_t1.getText());
+                    st.setString(2, String.valueOf(log_pass2.getPassword()));
                     ResultSet rs=st.executeQuery();
                     if(rs.next())
                     {
@@ -162,12 +164,12 @@ public class LoginPage {
                         st.setString(3, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
                         st.setString(4, "Logged in!");
                         st.executeUpdate();
-                        f.dispose();
+                        log_f.dispose();
                         new MainFrame(rs.getInt("emprid"),rs.getString("Name"),date);
                     }
                     else
                     {
-                        JOptionPane.showMessageDialog(f, "Invalid Username or Password!");
+                        JOptionPane.showMessageDialog(log_f, "Invalid Username or Password!");
                     }
                     conn.close();
                     
@@ -178,7 +180,7 @@ public class LoginPage {
         }
     });
    
-    f.setVisible(true);   
+    log_f.setVisible(true);   
     }
     public static void main(String[] args) {
         new LoadFrame();

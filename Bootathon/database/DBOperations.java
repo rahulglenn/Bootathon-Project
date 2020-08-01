@@ -1,20 +1,16 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description:The connection for the database is established.
+ * Author     :Rahul Glenn
  */
 package Bootathon.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-/**
- *
- * @author rahul
- */
 public class DBOperations {
     private static Connection conn;
-
+    
+    //connection object returned
     public static Connection getConn() {
         try{
             Class.forName("com.mysql.jdbc.Driver");

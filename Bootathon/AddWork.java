@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Description : Add workdetails(SD amount) by the employer.
+ * Author(s)   : Thulasi Ram,Sai Karthik
  */
 package Bootathon;
 import Bootathon.database.DBOperations;
@@ -17,9 +16,6 @@ import java.sql.PreparedStatement;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
- /*
- * @author rahul
- */
 public class AddWork {
     AddWork(int id){
          // Frame creating
@@ -83,6 +79,7 @@ public class AddWork {
 
         MyButton submit = new MyButton("Submit  "+"\u2192");
         submit.setBounds(300,460,150,30);
+        //adding workdetails
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -90,6 +87,7 @@ public class AddWork {
                 {
                     JOptionPane.showMessageDialog(addWorkingFrame, "<html><font size=4>Please Fill all the details listed above!","Fill it",JOptionPane.ERROR_MESSAGE);
                 }
+                //date validation
                 else if(!Pattern.compile("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$").matcher(dateField.getText()).matches())
                 {
                     JOptionPane.showMessageDialog(addWorkingFrame, "<html><font size=4>Invalid Date Format use (dd/mm/yyy)!","Invalid!",JOptionPane.ERROR_MESSAGE);
