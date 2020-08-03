@@ -20,7 +20,9 @@ import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -61,9 +63,14 @@ class ViewWork {
                     }
                     conn.close();
             }
-            catch(Exception ee)
-            {
-            }
+            catch(ParseException ee)
+       {
+           System.out.println("Invalid Date Format"+ee);
+       }
+       catch(SQLException ee)
+        {
+           System.out.println("Cannot retrieve values from DB!!"+ee);
+        }
      
         MyLabel l1 = new MyLabel("Select Work ID  ");
         l1.setBounds(90,140,200,30);
@@ -114,9 +121,9 @@ class ViewWork {
                     st.executeUpdate();
                     conn.close();
                 }
-                catch(Exception ee)
+                catch(SQLException ee)
                 {
-                    
+                    System.out.println("Cannot update values"+ee);
                 }
                 viewwk_f.dispose();
                 new ViewWork(id);
@@ -140,9 +147,9 @@ class ViewWork {
                     ta.setText(rs.getString("NameOfWork"));
                     conn.close();
                 }
-                catch(Exception ee)
+                catch(SQLException ee)
                 {
-                    System.out.println("Error"+ee);
+                    System.out.println("Cannot retrieve values from workdet"+ee);
                 }
             }
         });
@@ -153,7 +160,7 @@ class ViewWork {
         viewwk_f.setVisible(true);
     }
     public static void main(String[] args) {
-        new LoginPage();
+        new LoadFrame();
     }
     
 }

@@ -63,8 +63,9 @@ public class UpdateRewind {
                     }
                     conn.close();
             }
-            catch(Exception ee)
+            catch(SQLException ee)
             {
+                System.out.println("Cannot retrieve values from rewinddet"+ee);
             }      
             
         //select hp combobox    
@@ -133,9 +134,13 @@ public class UpdateRewind {
                     ta.setText(det);
                     conn.close();
                 }
-                catch(IOException | SQLException ee)
+                catch(SQLException ee)
                 {
-                    
+                    System.out.println("Cannot retrieve values from rewinddet"+ee);
+                }
+                catch(IOException ee)
+                {
+                    System.out.println("Cannot find the file in the Specified path"+ee);
                 }
  
             }
@@ -158,19 +163,20 @@ public class UpdateRewind {
                    BufferedWriter buff=new BufferedWriter(new FileWriter(path));
                    buff.write(ta.getText());
                    buff.close();
+                   JOptionPane.showMessageDialog(f,"<html><font size=4>Successfully Updated.","Successful",JOptionPane.INFORMATION_MESSAGE);
                 }
                 catch(IOException ee)
                 {
-                    System.out.println(ee);
+                    System.out.println("Cannot find the file in the Specified path"+ee);
                 }
-                JOptionPane.showMessageDialog(f,"<html><font size=4>Successfully Updated.","Successful",JOptionPane.INFORMATION_MESSAGE);
+                
             }}}
         });
         
         f.setVisible(true);
     }
     public static void main(String[] args) {
-        new LoginPage();
+        new LoadFrame();
     }
     
 }

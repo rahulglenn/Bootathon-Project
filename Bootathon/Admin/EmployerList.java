@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.table.DefaultTableModel;
@@ -63,8 +64,8 @@ public class EmployerList {
             }
             conn.close();
         }
-        catch(Exception ee)
-        {System.out.println(ee);}
+        catch(SQLException ee)
+        {System.out.println("Cannot retrieve values from employerlogin"+ee);}
 
         emprlist_table.setRowHeight(30);        
         JScrollPane scroll = new JScrollPane(emprlist_table,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);

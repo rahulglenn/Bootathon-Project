@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 
@@ -110,7 +111,6 @@ public class AddEmploy {
        c.add(l9);
        c.add(t7);
         
-      
       MyButton enter = new MyButton("Enter");
       enter.addActionListener(new ActionListener() {
             @Override
@@ -119,11 +119,35 @@ public class AddEmploy {
                 {
                     JOptionPane.showMessageDialog(addemp_f, "<html><font size=4>Please Fill all the details listed above!","Fill it",JOptionPane.ERROR_MESSAGE);
                 }
+                else if(t.getText().length()>20)
+                {
+                    JOptionPane.showMessageDialog(addemp_f, "<html><font size=4>The Employee Name can have a max of 20 Characters only!","Change it",JOptionPane.ERROR_MESSAGE);
+                }
+                else if(t1.getText().length()>25)
+                {
+                    JOptionPane.showMessageDialog(addemp_f, "<html><font size=4>The Address can have a max of 25 Characters only!","Change it",JOptionPane.ERROR_MESSAGE);
+                }
+                else if(t3.getText().length()>10)
+                {
+                    JOptionPane.showMessageDialog(addemp_f, "<html><font size=4>The Phone No. can have a max size of 10 only!","Change it",JOptionPane.ERROR_MESSAGE);
+                }
+                else if(t6.getText().length()>15 || t6.getText().length()<8)
+                {
+                    JOptionPane.showMessageDialog(addemp_f, "<html><font size=4>The Password should be of size min 8 characters and a max of 15 characters!","Change it",JOptionPane.ERROR_MESSAGE);
+                }
+                else if(!Pattern.matches("^[0-9]+$", t4.getText()))
+                {
+                    JOptionPane.showMessageDialog(addemp_f, "<html><font size=4>The Salary should be integer value!","Change it",JOptionPane.ERROR_MESSAGE);
+                }
+                else if(Integer.valueOf(t4.getText())>100000)
+                {
+                    JOptionPane.showMessageDialog(addemp_f, "<html><font size=4>The Salary cannot be greater than 1 Lakh!","Change it",JOptionPane.ERROR_MESSAGE);
+                }
                 else if(!Pattern.compile("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$").matcher(t2.getText()).matches())//date validation
                 {
-                    JOptionPane.showMessageDialog(addemp_f, "<html><font size=4>Invalid Date Format use (dd/mm/yyy)!","Invalid!",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(addemp_f, "<html><font size=4>Invalid Date or Invalid Format! use (dd/mm/yyyy)!","Invalid!",JOptionPane.ERROR_MESSAGE);
                 }
-                else if(!Pattern.compile("^(.+)@(.+)$").matcher(t5.getText()).matches())//mail validation
+                else if(!Pattern.compile("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$").matcher(t5.getText()).matches())//mail validation
                 {
                     JOptionPane.showMessageDialog(addemp_f, "<html><font size=4>Invalid Email Address!","Invalid!",JOptionPane.ERROR_MESSAGE);
                 }
@@ -147,12 +171,16 @@ public class AddEmploy {
                     st.setString(9, String.valueOf(t6.getPassword()));
                     st.executeUpdate();
                     conn.close();
+                    JOptionPane.showMessageDialog(addemp_f,"<html><font size=4>Successfully Added.","Successful",JOptionPane.INFORMATION_MESSAGE);
                 }
-                catch(Exception ee)
+                catch(NumberFormatException ee)
                 {
-                    System.out.println(ee);
+                    System.out.println("Salary value should be an integer value"+ee);
                 }
-                JOptionPane.showMessageDialog(addemp_f,"<html><font size=4>Successfully Added.","Successful",JOptionPane.INFORMATION_MESSAGE);
+                catch(SQLException ee)
+                {
+                    System.out.println("Couldnt insert values into employdet"+ee);
+                }
                 addemp_f.dispose();
                 new AddEmploy(id);
             }}
@@ -176,7 +204,7 @@ public class AddEmploy {
         
     }
     public static void main(String[] args) {
-        new LoginPage();
+        new LoadFrame();
     }
     
 }

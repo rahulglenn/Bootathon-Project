@@ -5,7 +5,6 @@
 package Bootathon;
 
 
-import Bootathon.database.DBOperations;
 import Bootathon.uiworks.MyButton;
 import Bootathon.uiworks.MyFrame;
 import Bootathon.uiworks.MyLabel;
@@ -13,10 +12,6 @@ import Bootathon.uiworks.MyTextField;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class EmployeeMain {
     EmployeeMain(String name,int id,String add,String dob,String phone,int sal,int cur_sal)
@@ -80,6 +75,6 @@ public class EmployeeMain {
     }
     
     public static void main(String[] args) {
-        new LoginPage();
+        new LoadFrame();
     }
 }

@@ -15,9 +15,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
@@ -82,6 +83,10 @@ public class AddRewind {
                 {
                     JOptionPane.showMessageDialog(addrewind, "<html><font size=4>Please Fill all the details listed above!","Fill it",JOptionPane.ERROR_MESSAGE);
                 }
+                else if(enterhp.getText().length()>10)
+                {
+                    JOptionPane.showMessageDialog(addrewind, "The HP value can have a max of 10 characters only!");
+                }
                 else{
                 try{
                     String path="C:\\Electrical Data\\Empr"+String.valueOf(id)+"\\"+String.valueOf(id)+enterhp.getText()+".txt";
@@ -95,12 +100,17 @@ public class AddRewind {
                     st.setString(3, path.replace('\\','@'));
                     st.executeUpdate();
                     conn.close();
+                    JOptionPane.showMessageDialog(addrewind,"<html><font size=4>Successfully Added.","Successful",JOptionPane.INFORMATION_MESSAGE);
                 }
-                catch(Exception ee)
+                catch(SQLException ee)
                 {
-                    System.out.println(ee);
+                    System.out.println("Cannot insert values into rewinddet"+ee);
                 }
-                JOptionPane.showMessageDialog(addrewind,"<html><font size=4>Successfully Added.","Successful",JOptionPane.INFORMATION_MESSAGE);
+                catch(IOException ee)
+                {
+                    System.out.println("Cannot find the file in the Specified path"+ee);
+                }
+                
                 }
             }
         });
@@ -110,7 +120,7 @@ public class AddRewind {
              
     }
     public static void main(String[] args) {
-      new LoginPage();
+      new LoadFrame();
     }
     
 }

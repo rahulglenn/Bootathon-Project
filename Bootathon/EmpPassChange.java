@@ -9,11 +9,13 @@ import Bootathon.uiworks.MyButton;
 import Bootathon.uiworks.MyFrame;
 import Bootathon.uiworks.MyLabel;
 import java.awt.Container;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
@@ -27,8 +29,8 @@ public class EmpPassChange {
         user=rs.getString("Username");
         id=rs.getInt("empid");
         }
-        catch(Exception ee)
-        {System.out.println("Err"+ee);}
+        catch(SQLException ee)
+        {System.out.println("Cannot get the value from Resultset"+ee);}
         
         //frame creation
         MyFrame pchange=new MyFrame(2);
@@ -84,6 +86,10 @@ public class EmpPassChange {
                 {
                     JOptionPane.showMessageDialog(pchange, "<html><font size=4>The Password does not match!","re-type Error",JOptionPane.ERROR_MESSAGE);
                 }
+                else if(String.valueOf(pchange_t1.getPassword()).length()>15 || String.valueOf(pchange_t1.getPassword()).length()<8)
+                {
+                    JOptionPane.showMessageDialog(pchange, "<html><font size=4>The Password should be of size min 8 characters and a max of 15 characters!","Change it",JOptionPane.ERROR_MESSAGE);
+                }
                 else
                 {  
                 try{
@@ -97,8 +103,12 @@ public class EmpPassChange {
                  pchange.dispose();
                  new LoginPage();
         }
-        catch(Exception ee)
-        {System.out.println("Err"+ee);}
+        catch(  HeadlessException ee)
+        {System.out.println("Cannot insert the Specified Header"+ee);}
+                catch(SQLException ee)
+                {
+                    System.out.println("Cannot update the employdet"+ee);
+                }
                  
             }}
         });
@@ -108,6 +118,6 @@ public class EmpPassChange {
         pchange.setVisible(true);
     }
     public static void main(String[] args) {
-       new LoginPage();
+       new LoadFrame();
     }
 }

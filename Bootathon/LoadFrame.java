@@ -50,7 +50,7 @@ public class LoadFrame {
         }
         catch(InterruptedException e)
         {
-            System.out.println(e);
+            System.out.println("Problem in Thread.sleep"+e);
         }
         
         //loginpage opens after loading
@@ -63,7 +63,7 @@ public class LoadFrame {
             }
             catch(InterruptedException ee)
             {
-                System.out.println(ee);
+                System.out.println("Problem in Thread.sleep"+ee);
             }
             
         }

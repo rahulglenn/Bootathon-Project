@@ -17,9 +17,11 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JScrollPane;
 
@@ -53,10 +55,10 @@ public class ViewRewind {
                     }
                     conn.close();
             }
-            catch(Exception ee)
+            catch(SQLException ee)
             {
-                
-            }
+                System.out.println("Cannot retrieve values from rewinddet"+ee);
+            } 
        
         //HP selection
         MyLabel viewrew_l1 = new MyLabel("Select HP");
@@ -122,10 +124,14 @@ public class ViewRewind {
                     ta.setText(det);
                     conn.close();
                 }
-                catch(Exception ee)
+                catch(SQLException ee)
                 {
-                    System.out.println(item +ee);
-                }    
+                    System.out.println("Cannot retrieve values from rewinddet"+ee);
+                }
+                catch(IOException ee)
+                {
+                    System.out.println("Cannot find the file in the Specified path"+ee);
+                }   
             }
         });
         
@@ -134,6 +140,6 @@ public class ViewRewind {
         viewrew_f.setVisible(true);
     }
     public static void main(String[] args) {
-       new LoginPage();
+       new LoadFrame();
     }
 }

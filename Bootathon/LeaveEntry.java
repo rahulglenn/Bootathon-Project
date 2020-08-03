@@ -19,7 +19,9 @@ import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
@@ -57,8 +59,8 @@ public class LeaveEntry {
                     }
                     conn.close();
             }
-            catch(Exception ee)
-            {}
+            catch(SQLException ee)
+            {System.out.println("Cannot retrieve values from employdet"+ee);}
 
        cb.setBounds(250,110,300,30);
        cb.setEditable(false);
@@ -126,10 +128,15 @@ public class LeaveEntry {
                     t2.setText(rs.getString("EmpName"));
                     conn.close();
                 }
-               catch(Exception ee)
+               catch(NumberFormatException ee)
                {
-                   System.out.println(ee);
-               }}
+                   System.out.println("The selected item should be integer"+ee);
+               }
+               catch(SQLException ee)
+               {
+                   System.out.println("Cannot retrieve values from employdet"+ee);
+               }
+            }
         });
        
       //Number of leave days entered,accordingly salary deducted
@@ -143,6 +150,14 @@ public class LeaveEntry {
                 else if(t3.getText().isEmpty())
                 {
                     JOptionPane.showMessageDialog(f, "<html><font size=4>specify No. of Days!","Specify",JOptionPane.ERROR_MESSAGE);
+                }
+                else if(!Pattern.matches("^[0-9]+$", t3.getText()))
+                {
+                    JOptionPane.showMessageDialog(f, "<html><font size=4>No. of Days is an Integer Value!","Specify",JOptionPane.ERROR_MESSAGE);
+                }
+                else if(Integer.valueOf(t3.getText())>30)
+                {
+                    JOptionPane.showMessageDialog(f, "<html><font size=4>No. of Days cannot exceed 30!","Specify",JOptionPane.ERROR_MESSAGE);
                 }
                 else
                 {
@@ -164,12 +179,16 @@ public class LeaveEntry {
                     pst.setInt(3, id);
                     pst.executeUpdate();
                     conn.close();
+                    JOptionPane.showMessageDialog(f,"<html><font size=4>Successfully Marked!","Successful",JOptionPane.INFORMATION_MESSAGE);
                 }
-                catch(Exception ee)
-                {
-                    System.out.println(ee);
-                }
-                JOptionPane.showMessageDialog(f,"<html><font size=4>Successfully Marked!","Successful",JOptionPane.INFORMATION_MESSAGE);
+                catch(NumberFormatException ee)
+               {
+                   System.out.println("The selected item should be integer"+ee);
+               }
+               catch(SQLException ee)
+               {
+                   System.out.println("Cannot retrieve values from employdet"+ee);
+               }
                 f.dispose();
                 new LeaveEntry(id);
             }}}
@@ -178,7 +197,7 @@ public class LeaveEntry {
       f.setVisible(true);        
     }
     public static void main(String[] args) {
-       new LeaveEntry(0);
+       new LoadFrame();
     }
 }
  

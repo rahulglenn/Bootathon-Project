@@ -14,9 +14,9 @@ import java.awt.event.ActionListener;
 
 public class AdminMain {
     static String name;
-    AdminMain(String name)
+    AdminMain(String nam)
     {
-        this.name=name;
+        name=nam;
         new AdminMain();
     }
     AdminMain()
@@ -60,6 +60,16 @@ public class AdminMain {
        amain_b2.setBounds(120,220,250,50);
        amain_con.add(amain_b2);
        
+       MyButton logout = new MyButton("Log out");
+       logout.setBounds(300,400,150,30);
+       amain_con.add(logout);
+       logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                amain_frame.dispose();
+                new AdminLogin();
+            }
+        });
        amain_frame.setVisible(true);
     }
     public static void main(String[] args) {

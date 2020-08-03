@@ -1,6 +1,6 @@
 /**
- * Description:The employer registers his/her organization with the ActivationKey provided by the Admin
- * Author(s)  :Raahul Glen,Sai Karthik
+ * Description: The employer registers his/her organization with the ActivationKey provided by the Admin
+ * Author(s)  : Rahul Glenn,Sai Karthik
  */ 
 package Bootathon;
 
@@ -10,6 +10,7 @@ import Bootathon.uiworks.MyFrame;
 import Bootathon.uiworks.MyLabel;
 import Bootathon.uiworks.MyTextField;
 import java.awt.Container;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -17,13 +18,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
-
 
 public class EmployerRegistration {
        EmployerRegistration()
@@ -45,13 +44,11 @@ public class EmployerRegistration {
         
         //organization label creation
         MyLabel emprreg_org = new MyLabel("Organization");
-      
         emprreg_org.setBounds(50,200+40,200,50);
         emprreg_con.add(emprreg_org);
  
         //DOB label creation
         MyLabel emprreg_dob = new MyLabel("D.O.B ");
-       
         emprreg_dob.setBounds(50,275+40,200,50);
         emprreg_con.add(emprreg_dob);
         
@@ -111,9 +108,9 @@ public class EmployerRegistration {
         emprreg_t7.setBounds(250,125,300,30);
         emprreg_con.add(emprreg_t7);
 
-       MyLabel summa = new MyLabel("click here \u2191");
-       summa.setBounds(380,210,150,20);
-       emprreg_con.add(summa);
+       MyLabel clickhere = new MyLabel("click here \u2191");
+       clickhere.setBounds(380,210,150,20);
+       emprreg_con.add(clickhere);
         // ActivationKey validation
         MyButton b1 = new MyButton("Validate");
         b1.addActionListener(new ActionListener() {
@@ -142,9 +139,14 @@ public class EmployerRegistration {
                       }
                       conn.close();
                     }
-                    catch(Exception ee)
-                    {System.out.println(ee);
-                    }
+                    catch(HeadlessException ee)
+                {
+                    System.out.println("Cannot insert the specified HTML header!"+ee);
+                }
+                catch(SQLException ee)
+                {
+                    System.out.println("Cannot retrieve the product info from DB!"+ee);
+                }    
                 }}
             });
         b1.setBounds(380,180,110,20);
@@ -162,11 +164,19 @@ public class EmployerRegistration {
                 {
                     JOptionPane.showMessageDialog(emprreg_frame, "<html><font size=4>Please Fill all the details listed above!","Fill it",JOptionPane.ERROR_MESSAGE);
                 }
+                else if(emprreg_t1.getText().length()>20)
+                {
+                    JOptionPane.showMessageDialog(emprreg_frame, "<html><font size=4>The Employer Name can have a max of 20 Characters only!","Change it",JOptionPane.ERROR_MESSAGE);
+                }
+                else if(emprreg_t5.getText().length()>15 || emprreg_t5.getText().length()<8)
+                {
+                    JOptionPane.showMessageDialog(emprreg_frame, "<html><font size=4>The Password should be of size min 8 characters and a max of 15 characters!","Change it",JOptionPane.ERROR_MESSAGE);
+                }
                 else if(!Pattern.compile("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$").matcher(emprreg_t3.getText()).matches())
                 {
-                    JOptionPane.showMessageDialog(emprreg_frame, "<html><font size=4>Invalid Date Format use (dd/mm/yyyy)!","Invalid",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(emprreg_frame, "<html><font size=4>Invalid Date or Invalid Format! use (dd/mm/yyyy)!","Invalid",JOptionPane.ERROR_MESSAGE);
                 }
-                else if(!Pattern.compile("^(.+)@(.+)$").matcher(emprreg_t4.getText()).matches())
+                else if(!Pattern.compile("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$").matcher(emprreg_t4.getText()).matches())
                 {
                     JOptionPane.showMessageDialog(emprreg_frame, "<html><font size=4>Invalid Email Address!","Invalid",JOptionPane.ERROR_MESSAGE);
                 }
@@ -202,28 +212,40 @@ public class EmployerRegistration {
                     st.executeUpdate();
                     conn.close();
                     JOptionPane.showMessageDialog(emprreg_frame,"<html><font size=4>Registration Successful","Successful",JOptionPane.INFORMATION_MESSAGE);
-                    //System.out.println(id+t1.getText()+"Nil");
+                    //creating a new directory for the employer
                     new File("C:\\Electrical Data\\Empr"+String.valueOf(id)).mkdir();
                     emprreg_frame.dispose();
-                    //System.out.println(id+t1.getText()+"Nil");
                     new MainFrame(id,emprreg_t1.getText(),"Nil");
                 }
-                catch(Exception ee)
-                {System.out.println(ee);
+                catch(HeadlessException ee)
+                {
+                    System.out.println("Cannot insert the specified HTML header!"+ee);
                 }
-               
-                
+                catch(SQLException ee)
+                {
+                    System.out.println("Cannot insert values into DB!!"+ee);
+                }     
             }}
         });
        
         b.setBounds(30,620,150,30);
         emprreg_con.add(b);
        
+        MyButton bac = new MyButton("\u2190"+"  BACK");
+        bac.setBounds(30,680,150,30);
+        emprreg_con.add(bac);
+        bac.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    emprreg_frame.dispose();
+                    new LoginPage();
+                }
+            });
+        
         emprreg_frame.setVisible(true);
        }
     public static void main(String[] args) {
-    new LoginPage();
+    new LoadFrame();
     }
-   
 }
 

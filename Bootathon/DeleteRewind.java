@@ -20,9 +20,11 @@ import java.awt.event.ItemListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JOptionPane;
@@ -63,14 +65,14 @@ public class DeleteRewind {
                     }
                     conn.close();
             }
-            catch(Exception ee)
+            catch(SQLException ee)
             {
+                System.out.println("Cannot retrieve values from rewinddet"+ee);
             }
               
         MyLabel l1 = new MyLabel("Select HP   ");
         l1.setBounds(30,100,150,30);
         cb.setBounds(230,100,300,30);
-        cb.setEditable(true);
         c.add(l1);
         c.add(cb);
 
@@ -137,9 +139,13 @@ public class DeleteRewind {
                     ta.setText(det);
                     conn.close();
                 }
-                catch(Exception ee)
+                catch(SQLException ee)
                 {
-                    
+                    System.out.println("Cannot retrieve values from rewinddet"+ee);
+                }
+                catch(IOException ee)
+                {
+                    System.out.println("Cannot find the file in the Specified path"+ee);
                 }
  
             }
@@ -166,12 +172,13 @@ public class DeleteRewind {
                     new File(path).delete();
                     st.executeUpdate();
                     conn.close();
+                    JOptionPane.showMessageDialog(f,"<html><font size=4>Successfully Deleted.","Successful",JOptionPane.INFORMATION_MESSAGE);
                 }
-                catch(Exception ee)
+                catch(SQLException ee)
                 {
-                    System.out.println(ee);
+                    System.out.println("Cannot delete the values from rewinddet"+ee);
                 }
-                JOptionPane.showMessageDialog(f,"<html><font size=4>Successfully Deleted.","Successful",JOptionPane.INFORMATION_MESSAGE);
+                
                 f.dispose();
                 new DeleteRewind(id);
             }}}
@@ -180,6 +187,6 @@ public class DeleteRewind {
         f.setVisible(true);
     }
     public static void main(String[] args) {
-        new LoginPage();
+        new LoadFrame();
     }
 }

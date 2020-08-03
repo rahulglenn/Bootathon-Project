@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.UUID;
 import javax.swing.JOptionPane;
 
@@ -60,6 +61,10 @@ public class AdminAddOrg {
                {
                     JOptionPane.showMessageDialog(addorg_frame, "Please Fill the Organization Name!");
                }
+               else if(orgname_t1.getText().length()>20)
+               {
+                    JOptionPane.showMessageDialog(addorg_frame, "The Organization Name can have a max of 20 characters!");
+               }
                else
                {
                    UUID key=UUID.randomUUID();
@@ -73,8 +78,8 @@ public class AdminAddOrg {
                    st.executeUpdate();
                    conn.close();
                }
-               catch(Exception ee)
-               {System.out.println(ee);}
+               catch(SQLException ee)
+               {System.out.println("Cannot insert values into DB"+ee);}
                 JOptionPane.showMessageDialog(addorg_frame,"Successfully Added.","Alert",JOptionPane.WARNING_MESSAGE);
            }}
        });

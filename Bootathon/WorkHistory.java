@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -65,8 +66,10 @@ public class WorkHistory {
             }
             conn.close();
         }
-        catch(Exception ee)
-        {System.out.println(ee);}
+        catch(SQLException ee)
+                {
+                    System.out.println("Cannot retrieve values from workdet"+ee);
+                }
 
         table.setRowHeight(30);        
         JScrollPane scroll = new JScrollPane(table,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -86,6 +89,6 @@ public class WorkHistory {
         wh_frame.setVisible(true);
     }
     public static void main(String[] args) {
-        new LoginPage();
+        new LoadFrame();
     }
 }

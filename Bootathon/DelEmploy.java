@@ -19,6 +19,7 @@ import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 
@@ -60,8 +61,10 @@ public class DelEmploy {
                     }
                     conn.close();
                }
-               catch(Exception ee)
-               {}                
+               catch(SQLException ee)
+               {
+                    System.out.println("Cannot retrieve values from employdet!!"+ee); 
+               }                
     
     
        cb.setBounds(250,130,250,30);
@@ -156,9 +159,13 @@ public class DelEmploy {
                     t5.setText(String.valueOf(rs.getInt("Salary")));
                     conn.close();
                 }
-                catch(Exception ee)
+                catch(NumberFormatException ee)
                 {
-                    System.out.println(ee);
+                    System.out.println("The selected item should be integer"+ee);
+                }
+                catch(SQLException ee)
+                {
+                    System.out.println("Cannot retrieve values from employdet"+ee);
                 }
             }
         });
@@ -184,8 +191,14 @@ public class DelEmploy {
                     st.executeUpdate();
                     conn.close();
                 }
-                catch(Exception ee)
-                {}
+                catch(NumberFormatException ee)
+                {
+                    System.out.println("The empid should be integer"+ee);
+                }
+                catch(SQLException ee)
+                {
+                    System.out.println("Cannot delete values from employdet"+ee);
+                }
                 f.dispose();
                 new DelEmploy(id);
             }}}
@@ -194,6 +207,6 @@ public class DelEmploy {
       f.setVisible(true);
     }
     public static void main(String[] args) {
-       new LoginPage();
+       new LoadFrame();
     }
 }

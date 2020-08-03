@@ -19,6 +19,7 @@ import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
@@ -55,9 +56,9 @@ public class UpdateWork {
                     }
                     conn.close();
             }
-            catch(Exception ee)
+            catch(SQLException ee)
             {
-                
+                System.out.println("Cannot retrieve values from workdet"+ee);
             }
         //label l1 creation       
         MyLabel l1 = new MyLabel("Select Work ID  ");
@@ -65,7 +66,6 @@ public class UpdateWork {
         cb.setBounds(250,140,300,30);
         upwk_c.add(l1);
         upwk_c.add(cb);
-        cb.setEditable(true);
 
         
         //date label creation 
@@ -127,9 +127,9 @@ public class UpdateWork {
                     ta.setText(rs.getString("NameOfWork"));
                     conn.close();
                 }
-                catch(Exception ee)
+                catch(SQLException ee)
                 {
-                    
+                    System.out.println("Cannot retrieve values from workdet"+ee);
                 }
             }
         });
@@ -157,19 +157,24 @@ public class UpdateWork {
                     st.setInt(5, id);
                     st.executeUpdate();
                     conn.close();
+                    JOptionPane.showMessageDialog(upwk_f,"<html><font size=4>Successfully Updated.","Successful",JOptionPane.INFORMATION_MESSAGE);
                 }
-                catch(Exception ee)
-                {
-                    System.out.println(ee);
-                }
-                JOptionPane.showMessageDialog(upwk_f,"<html><font size=4>Successfully Updated.","Successful",JOptionPane.INFORMATION_MESSAGE);
+                catch(NumberFormatException ee)
+               {
+                   System.out.println("The selected item should be integer"+ee);
+               }
+               catch(SQLException ee)
+               {
+                   System.out.println("Cannot update values into workdet"+ee);
+               }
+                
                 }
             }}
         });
         upwk_f.setVisible(true);
     }
     public static void main(String[] args) {
-       new LoginPage();
+       new LoadFrame();
     }
     
 }

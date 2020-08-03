@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
@@ -87,10 +88,22 @@ public class AddWork {
                 {
                     JOptionPane.showMessageDialog(addWorkingFrame, "<html><font size=4>Please Fill all the details listed above!","Fill it",JOptionPane.ERROR_MESSAGE);
                 }
+                else if(nameOfWork.getText().length()>20)
+                {
+                    JOptionPane.showMessageDialog(addWorkingFrame, "The Name Of Work can have a max of 20 characters only!");
+                }
+                else if(!Pattern.matches("^[0-9]+$", amount.getText()))
+                {
+                    JOptionPane.showMessageDialog(addWorkingFrame, "The Amount should be integer value!");
+                }
+                else if(amount.getText().length()>5)
+                {
+                    JOptionPane.showMessageDialog(addWorkingFrame, "The amount cannot exceed 99999/-!");
+                }
                 //date validation
                 else if(!Pattern.compile("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$").matcher(dateField.getText()).matches())
                 {
-                    JOptionPane.showMessageDialog(addWorkingFrame, "<html><font size=4>Invalid Date Format use (dd/mm/yyy)!","Invalid!",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(addWorkingFrame, "<html><font size=4>Invalid Date or Invalid Format! use (dd/mm/yyyy)!","Invalid!",JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                 try{
@@ -102,12 +115,13 @@ public class AddWork {
                     st.setString(4,dateField.getText());
                     st.executeUpdate();
                     conn.close();
-                    System.out.println("Success");
-                }
-                catch(Exception ee){
-                    System.out.println("Error!!"+ee);   
-                }
                     JOptionPane.showMessageDialog(addWorkingFrame,"<html><font size=4>Successfully Added.","Successful",JOptionPane.INFORMATION_MESSAGE);
+                
+                }
+                catch(SQLException ee){
+                    System.out.println("Cannot insert values into workdet!!"+ee);   
+                }
+                    
                 }
             }
         });
@@ -116,7 +130,7 @@ public class AddWork {
         addWorkingFrame.setVisible(true);
     }
     public static void main(String[] args) {
-       new LoginPage();
+       new LoadFrame();
     }
     
 }

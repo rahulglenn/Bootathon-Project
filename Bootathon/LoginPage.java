@@ -9,11 +9,13 @@ import Bootathon.uiworks.MyFrame;
 import Bootathon.uiworks.MyButton;
 import Bootathon.database.DBOperations;
 import java.awt.Container;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ButtonGroup;
@@ -139,8 +141,18 @@ public class LoginPage {
                     }
                     conn.close();
                 }
-                catch(Exception ee)
-                {System.out.println(ee);}
+                catch(HeadlessException ee)
+                {
+                    System.out.println("Cannot insert the specified HTML header!"+ee);
+                }
+                catch(NumberFormatException ee)
+                {
+                    System.out.println("The PassChange should be int"+ee);
+                }
+                catch(SQLException ee)
+                {
+                    System.out.println("Cannot retrieve values from DB!!"+ee);
+                }
             }
             if(log_rb2.isSelected()) // employer radio button is selected
             {
@@ -174,8 +186,14 @@ public class LoginPage {
                     conn.close();
                     
                  }
-                 catch(Exception ee)
-                 {System.out.println("Err3"+ee);}
+                 catch(HeadlessException ee)
+                {
+                    System.out.println("Cannot insert the specified HTML header!"+ee);
+                }
+                catch(SQLException ee)
+                {
+                    System.out.println("Cannot retrieve values from DB!!"+ee);
+                }
             }}
         }
     });

@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 import javax.swing.table.DefaultTableModel;
@@ -65,8 +66,10 @@ public class ViewEmploy {
             }
             conn.close();
         }
-        catch(Exception ee)
-        {System.out.println(ee);}
+        catch(SQLException ee)
+                {
+                    System.out.println("Cannot retrieve values from employdet"+ee);
+                }
         
         table.getColumnModel().getColumn(0).setPreferredWidth(70); 
         table.getColumnModel().getColumn(1).setPreferredWidth(300);
@@ -93,7 +96,7 @@ public class ViewEmploy {
 
     }
     public static void main(String[] args) {
-        new LoginPage();
+        new LoadFrame();
     }
     
 }

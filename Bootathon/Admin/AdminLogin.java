@@ -10,12 +10,14 @@ import Bootathon.uiworks.MyFrame;
 import Bootathon.uiworks.MyLabel;
 import Bootathon.uiworks.MyTextField;
 import java.awt.Container;
+import java.awt.HeadlessException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
@@ -78,9 +80,13 @@ public class AdminLogin {
                             JOptionPane.showMessageDialog(alogin_frame, "Invalid Login Credentials!","Invalid",JOptionPane.ERROR_MESSAGE);
                         }
                     }
-                    catch(Exception ee)
+                    catch(HeadlessException ee)
                     {
-                        System.out.println(ee);
+                        System.out.println("Cannot insert the specified header"+ee);
+                    }
+                    catch(SQLException ee)
+                    {
+                        System.out.println("Cannot retrieve values from adminlogin"+ee);
                     }
                 }
             }

@@ -16,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -43,10 +45,15 @@ public class MainFrame {
             conn.close();
         }
        }
-       catch(Exception ee)
+       catch(ParseException ee)
        {
-           System.out.println(ee);
+           if(!date.equals("Nil"))
+           System.out.println("Invalid Date Format"+ee);
        }
+       catch(SQLException ee)
+        {
+           System.out.println("Cannot update values into DB!!"+ee);
+        }
         new MainFrame();
     }
     MainFrame()
@@ -246,6 +253,6 @@ public class MainFrame {
         mainFrame.setVisible(true);
     }
     public static void main(String[] args) {
-        new LoginPage();
+        new LoadFrame();
     }
 }
