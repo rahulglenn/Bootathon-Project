@@ -1,6 +1,5 @@
 /*
  * Description:Admin adds the employer's organization and provides the Activation key.
- * Author(s)  :Raahul Glenn,Sai Karthik
  */
 package Bootathon.Admin;
 
