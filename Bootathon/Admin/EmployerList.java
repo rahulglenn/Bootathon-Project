@@ -1,6 +1,5 @@
 /*
  * Description:Displays the Employer List registered.
- * Author(s)  :Raahul Glenn,Sai Karthik
  */
 package Bootathon.Admin;
 
