@@ -1,6 +1,5 @@
 /*
  * Description:The Admin login with username and password.
- * Author(s)  :Raahul Glenn,Sai Karthik
  */
 package Bootathon.Admin;
 
