@@ -1,6 +1,5 @@
 /*
  * Description:Main frame of the Admin
- * Author(s)  :Raahul Glenn,Sai Karthik
  */
 package Bootathon.Admin;
 
